@@ -90,6 +90,8 @@ h2{font-size:clamp(38px,5vw,62px);margin-bottom:20px}
 .mega-grid a:hover .mi{background:var(--zee)}
 .mega-grid b{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:14px;font-weight:600;line-height:1.3}
 .mega-grid small{display:block;margin-top:2px;font-size:12.5px;line-height:1.4;color:var(--muted)}
+.mega-grid-all{gap:2px;max-height:calc(100vh - 230px);overflow-y:auto;overscroll-behavior:contain}
+.nav-links .mega-grid-all a{padding:8px 12px}
 .mega .badge{font:600 9px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:999px;background:var(--zee);color:var(--ink)}
 .mega-suite{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px}
 .nav-links .mega-suite a{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);font-size:12.5px;transition:border-color .2s,background .2s}
@@ -123,6 +125,7 @@ h2{font-size:clamp(38px,5vw,62px);margin-bottom:20px}
   .mega-top{padding:6px 8px 10px}
   .nav.open .nav-links .mega-top a.mega-all{padding:4px 10px;font-size:12px}
   .mega-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:2px}
+  .mega-grid-all{max-height:none;overflow:visible}
   .nav.open .nav-links .mega-grid a{padding:10px 8px;font-size:inherit}
   .mega-grid .mi{width:34px;height:34px;font-size:14px}
   .mega-suite{padding:0 8px}

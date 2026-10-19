@@ -107,7 +107,7 @@ return [
             'Production costs linked to accounting',
             'Staff, shifts and payroll in the same system',
         ],
-        'modules' => ['erp', 'stock-management', 'accounting', 'human-resources'],
+        'modules' => ['product-management', 'stock-management', 'accounting', 'human-resources'],
     ],
 
     'spare-parts' => [

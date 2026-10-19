@@ -172,33 +172,6 @@ return [
         'related' => ['design-studio', 'crm', 'mail'],
     ],
 
-    'erp' => [
-        'title' => 'ERP',
-        'menu' => 'The whole business in one system',
-        'icon' => 'fa-diagram-project',
-        'group' => 'suite',
-        'badge' => null,
-        'headline' => 'One system for the whole business',
-        'lead' => 'Sales, stock, purchasing, finance and people share the same data in Zeebroo, so every department works from the same numbers without exports or double entry.',
-        'description' => 'Zeebroo ERP: sales, stock, purchasing, finance and HR connected in one platform with shared, live data.',
-        'spot' => null,
-        'scene' => null,
-        'highlights' => [
-            ['fa-database', 'Shared data', 'A sale updates stock, accounts and reports at once.'],
-            ['fa-toggle-on', 'Modules on or off', 'Turn on what you need today and add the rest as you grow.'],
-            ['fa-chart-pie', 'One set of reports', 'See the full business from one dashboard.'],
-        ],
-        'capabilities' => [
-            'Sales, purchasing and inventory together',
-            'Finance and accounting built in',
-            'HR and payroll on the same platform',
-            'Multibranch from day one',
-            'Role based access for every department',
-            'Works on web and desktop',
-        ],
-        'related' => ['accounting', 'multibranch', 'stock-management'],
-    ],
-
     'accounting' => [
         'title' => 'Accounting',
         'menu' => 'Ledgers and financial reports',
@@ -223,7 +196,7 @@ return [
             'Tax tracking',
             'Export for your accountant',
         ],
-        'related' => ['account-management', 'bill-management', 'erp'],
+        'related' => ['account-management', 'bill-management', 'multibranch'],
     ],
 
     'multibranch' => [
@@ -250,7 +223,7 @@ return [
             'Staff access limited to their branch',
             'Shared product catalogue and prices',
         ],
-        'related' => ['stock-management', 'account-management', 'erp'],
+        'related' => ['stock-management', 'account-management', 'accounting'],
     ],
 
     'crm' => [
@@ -469,33 +442,6 @@ return [
         'related' => ['crm', 'automation-editor', 'social-media-campaign'],
     ],
 
-    'developer-tools' => [
-        'title' => 'Developer Tools',
-        'menu' => 'API access and integrations',
-        'icon' => 'fa-code',
-        'group' => 'suite',
-        'badge' => null,
-        'headline' => 'Connect Zeebroo to anything',
-        'lead' => 'Use the API and webhooks to connect your website, apps and other tools to your Zeebroo data, with keys and access you control.',
-        'description' => 'Zeebroo Developer Tools: API keys, webhooks and integrations to connect your systems to Zeebroo.',
-        'spot' => null,
-        'scene' => 'scenes/developer-tools.webp',
-        'highlights' => [
-            ['fa-key', 'API keys', 'Create and revoke keys for each integration.'],
-            ['fa-bolt', 'Webhooks', 'Get notified when sales, orders or stock change.'],
-            ['fa-plug', 'Integrations', 'Sync with your website, ecommerce store or other tools.'],
-        ],
-        'capabilities' => [
-            'REST API for products, sales, stock and customers',
-            'API key management',
-            'Webhooks for business events',
-            'Access limited by role and scope',
-            'Request logs',
-            'Documentation and guides',
-        ],
-        'related' => ['automation-editor', 'erp', 'ai-agent'],
-    ],
-
     'design-studio' => [
         'title' => 'Design Studio',
         'menu' => 'Posters, labels and artwork',
@@ -547,7 +493,7 @@ return [
             'Scheduled and recurring flows',
             'Run history for every workflow',
         ],
-        'related' => ['mail', 'developer-tools', 'ai-agent'],
+        'related' => ['mail', 'crm', 'ai-agent'],
     ],
 
     'ai-agent' => [
@@ -574,7 +520,7 @@ return [
             'Works across every module',
             'Available on web and desktop',
         ],
-        'related' => ['automation-editor', 'erp', 'sales-management'],
+        'related' => ['automation-editor', 'crm', 'sales-management'],
     ],
 
 ];
