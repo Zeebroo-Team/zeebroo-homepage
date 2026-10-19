@@ -61,6 +61,45 @@
           </div>
         </div>
       </div>
+      <div class="nav-dd" id="pkgDD">
+        <a href="{{ route('packages.index') }}" class="nav-dd-t" aria-haspopup="true">Pricing <i class="fa-solid fa-chevron-down"></i></a>
+        <div class="mega" role="menu" aria-label="Pricing">
+          <div class="mega-in">
+            <div class="mega-side">
+              <span class="mega-ic"><i class="fa-solid fa-box-open"></i></span>
+              <span class="mega-k">Pricing</span>
+              <h3>A package for every stage</h3>
+              <p>Pick the modules you need today and move up to a bigger package as you grow.</p>
+              <ul>
+                <li><i class="fa-solid fa-check"></i>Simple monthly billing</li>
+                <li><i class="fa-solid fa-check"></i>Upgrade any time</li>
+                <li><i class="fa-solid fa-check"></i>Web and desktop included</li>
+              </ul>
+              <a class="btn btn-ink" href="https://platform.zeebroo.com/register">Get started <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            <div class="mega-main">
+              @inject('packageService', 'App\Services\PackageService')
+              @php($megaPackages = $packageService->all())
+              <div class="mega-top"><span>Packages</span><a class="mega-all" href="{{ route('packages.index') }}">Compare {{ count($megaPackages) ?: 'all' }} packages <i class="fa-solid fa-arrow-right"></i></a></div>
+              @if ($megaPackages)
+                <div class="mega-grid mega-pkgs">
+                  @foreach ($megaPackages as $slug => $p)
+                    <a href="{{ route('packages.show', $slug) }}">
+                      <b>{{ $p['name'] }}@if ($p['pos_lite']) <span class="badge">POS Lite</span>@endif</b>
+                      <span class="mega-price">{{ $p['price'] }}@unless ($p['is_free'])<small>/month</small>@endunless</span>
+                      @if ($p['was'])<s>{{ $p['was'] }}</s>@endif
+                      <small>{{ count($p['features']) }} modules included</small>
+                    </a>
+                  @endforeach
+                </div>
+              @else
+                <p class="mega-empty">See every package and what it includes on the pricing page.</p>
+              @endif
+              <div class="mega-foot">Need a custom plan? <a href="{{ route('contact') }}">Talk to us <i class="fa-solid fa-arrow-right"></i></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <a href="{{ route('home') }}#download">Download</a>
       <a href="https://www.zeebroo.com/tutorial">Docs</a>
       <a href="{{ route('contact') }}">Contact</a>
