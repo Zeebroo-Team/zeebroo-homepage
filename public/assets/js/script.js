@@ -117,12 +117,12 @@ $('#roles').onclick=e=>{const s=e.target.closest('.sw');if(s)s.setAttribute('ari
 
 /* ---------- modules ---------- */
 const M=[
-  {t:'Point of Sale',s:'Fast checkout and receipts',d:'Scan items, take cash or card, and finish sales without slowing the queue. Works in the browser or on the desktop app.',img:'point-of-sale',i:'fa-cash-register'},
-  {t:'Stock Management',s:'Products, batches, reorders',d:'Know what you have, what is running low and what to reorder. Track products and batches across shelves and warehouses.',img:'stock-management',i:'fa-boxes-stacked'},
-  {t:'Account Management',s:'Accounts, branches, balances',d:'Manage business accounts, branches and balances in one view, with the full financial picture owners need.',img:'account-management',i:'fa-building-columns'},
-  {t:'Bill Management',s:'Bills, loans, expenses',d:'Create, track and pay bills on time. Stay on top of what you owe suppliers and what customers owe you.',img:'bill-management',i:'fa-file-invoice-dollar'},
-  {t:'Human Resources',s:'Staff, payroll, attendance',d:'Organise your team, roles and HR workflows so people operations sit alongside sales and finance.',img:'human-resource-management',i:'fa-people-group'},
-  {t:'Social Campaigns',s:'Promotions tied to stock',d:'Plan and run campaigns from the same platform you run the business on, so promotions match what is in stock.',img:'social-media-campaign',i:'fa-bullhorn'},
+  {t:'Point of Sale',s:'Fast checkout and receipts',d:'Scan items, take cash or card, and finish sales without slowing the queue. Works in the browser or on the desktop app.',img:'point-of-sale',u:'point-of-sale',i:'fa-cash-register'},
+  {t:'Stock Management',s:'Products, batches, reorders',d:'Know what you have, what is running low and what to reorder. Track products and batches across shelves and warehouses.',img:'stock-management',u:'stock-management',i:'fa-boxes-stacked'},
+  {t:'Account Management',s:'Accounts, branches, balances',d:'Manage business accounts, branches and balances in one view, with the full financial picture owners need.',img:'account-management',u:'account-management',i:'fa-building-columns'},
+  {t:'Bill Management',s:'Bills, loans, expenses',d:'Create, track and pay bills on time. Stay on top of what you owe suppliers and what customers owe you.',img:'bill-management',u:'bill-management',i:'fa-file-invoice-dollar'},
+  {t:'Human Resources',s:'Staff, payroll, attendance',d:'Organise your team, roles and HR workflows so people operations sit alongside sales and finance.',img:'human-resource-management',u:'human-resources',i:'fa-people-group'},
+  {t:'Social Campaigns',s:'Promotions tied to stock',d:'Plan and run campaigns from the same platform you run the business on, so promotions match what is in stock.',img:'social-media-campaign',u:'social-media-campaign',i:'fa-bullhorn'},
 ];
 const on=M.map(()=>true);let sel=0;
 $('#modList').innerHTML=M.map((m,k)=>`<div class="mod-row${k?'':' sel'}" data-k="${k}" role="option" aria-selected="${!k}" tabindex="0"><span class="mi"><i class="fa-solid ${m.i}"></i></span><div><b>${m.t}</b><small>${m.s}</small></div><button class="sw" role="switch" aria-checked="true" aria-label="Enable ${m.t}"></button><span class="bar"></span></div>`).join('');
@@ -133,6 +133,7 @@ function showMod(k){
   $('#modView').classList.toggle('off',!on[k]);
   $('#modStatus').textContent=on[k]?'Installed':'Turned off';
   $('#modTitle').textContent=m.t;$('#modDesc').textContent=m.d;
+  const more=$('#modMore');more.href=`features/${m.u}`;more.setAttribute('aria-label','Learn more about '+m.t);
   img.alt='Zeebroo zebra illustration for '+m.t;
   if(changed&&!reduce){img.classList.add('swap');setTimeout(()=>{img.src=`assets/features/${m.img}.webp`;img.classList.remove('swap')},180)}else img.src=`assets/features/${m.img}.webp`;
 }
@@ -144,8 +145,6 @@ $('#modList').onclick=e=>{
 };
 $('#modList').onkeydown=e=>{const row=e.target.closest('.mod-row');if(row&&(e.key==='Enter'||e.key===' ')&&e.target===row){e.preventDefault();showMod(+row.dataset.k)}};
 showMod(0);
-/* header mega menu: picking a module selects it in the section */
-$$('#modDD [data-mod]').forEach(a=>a.addEventListener('click',()=>showMod(+a.dataset.mod)));
 /* autoplay: the active row's progress bar is the timer; hover pauses, a click hands control to the visitor */
 const mods=$('.mods');let auto=!reduce;
 if(auto){

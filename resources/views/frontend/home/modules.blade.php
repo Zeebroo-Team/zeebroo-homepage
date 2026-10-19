@@ -12,17 +12,14 @@
         <div class="art"><img id="modImg" src="assets/features/point-of-sale.webp" alt="" width="344" height="347"></div>
         <h3 id="modTitle"></h3>
         <p id="modDesc"></p>
+        <a class="mod-more" id="modMore" href="{{ route('features.show', 'point-of-sale') }}">Learn more <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </div>
     <div class="suite reveal">
       <span>All included, plus:</span>
-      <a href="https://www.zeebroo.com/#erp"><i class="fa-solid fa-diagram-project"></i>ERP</a>
-      <a href="https://www.zeebroo.com/#accounting"><i class="fa-solid fa-scale-balanced"></i>Accounting</a>
-      <a href="https://www.zeebroo.com/#multibranch"><i class="fa-solid fa-code-branch"></i>Multibranch</a>
-      <a href="https://www.zeebroo.com/#crm"><i class="fa-solid fa-address-book"></i>CRM</a>
-      <a href="https://www.zeebroo.com/#design"><i class="fa-solid fa-pen-ruler"></i>Design Studio</a>
-      <a href="https://www.zeebroo.com/#automation"><i class="fa-solid fa-wand-magic-sparkles"></i>Automation</a>
-      <a href="https://www.zeebroo.com/#ai-agent"><i class="fa-solid fa-robot"></i>AI Agent <span class="new">New</span></a>
+      @foreach (collect(config('features'))->where('group', 'suite') as $slug => $f)
+        <a href="{{ route('features.show', $slug) }}"><i class="fa-solid {{ $f['icon'] }}"></i>{{ $f['title'] }}@if ($f['badge']) <span class="new">{{ $f['badge'] }}</span>@endif</a>
+      @endforeach
     </div>
   </div>
 </section>
