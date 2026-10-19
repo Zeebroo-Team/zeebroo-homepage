@@ -13,8 +13,8 @@
   <div class="wrap">
     <div class="head">
       <span class="label">Industries</span>
-      <h1>Built for the way your industry works.</h1>
-      <p>Zeebroo adapts to your business, not the other way round. Pick your industry to see the modules and workflows that fit it.</p>
+      <h1 class="rise"><span class="line"><span>Built for the way your industry <span class="mark">works.</span></span></span></h1>
+      <p class="fade-in">Zeebroo adapts to your business, not the other way round. Pick your industry to see the modules and workflows that fit it.</p>
     </div>
 
     <div class="feat-sec-h"><span>All industries</span><em>{{ count($industries) }}</em></div>

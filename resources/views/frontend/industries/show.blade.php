@@ -18,20 +18,20 @@
         <span aria-current="page">{{ $industry['title'] }}</span>
       </nav>
       <span class="feat-tag"><i class="fa-solid {{ $industry['icon'] }}"></i>{{ $industry['title'] }}@if ($industry['badge']) <em>{{ $industry['badge'] }}</em>@endif</span>
-      <h1>{{ $industry['headline'] }}</h1>
-      <p class="feat-lead">{{ $industry['lead'] }}</p>
-      <div class="feat-ctas">
+      <h1 class="rise">@include('frontend.components.rise-title', ['text' => $industry['headline']])</h1>
+      <p class="feat-lead fade-in">{{ $industry['lead'] }}</p>
+      <div class="feat-ctas fade-in" style="--d:.42s">
         <a class="btn btn-ink" href="https://platform.zeebroo.com/register">Get started <i class="fa-solid fa-arrow-right"></i></a>
         <a class="btn btn-line" href="{{ route('contact') }}"><i class="fa-regular fa-envelope"></i> Book a demo</a>
       </div>
-      <ul class="feat-meta">
+      <ul class="feat-meta fade-in" style="--d:.54s">
         <li><i class="fa-solid fa-check"></i>Set up for {{ $industry['title'] }}</li>
         <li><i class="fa-solid fa-check"></i>Web and desktop</li>
         <li><i class="fa-solid fa-check"></i>Shared, live data</li>
       </ul>
     </div>
 
-    <div class="feat-art" aria-hidden="true">
+    <div class="feat-art fade-in" style="--d:.2s" aria-hidden="true">
       {{-- the industry icon with its three highlights orbiting it --}}
       <div class="feat-orbit">
         <span class="feat-orbit-ic"><i class="fa-solid {{ $industry['icon'] }}"></i></span>

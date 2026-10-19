@@ -8,20 +8,20 @@
         <span aria-current="page">{{ $feature['title'] }}</span>
       </nav>
       <span class="feat-tag"><i class="fa-solid {{ $feature['icon'] }}"></i>{{ $feature['title'] }}@if ($feature['badge']) <em>{{ $feature['badge'] }}</em>@endif</span>
-      <h1>{{ $feature['headline'] }}</h1>
-      <p class="feat-lead">{{ $feature['lead'] }}</p>
-      <div class="feat-ctas">
+      <h1 class="rise">@include('frontend.components.rise-title', ['text' => $feature['headline']])</h1>
+      <p class="feat-lead fade-in">{{ $feature['lead'] }}</p>
+      <div class="feat-ctas fade-in" style="--d:.42s">
         <a class="btn btn-ink" href="https://platform.zeebroo.com/register">Get started <i class="fa-solid fa-arrow-right"></i></a>
         <a class="btn btn-line" href="{{ route('contact') }}"><i class="fa-regular fa-envelope"></i> Book a demo</a>
       </div>
-      <ul class="feat-meta">
+      <ul class="feat-meta fade-in" style="--d:.54s">
         <li><i class="fa-solid fa-check"></i>{{ $feature['group'] === 'core' ? 'Core module' : 'Included in Zeebroo' }}</li>
         <li><i class="fa-solid fa-check"></i>Web and desktop</li>
         <li><i class="fa-solid fa-check"></i>Shared, live data</li>
       </ul>
     </div>
 
-    <div class="feat-art" aria-hidden="true">
+    <div class="feat-art fade-in" style="--d:.2s" aria-hidden="true">
       @if ($feature['spot'])
         <img src="{{ asset('assets/features/' . $feature['spot']) }}" alt="" width="344" height="347" fetchpriority="high">
       @else

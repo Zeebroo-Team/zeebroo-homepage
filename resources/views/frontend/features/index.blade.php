@@ -13,8 +13,8 @@
   <div class="wrap">
     <div class="head">
       <span class="label">Features</span>
-      <h1>One platform, every module.</h1>
-      <p>Every module shares the same data, so the register and the ledger always agree. Turn on what you need and add the rest as you grow.</p>
+      <h1 class="rise"><span class="line"><span>One platform, every <span class="mark">module.</span></span></span></h1>
+      <p class="fade-in">Every module shares the same data, so the register and the ledger always agree. Turn on what you need and add the rest as you grow.</p>
     </div>
 
     <div class="feat-sec-h"><span>Core modules</span><em>{{ count($core) }}</em></div>

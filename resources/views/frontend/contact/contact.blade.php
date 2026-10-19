@@ -3,12 +3,12 @@
   <div class="wrap">
     <div class="head">
       <span class="label">Contact us</span>
-      <h1>Let's talk about your business.</h1>
-      <p>Tell us how you work today and we'll show you how Zeebroo fits. We usually reply within one business day.</p>
+      <h1 class="rise"><span class="line"><span>Let's talk about</span></span><span class="line"><span>your <span class="mark">business.</span></span></span></h1>
+      <p class="fade-in">Tell us how you work today and we'll show you how Zeebroo fits. We usually reply within one business day.</p>
     </div>
 
     <div class="contact-grid">
-      <aside class="contact-side">
+      <aside class="contact-side reveal">
         <span class="mega-ic"><i class="fa-solid fa-headset"></i></span>
         <h2>Talk to a real person</h2>
         <p>Book a demo, ask about pricing, or get help setting up your shop.</p>
@@ -20,7 +20,7 @@
         <img class="contact-art" src="{{ asset('assets/ufo.webp') }}" alt="" width="179" height="187" loading="lazy">
       </aside>
 
-      <div class="contact-card">
+      <div class="contact-card reveal">
         @if (session('contact_sent'))
           <div class="contact-ok" role="status">
             <span><i class="fa-solid fa-check"></i></span>
