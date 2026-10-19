@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Partner;
+use App\Models\Testimonial;
 use App\Services\PosReleaseService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ class HomeController extends Controller
             'posRelease' => $releases->latest(),
             'posDetectedOs' => $releases->pickFor($request->userAgent() ?? ''),
             'featuredPartners' => Partner::active()->featured()->ordered()->get(),
+            'featuredTestimonials' => Testimonial::active()->featured()->ordered()->get(),
         ]);
     }
 

@@ -51,8 +51,8 @@
       <label class="adm-switch">
         <input type="hidden" name="is_featured" value="0">
         <input type="checkbox" name="is_featured" value="1" @checked(old('is_featured', $partner->is_featured))>
-        <span></span> Show on home page
-        <small>Adds the logo to the home page partner strip.</small>
+        <span></span> Featured on home page
+        <small>Adds the logo to the home page partner strip. Only shown while the partner is active.</small>
       </label>
       <label class="adm-field">
         <span>Sort order <em>lower first</em></span>

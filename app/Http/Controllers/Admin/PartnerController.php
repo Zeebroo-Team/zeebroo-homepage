@@ -24,7 +24,7 @@ class PartnerController extends Controller implements HasMiddleware
         return [
             new Middleware('permission:view partners', only: ['index']),
             new Middleware('permission:create partners', only: ['create', 'store']),
-            new Middleware('permission:edit partners', only: ['edit', 'update']),
+            new Middleware('permission:edit partners', only: ['edit', 'update', 'toggleFeatured']),
             new Middleware('permission:delete partners', only: ['destroy']),
         ];
     }
@@ -33,10 +33,12 @@ class PartnerController extends Controller implements HasMiddleware
     {
         $search = trim((string) $request->query('q'));
         $categoryId = $request->integer('category') ?: null;
+        $homeFilter = in_array($request->query('home'), ['featured', 'not-featured'], true) ? $request->query('home') : null;
 
         $partners = Partner::with('category')
             ->when($search !== '', fn ($q) => $q->where('name', 'like', "%{$search}%"))
             ->when($categoryId, fn ($q) => $q->where('partner_category_id', $categoryId))
+            ->when($homeFilter, fn ($q) => $q->where('is_featured', $homeFilter === 'featured'))
             ->ordered()
             ->paginate(25)
             ->withQueryString();
@@ -45,8 +47,23 @@ class PartnerController extends Controller implements HasMiddleware
             'partners' => $partners,
             'search' => $search,
             'categoryId' => $categoryId,
+            'homeFilter' => $homeFilter,
             'categories' => PartnerCategory::ordered()->pluck('name', 'id'),
         ]);
+    }
+
+    /**
+     * Flip whether the partner's logo appears in the home page strip.
+     */
+    public function toggleFeatured(Partner $partner): RedirectResponse
+    {
+        $partner->update(['is_featured' => ! $partner->is_featured]);
+
+        $status = $partner->is_featured
+            ? ($partner->is_active ? "{$partner->name} now shows on the home page." : "{$partner->name} is featured, but stays hidden until it is active.")
+            : "{$partner->name} removed from the home page.";
+
+        return back()->with('status', $status);
     }
 
     public function create(): View

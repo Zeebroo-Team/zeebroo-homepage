@@ -30,7 +30,7 @@
     @can('view blog tags')
       <a href="{{ route('admin.blog.tags.index') }}" @class(['on' => request()->routeIs('admin.blog.tags.*')])><i class="fa-solid fa-tags"></i>Tags</a>
     @endcan
-    @canany(['view features', 'view industries', 'view partners', 'view partner categories'])
+    @canany(['view features', 'view industries', 'view testimonials'])
       <span class="adm-nav-h">Website</span>
     @endcanany
     @can('view features')
@@ -39,11 +39,17 @@
     @can('view industries')
       <a href="{{ route('admin.industries.index') }}" @class(['on' => request()->routeIs('admin.industries.*')])><i class="fa-solid fa-briefcase"></i>Industries</a>
     @endcan
+    @can('view testimonials')
+      <a href="{{ route('admin.testimonials.index') }}" @class(['on' => request()->routeIs('admin.testimonials.*')])><i class="fa-solid fa-comment-dots"></i>Testimonials</a>
+    @endcan
+    @canany(['view partners', 'view partner categories'])
+      <span class="adm-nav-h">Partners</span>
+    @endcanany
     @can('view partners')
-      <a href="{{ route('admin.partners.index') }}" @class(['on' => request()->routeIs('admin.partners.*')])><i class="fa-solid fa-handshake"></i>Partners</a>
+      <a href="{{ route('admin.partners.index') }}" @class(['on' => request()->routeIs('admin.partners.*')])><i class="fa-solid fa-handshake"></i>All partners</a>
     @endcan
     @can('view partner categories')
-      <a href="{{ route('admin.partner-categories.index') }}" @class(['on' => request()->routeIs('admin.partner-categories.*')])><i class="fa-solid fa-folder-tree"></i>Partner categories</a>
+      <a href="{{ route('admin.partner-categories.index') }}" @class(['on' => request()->routeIs('admin.partner-categories.*')])><i class="fa-solid fa-folder-tree"></i>Categories</a>
     @endcan
   </nav>
   <a class="adm-site" href="{{ route('blog.index') }}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i>View blog</a>

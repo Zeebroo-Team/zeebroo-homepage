@@ -16,12 +16,17 @@
           <option value="{{ $id }}" @selected($categoryId === $id)>{{ $name }}</option>
         @endforeach
       </select>
+      <select name="home" aria-label="Home page">
+        <option value="">All partners</option>
+        <option value="featured" @selected($homeFilter === 'featured')>Featured</option>
+        <option value="not-featured" @selected($homeFilter === 'not-featured')>Not featured</option>
+      </select>
       <button type="submit" class="adm-btn line">Filter</button>
     </form>
     @can('create partners')
       <a class="adm-btn ink" href="{{ route('admin.partners.create') }}"><i class="fa-solid fa-plus"></i>New partner</a>
     @endcan
-    <small>Featured partners scroll in the logo strip on the home page. Lower order numbers come first.</small>
+    <small>Only partners that are both featured and active scroll in the logo strip on the home page. Click a Home page pill to switch it. Lower order numbers come first.</small>
   </div>
 
   <div class="adm-table-wrap">
@@ -45,7 +50,20 @@
             </td>
             <td>{{ $partner->category?->name ?? '—' }}</td>
             <td>{{ $partner->sort_order }}</td>
-            <td>@include('admin.partials.status', ['active' => $partner->is_featured, 'label' => $partner->is_featured ? 'Featured' : 'No'])</td>
+            <td>
+              @php($homeLabel = $partner->is_featured ? ($partner->is_active ? 'Featured' : 'Featured · hidden') : 'No')
+              @can('edit partners')
+                <form method="post" action="{{ route('admin.partners.featured', $partner) }}">
+                  @csrf
+                  @method('patch')
+                  <button type="submit" @class(['adm-pill', 'adm-pill-btn', 'ok' => $partner->is_featured && $partner->is_active]) title="{{ $partner->is_featured ? 'Remove from home page' : 'Show on home page' }}">
+                    <i @class(['fa-star', 'fa-solid' => $partner->is_featured, 'fa-regular' => ! $partner->is_featured])></i>{{ $homeLabel }}
+                  </button>
+                </form>
+              @else
+                @include('admin.partials.status', ['active' => $partner->is_featured && $partner->is_active, 'label' => $homeLabel])
+              @endcan
+            </td>
             <td>@include('admin.partials.status', ['active' => $partner->is_active])</td>
             <td>@include('admin.partials.actions', [
               'label' => $partner->name,

@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
 // Home Page
@@ -25,6 +26,9 @@ Route::get('/industries/{slug}', [IndustryController::class, 'show'])->where('sl
 
 // Partners & clients (managed in /admin)
 Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
+
+// Testimonials (managed in /admin)
+Route::get('/testimonials', [TestimonialController::class, 'index'])->name('testimonials.index');
 
 // Packages (pricing, read live from the platform's Admin → Package Management)
 Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');

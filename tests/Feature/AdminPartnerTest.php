@@ -145,11 +145,58 @@ class AdminPartnerTest extends TestCase
         $this->post(route('admin.partner-categories.store'), ['name' => 'X', 'icon' => 'not an icon'])->assertSessionHasErrors('icon');
     }
 
+    public function test_editor_can_toggle_a_partner_onto_the_home_page(): void
+    {
+        $partner = Partner::factory()->create(['name' => 'Toggle Foods']);
+        $this->actingAs($this->userWithRole('editor'));
+
+        $this->get(route('home'))->assertDontSee('Toggle Foods');
+
+        $this->from(route('admin.partners.index'))
+            ->patch(route('admin.partners.featured', $partner))
+            ->assertRedirect(route('admin.partners.index'));
+
+        $this->assertTrue($partner->fresh()->is_featured);
+        $this->get(route('home'))->assertSee('Toggle Foods');
+
+        $this->patch(route('admin.partners.featured', $partner));
+
+        $this->assertFalse($partner->fresh()->is_featured);
+    }
+
+    public function test_featured_inactive_partner_stays_off_the_home_page(): void
+    {
+        $partner = Partner::factory()->inactive()->create(['name' => 'Sleeping Foods']);
+        $this->actingAs($this->userWithRole('editor'));
+
+        $this->patch(route('admin.partners.featured', $partner))->assertSessionHas('status');
+
+        $this->assertTrue($partner->fresh()->is_featured);
+        $this->get(route('home'))->assertDontSee('Sleeping Foods');
+        $this->get(route('admin.partners.index'))->assertSee('Featured · hidden');
+    }
+
+    public function test_admin_partner_list_filters_by_home_page(): void
+    {
+        $featured = Partner::factory()->featured()->create(['name' => 'Starred Partner']);
+        $plain = Partner::factory()->create(['name' => 'Plain Partner']);
+        $this->actingAs($this->userWithRole('editor'));
+
+        $this->get(route('admin.partners.index', ['home' => 'featured']))
+            ->assertSee($featured->name)
+            ->assertDontSee($plain->name);
+
+        $this->get(route('admin.partners.index', ['home' => 'not-featured']))
+            ->assertSee($plain->name)
+            ->assertDontSee($featured->name);
+    }
+
     public function test_partner_permissions_are_enforced(): void
     {
         $partner = Partner::factory()->create();
         $this->actingAs($this->userWithRole('author'));
 
+        $this->patch(route('admin.partners.featured', $partner))->assertForbidden();
         $this->get(route('admin.partners.index'))->assertForbidden();
         $this->get(route('admin.partners.create'))->assertForbidden();
         $this->delete(route('admin.partners.destroy', $partner))->assertForbidden();
