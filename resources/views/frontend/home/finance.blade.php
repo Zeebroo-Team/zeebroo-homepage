@@ -29,7 +29,7 @@
         <span><i class="fa-solid fa-globe"></i>Web POS</span>
         <span><i class="fa-solid fa-print"></i>Thermal receipts</span>
       </div>
-      <a class="btn btn-ink" href="https://www.zeebroo.com/download"><i class="fa-solid fa-download"></i> Download POS</a>
+      <a class="btn btn-ink" href="https://platform.zeebroo.com/register"><i class="fa-solid fa-download"></i> Download POS</a>
     </div>
   </div>
 </section>
