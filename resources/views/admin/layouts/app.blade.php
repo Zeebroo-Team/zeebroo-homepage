@@ -30,9 +30,14 @@
     @can('view blog tags')
       <a href="{{ route('admin.blog.tags.index') }}" @class(['on' => request()->routeIs('admin.blog.tags.*')])><i class="fa-solid fa-tags"></i>Tags</a>
     @endcan
-    @can('view features')
+    @canany(['view features', 'view industries'])
       <span class="adm-nav-h">Website</span>
+    @endcanany
+    @can('view features')
       <a href="{{ route('admin.features.index') }}" @class(['on' => request()->routeIs('admin.features.*')])><i class="fa-solid fa-layer-group"></i>Features</a>
+    @endcan
+    @can('view industries')
+      <a href="{{ route('admin.industries.index') }}" @class(['on' => request()->routeIs('admin.industries.*')])><i class="fa-solid fa-briefcase"></i>Industries</a>
     @endcan
   </nav>
   <a class="adm-site" href="{{ route('blog.index') }}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i>View blog</a>

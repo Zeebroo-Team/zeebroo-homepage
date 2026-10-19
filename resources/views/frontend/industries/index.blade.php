@@ -17,7 +17,7 @@
       <p class="fade-in">Zeebroo adapts to your business, not the other way round. Pick your industry to see the modules and workflows that fit it.</p>
     </div>
 
-    <div class="feat-sec-h"><span>All industries</span><em>{{ count($industries) }}</em></div>
+    <div class="feat-sec-h"><span>All industries</span><em>{{ $industries->count() }}</em></div>
     @include('frontend.industries.partials.grid')
   </div>
 </section>

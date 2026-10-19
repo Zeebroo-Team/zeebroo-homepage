@@ -1,7 +1,20 @@
 @extends('layouts.frontend')
 
-@section('title', 'Zeebroo for ' . $industry['title'] . ' | Zeebroo')
-@section('description', $industry['description'])
+@php($metaTitle = $industry->meta_title ?: 'Zeebroo for ' . $industry->title)
+@php($metaDescription = $industry->meta_description ?: \Illuminate\Support\Str::limit((string) $industry->lead, 160))
+
+@section('title', $metaTitle . ' | Zeebroo')
+@section('description', $metaDescription)
+
+@push('head')
+<link rel="canonical" href="{{ route('industries.show', $industry->slug) }}">
+@if ($industry->meta_keywords)<meta name="keywords" content="{{ $industry->meta_keywords }}">@endif
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ $metaTitle }}">
+<meta property="og:description" content="{{ $metaDescription }}">
+<meta property="og:url" content="{{ route('industries.show', $industry->slug) }}">
+@if ($industry->scene_url)<meta property="og:image" content="{{ $industry->scene_url }}">@endif
+@endpush
 
 @push('scripts')
 <script src="{{ asset('assets/js/features.js') }}"></script>
@@ -15,17 +28,17 @@
       <nav class="crumbs" aria-label="Breadcrumb">
         <a href="{{ route('home') }}">Home</a><i class="fa-solid fa-chevron-right"></i>
         <a href="{{ route('industries.index') }}">Industries</a><i class="fa-solid fa-chevron-right"></i>
-        <span aria-current="page">{{ $industry['title'] }}</span>
+        <span aria-current="page">{{ $industry->title }}</span>
       </nav>
-      <span class="feat-tag"><i class="fa-solid {{ $industry['icon'] }}"></i>{{ $industry['title'] }}@if ($industry['badge']) <em>{{ $industry['badge'] }}</em>@endif</span>
-      <h1 class="rise">@include('frontend.components.rise-title', ['text' => $industry['headline']])</h1>
-      <p class="feat-lead fade-in">{{ $industry['lead'] }}</p>
+      <span class="feat-tag"><i class="fa-solid {{ $industry->icon }}"></i>{{ $industry->title }}@if ($industry->badge) <em>{{ $industry->badge }}</em>@endif</span>
+      <h1 class="rise">@include('frontend.components.rise-title', ['text' => (string) $industry->headline])</h1>
+      <p class="feat-lead fade-in">{{ $industry->lead }}</p>
       <div class="feat-ctas fade-in" style="--d:.42s">
         <a class="btn btn-ink" href="https://platform.zeebroo.com/register">Get started <i class="fa-solid fa-arrow-right"></i></a>
         <a class="btn btn-line" href="{{ route('contact') }}"><i class="fa-regular fa-envelope"></i> Book a demo</a>
       </div>
       <ul class="feat-meta fade-in" style="--d:.54s">
-        <li><i class="fa-solid fa-check"></i>Set up for {{ $industry['title'] }}</li>
+        <li><i class="fa-solid fa-check"></i>Set up for {{ $industry->title }}</li>
         <li><i class="fa-solid fa-check"></i>Web and desktop</li>
         <li><i class="fa-solid fa-check"></i>Shared, live data</li>
       </ul>
@@ -34,20 +47,20 @@
     <div class="feat-art fade-in" style="--d:.2s" aria-hidden="true">
       {{-- the industry icon with its three highlights orbiting it --}}
       <div class="feat-orbit">
-        <span class="feat-orbit-ic"><i class="fa-solid {{ $industry['icon'] }}"></i></span>
-        @foreach ($industry['highlights'] as [$icon, $title])
-          <span class="feat-chip feat-chip-{{ $loop->iteration }}"><i class="fa-solid {{ $icon }}"></i>{{ $title }}</span>
+        <span class="feat-orbit-ic"><i class="fa-solid {{ $industry->icon }}"></i></span>
+        @foreach (array_slice($industry->highlights ?? [], 0, 3) as $h)
+          <span class="feat-chip feat-chip-{{ $loop->iteration }}"><i class="fa-solid {{ $h['icon'] }}"></i>{{ $h['title'] }}</span>
         @endforeach
       </div>
     </div>
   </div>
 </section>
 
-@if ($industry['scene'])
+@if ($industry->scene_url)
 <!-- INDUSTRY SCENE -->
 <section class="wrap feat-scene-wrap">
   <figure class="feat-scene reveal">
-    <img src="{{ asset('assets/features/' . $industry['scene']) }}" alt="Zeebroo zebra at work in a {{ strtolower($industry['title']) }}" width="1280" height="768" loading="lazy">
+    <img src="{{ $industry->scene_url }}" alt="Zeebroo zebra at work in a {{ strtolower($industry->title) }}" width="1280" height="768" loading="lazy">
   </figure>
 </section>
 @endif
@@ -57,14 +70,14 @@
   <div class="wrap">
     <div class="head reveal">
       <span class="label">Why it fits</span>
-      <h2>What Zeebroo does for {{ $industry['title'] }}</h2>
+      <h2>What Zeebroo does for {{ $industry->title }}</h2>
     </div>
     <div class="feat-cards">
-      @foreach ($industry['highlights'] as [$icon, $title, $text])
+      @foreach ($industry->highlights ?? [] as $h)
         <div class="feat-card reveal">
-          <span class="fi"><i class="fa-solid {{ $icon }}"></i></span>
-          <h3>{{ $title }}</h3>
-          <p>{{ $text }}</p>
+          <span class="fi"><i class="fa-solid {{ $h['icon'] }}"></i></span>
+          <h3>{{ $h['title'] }}</h3>
+          <p>{{ $h['text'] }}</p>
         </div>
       @endforeach
     </div>
@@ -76,12 +89,12 @@
   <div class="wrap feat-caps">
     <div class="feat-caps-l reveal">
       <span class="label">Out of the box</span>
-      <h2>Everything {{ $industry['title'] }} needs</h2>
+      <h2>Everything {{ $industry->title }} needs</h2>
       <p>One platform for the counter, the stock room and the books, so nothing is typed twice and every report agrees.</p>
-      <a class="btn btn-line" href="{{ route('contact') }}">Ask about {{ $industry['title'] }} <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn btn-line" href="{{ route('contact') }}">Ask about {{ $industry->title }} <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <ul class="feat-list reveal">
-      @foreach ($industry['capabilities'] as $cap)
+      @foreach ($industry->capabilities ?? [] as $cap)
         <li><span><i class="fa-solid fa-check"></i></span>{{ $cap }}</li>
       @endforeach
     </ul>
@@ -93,7 +106,7 @@
   <div class="wrap">
     <div class="head reveal">
       <span class="label">Recommended modules</span>
-      <h2>Modules for {{ $industry['title'] }}</h2>
+      <h2>Modules for {{ $industry->title }}</h2>
       <p>Start with these and turn on the rest as you grow.</p>
     </div>
     <div class="feat-grid ind-mods">
@@ -103,9 +116,9 @@
     </div>
 
     <nav class="feat-pager" aria-label="More industries">
-      <a href="{{ route('industries.show', $prev['slug']) }}"><small><i class="fa-solid fa-arrow-left"></i> Previous</small><b>{{ $prev['title'] }}</b></a>
+      <a href="{{ route('industries.show', $prev->slug) }}"><small><i class="fa-solid fa-arrow-left"></i> Previous</small><b>{{ $prev->title }}</b></a>
       <a class="feat-pager-all" href="{{ route('industries.index') }}"><i class="fa-solid fa-grip"></i><span>All industries</span></a>
-      <a href="{{ route('industries.show', $next['slug']) }}"><small>Next <i class="fa-solid fa-arrow-right"></i></small><b>{{ $next['title'] }}</b></a>
+      <a href="{{ route('industries.show', $next->slug) }}"><small>Next <i class="fa-solid fa-arrow-right"></i></small><b>{{ $next->title }}</b></a>
     </nav>
   </div>
 </section>

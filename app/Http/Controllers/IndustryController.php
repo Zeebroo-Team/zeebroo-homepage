@@ -2,35 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Feature;
+use App\Models\Industry;
 use Illuminate\View\View;
 
 class IndustryController extends Controller
 {
-    // GET /industries — every industry Zeebroo is set up for
+    // GET /industries — every active industry Zeebroo is set up for
     public function index(): View
     {
-        return view('frontend.industries.index', ['industries' => config('industries')]);
+        return view('frontend.industries.index', ['industries' => Industry::navigation()]);
     }
 
-    // GET /industries/{slug} — one industry page; previous/next walk the same order as the mega menu
+    // GET /industries/{slug} — one active industry page; previous/next walk the same order as the mega menu
     public function show(string $slug): View
     {
-        $industries = config('industries');
-        abort_unless(isset($industries[$slug]), 404);
+        $industries = Industry::navigation()->values();
+        $i = $industries->search(fn (Industry $industry) => $industry->slug === $slug);
+        abort_if($i === false, 404);
 
-        $slugs = array_keys($industries);
-        $i = array_search($slug, $slugs, true);
-        $prev = $slugs[($i - 1 + count($slugs)) % count($slugs)];
-        $next = $slugs[($i + 1) % count($slugs)];
-        $industry = $industries[$slug];
+        $industry = $industries[$i]->load(['modules' => fn ($q) => $q->active()]);
 
         return view('frontend.industries.show', [
-            'slug' => $slug,
             'industry' => $industry,
-            'modules' => Feature::active()->whereIn('slug', $industry['modules'])->ordered()->get(),
-            'prev' => ['slug' => $prev] + $industries[$prev],
-            'next' => ['slug' => $next] + $industries[$next],
+            'modules' => $industry->modules,
+            'prev' => $industries[($i - 1 + $industries->count()) % $industries->count()],
+            'next' => $industries[($i + 1) % $industries->count()],
         ]);
     }
 }

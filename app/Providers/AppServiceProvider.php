@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Feature;
+use App\Models\Industry;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\Paginator;
@@ -40,6 +41,20 @@ class AppServiceProvider extends ServiceProvider
                 }
 
                 $view->with('navFeatures', $attributes->get('navFeatures'));
+            },
+        );
+
+        // Active industries for the Industries mega menu and the industries grid, loaded once per request
+        ViewFacade::composer(
+            ['frontend.components.header', 'frontend.industries.partials.grid'],
+            function (View $view): void {
+                $attributes = request()->attributes;
+
+                if (! $attributes->has('navIndustries')) {
+                    $attributes->set('navIndustries', Industry::navigation());
+                }
+
+                $view->with('navIndustries', $attributes->get('navIndustries'));
             },
         );
     }

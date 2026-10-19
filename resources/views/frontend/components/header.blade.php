@@ -48,11 +48,10 @@
               <a class="btn btn-ink" href="https://platform.zeebroo.com/register">Get started <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div class="mega-main">
-              @php($megaIndustries = config('industries'))
-              <div class="mega-top"><span>Industries we serve</span><a class="mega-all" href="{{ route('industries.index') }}">All {{ count($megaIndustries) }} industries <i class="fa-solid fa-arrow-right"></i></a></div>
+              <div class="mega-top"><span>Industries we serve</span><a class="mega-all" href="{{ route('industries.index') }}">All {{ $navIndustries->count() }} industries <i class="fa-solid fa-arrow-right"></i></a></div>
               <div class="mega-grid">
-                @foreach ($megaIndustries as $slug => $ind)
-                  <a href="{{ route('industries.show', $slug) }}"><span class="mi"><i class="fa-solid {{ $ind['icon'] }}"></i></span><div><b>{{ $ind['title'] }}@if ($ind['badge']) <span class="badge">{{ $ind['badge'] }}</span>@endif</b><small>{{ $ind['menu'] }}</small></div></a>
+                @foreach ($navIndustries as $ind)
+                  <a href="{{ route('industries.show', $ind->slug) }}"><span class="mi"><i class="fa-solid {{ $ind->icon }}"></i></span><div><b>{{ $ind->title }}@if ($ind->badge) <span class="badge">{{ $ind->badge }}</span>@endif</b><small>{{ $ind->menu }}</small></div></a>
                 @endforeach
               </div>
               <div class="mega-foot">Don't see your industry? <a href="{{ route('contact') }}">Talk to us <i class="fa-solid fa-arrow-right"></i></a></div>
