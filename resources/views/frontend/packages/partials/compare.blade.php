@@ -20,7 +20,7 @@
             @endif
           </th>
           @foreach ($packages as $p)
-            <td>
+            <td data-label="{{ $p['name'] }}" class="{{ isset($p['features'][$key]) ? 'is-yes' : 'is-no' }}">
               @if (isset($p['features'][$key]))
                 <span class="pkg-yes" title="Included"><i class="fa-solid fa-check"></i><span class="sr">Included</span></span>
               @else
