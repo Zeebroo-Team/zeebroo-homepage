@@ -6,7 +6,7 @@
         <h1><span class="line"><span>Grow your business</span></span><span class="line"><span>with <span class="mark">clarity</span> &amp; control</span></span></h1>
         <p class="hero-sub">Sales, stock, money, people and marketing in one workspace. Less app-switching, more time with customers.</p>
         <div class="hero-ctas">
-          <a class="btn btn-ink" href="https://www.zeebroo.com/signup">Get started <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="btn btn-ink" href="https://platform.zeebroo.com/register">Get started <i class="fa-solid fa-arrow-right"></i></a>
           <a class="btn btn-line" href="#download"><i class="fa-solid fa-download"></i> Download POS</a>
         </div>
       </div>
