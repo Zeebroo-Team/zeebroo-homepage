@@ -28,6 +28,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // Main Zeebroo app — source of the desktop POS downloads (Admin → Releases)
+    'zeebroo' => [
+        'platform_url' => env('ZEEBROO_PLATFORM_URL', 'https://platform.zeebroo.com'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
