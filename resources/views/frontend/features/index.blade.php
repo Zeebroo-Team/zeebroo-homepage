@@ -17,34 +17,27 @@
       <p class="fade-in">Every module shares the same data, so the register and the ledger always agree. Turn on what you need and add the rest as you grow.</p>
     </div>
 
-    @if ($core->isNotEmpty())
-      <div class="feat-sec-h"><span>Core modules</span><em>{{ $core->count() }}</em></div>
-      <div class="feat-core">
-        @foreach ($core as $f)
-          <a class="feat-tile reveal" href="{{ route('features.show', $f->slug) }}">
-            <div class="feat-tile-art">
-              @if ($f->spot_url)
-                <img src="{{ $f->spot_url }}" alt="" width="344" height="347" loading="lazy">
-              @else
-                <span class="fi"><i class="fa-solid {{ $f->icon }}"></i></span>
-              @endif
-            </div>
-            <b>{{ $f->title }}@if ($f->badge) <span class="badge">{{ $f->badge }}</span>@endif</b>
-            <p>{{ $f->lead }}</p>
-            <span class="feat-more">Learn more <i class="fa-solid fa-arrow-right"></i></span>
-          </a>
-        @endforeach
-      </div>
-    @endif
-
-    @if ($suite->isNotEmpty())
-      <div class="feat-sec-h"><span>All included, plus</span><em>{{ $suite->count() }}</em></div>
-      <div class="feat-grid">
-        @foreach ($suite as $f)
-          @include('frontend.features.partials.card', ['f' => $f])
-        @endforeach
-      </div>
-    @endif
+    @foreach ([['Core modules', $core], ['All included, plus', $suite]] as [$sectionLabel, $features])
+      @if ($features->isNotEmpty())
+        <div class="feat-sec-h"><span>{{ $sectionLabel }}</span><em>{{ $features->count() }}</em></div>
+        <div class="feat-core">
+          @foreach ($features as $f)
+            <a class="feat-tile reveal" href="{{ route('features.show', $f->slug) }}">
+              <div class="feat-tile-art">
+                @if ($f->spot_url)
+                  <img src="{{ $f->spot_url }}" alt="" width="344" height="347" loading="lazy">
+                @else
+                  <span class="fi"><i class="fa-solid {{ $f->icon }}"></i></span>
+                @endif
+              </div>
+              <b>{{ $f->title }}@if ($f->badge) <span class="badge">{{ $f->badge }}</span>@endif</b>
+              <p>{{ $f->lead ?: $f->menu }}</p>
+              <span class="feat-more">Learn more <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+          @endforeach
+        </div>
+      @endif
+    @endforeach
   </div>
 </section>
 

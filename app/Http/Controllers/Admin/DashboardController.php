@@ -3,24 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog;
-use App\Models\BlogCategory;
-use App\Models\BlogTag;
+use App\Services\DashboardService;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    // GET /admin — counts and the latest posts
-    public function __invoke(): View
+    // GET /admin — summary, to-dos, analytics and shortcuts for what the user can manage
+    public function __invoke(Request $request, DashboardService $dashboard): View
     {
-        return view('admin.dashboard', [
-            'stats' => [
-                'Posts' => Blog::count(),
-                'Published' => Blog::published()->count(),
-                'Categories' => BlogCategory::count(),
-                'Tags' => BlogTag::count(),
-            ],
-            'latest' => Blog::with('category')->latest()->take(5)->get(),
-        ]);
+        return view('admin.dashboard', $dashboard->for($request->user()));
     }
 }

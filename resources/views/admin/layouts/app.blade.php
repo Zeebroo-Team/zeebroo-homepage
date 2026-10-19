@@ -17,12 +17,16 @@
 <aside class="adm-side" id="admSide">
   <a href="{{ route('admin.dashboard') }}" class="adm-logo"><img src="{{ asset('assets/mark.png') }}" alt="" width="20" height="26">Zeebroo <span>Admin</span></a>
   <nav class="adm-nav">
-    <a href="{{ route('admin.dashboard') }}" @class(['on' => request()->routeIs('admin.dashboard')])><i class="fa-solid fa-gauge"></i>Dashboard</a>
+    <a href="{{ route('admin.dashboard') }}" data-key="g d" data-key-label="Go to dashboard" @class(['on' => request()->routeIs('admin.dashboard')])><i class="fa-solid fa-gauge"></i>Dashboard</a>
+    @can('view enquiries')
+      @php($unreadEnquiries = \App\Models\Enquiry::unread()->count())
+      <a href="{{ route('admin.enquiries.index') }}" data-key="g e" data-key-label="Go to enquiries" @class(['on' => request()->routeIs('admin.enquiries.*')])><i class="fa-solid fa-inbox"></i>Enquiries <b class="adm-nav-count" id="admEnquiryCount" title="New enquiries" @if (! $unreadEnquiries) hidden @endif>{{ $unreadEnquiries }}</b></a>
+    @endcan
     @canany(['view blogs', 'view blog categories', 'view blog tags'])
       <span class="adm-nav-h">Blog</span>
     @endcanany
     @can('view blogs')
-      <a href="{{ route('admin.blog.posts.index') }}" @class(['on' => request()->routeIs('admin.blog.posts.*')])><i class="fa-solid fa-newspaper"></i>Posts</a>
+      <a href="{{ route('admin.blog.posts.index') }}" data-key="g p" data-key-label="Go to posts" @class(['on' => request()->routeIs('admin.blog.posts.*')])><i class="fa-solid fa-newspaper"></i>Posts</a>
     @endcan
     @can('view blog categories')
       <a href="{{ route('admin.blog.categories.index') }}" @class(['on' => request()->routeIs('admin.blog.categories.*')])><i class="fa-solid fa-folder"></i>Categories</a>
@@ -34,19 +38,19 @@
       <span class="adm-nav-h">Website</span>
     @endcanany
     @can('view features')
-      <a href="{{ route('admin.features.index') }}" @class(['on' => request()->routeIs('admin.features.*')])><i class="fa-solid fa-layer-group"></i>Features</a>
+      <a href="{{ route('admin.features.index') }}" data-key="g f" data-key-label="Go to features" @class(['on' => request()->routeIs('admin.features.*')])><i class="fa-solid fa-layer-group"></i>Features</a>
     @endcan
     @can('view industries')
-      <a href="{{ route('admin.industries.index') }}" @class(['on' => request()->routeIs('admin.industries.*')])><i class="fa-solid fa-briefcase"></i>Industries</a>
+      <a href="{{ route('admin.industries.index') }}" data-key="g i" data-key-label="Go to industries" @class(['on' => request()->routeIs('admin.industries.*')])><i class="fa-solid fa-briefcase"></i>Industries</a>
     @endcan
     @can('view testimonials')
-      <a href="{{ route('admin.testimonials.index') }}" @class(['on' => request()->routeIs('admin.testimonials.*')])><i class="fa-solid fa-comment-dots"></i>Testimonials</a>
+      <a href="{{ route('admin.testimonials.index') }}" data-key="g t" data-key-label="Go to testimonials" @class(['on' => request()->routeIs('admin.testimonials.*')])><i class="fa-solid fa-comment-dots"></i>Testimonials</a>
     @endcan
     @canany(['view partners', 'view partner categories'])
       <span class="adm-nav-h">Partners</span>
     @endcanany
     @can('view partners')
-      <a href="{{ route('admin.partners.index') }}" @class(['on' => request()->routeIs('admin.partners.*')])><i class="fa-solid fa-handshake"></i>All partners</a>
+      <a href="{{ route('admin.partners.index') }}" data-key="g a" data-key-label="Go to partners" @class(['on' => request()->routeIs('admin.partners.*')])><i class="fa-solid fa-handshake"></i>All partners</a>
     @endcan
     @can('view partner categories')
       <a href="{{ route('admin.partner-categories.index') }}" @class(['on' => request()->routeIs('admin.partner-categories.*')])><i class="fa-solid fa-folder-tree"></i>Categories</a>
@@ -60,6 +64,25 @@
     <button type="button" class="adm-burger" id="admBurger" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
     <h1>@yield('title', 'Dashboard')</h1>
     <div class="adm-user">
+      @php($unreadNotifications = auth()->user()->unreadNotifications()->count())
+      <div class="adm-bell" id="admBell" data-feed="{{ route('admin.notifications.index') }}">
+        <button type="button" class="adm-icon-btn" aria-expanded="false" aria-controls="admBellMenu" aria-label="Notifications">
+          <i class="fa-solid fa-bell"></i>
+          <b class="adm-bell-count" @if (! $unreadNotifications) hidden @endif>{{ $unreadNotifications }}</b>
+        </button>
+        <div class="adm-bell-menu" id="admBellMenu" hidden>
+          <div class="adm-bell-h">
+            <b>Notifications</b>
+            <form method="post" action="{{ route('admin.notifications.read-all') }}">
+              @csrf
+              <button type="submit">Mark all as read</button>
+            </form>
+          </div>
+          <div class="adm-bell-list">
+            @include('admin.partials.notifications', ['notifications' => auth()->user()->notifications()->take(\App\Http\Controllers\Admin\NotificationController::LIMIT)->get()])
+          </div>
+        </div>
+      </div>
       <span><b>{{ auth()->user()->name }}</b><small>{{ auth()->user()->getRoleNames()->implode(', ') }}</small></span>
       <form method="post" action="{{ route('admin.logout') }}">
         @csrf
@@ -79,6 +102,13 @@
     @yield('content')
   </main>
 </div>
+
+{{-- keyboard shortcut help (press "?"); the list is built from every [data-key] link on the page --}}
+<dialog class="adm-keys" id="admKeys" aria-labelledby="admKeysTitle">
+  <div class="adm-card-h"><h2 id="admKeysTitle">Keyboard shortcuts</h2><button type="button" class="adm-icon-btn" data-close aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div>
+  <p class="adm-muted">Press the keys one after the other, e.g. <kbd>g</kbd> then <kbd>e</kbd>.</p>
+  <dl id="admKeysList"></dl>
+</dialog>
 
 <script src="{{ asset('assets/js/admin.js') }}"></script>
 @stack('scripts')

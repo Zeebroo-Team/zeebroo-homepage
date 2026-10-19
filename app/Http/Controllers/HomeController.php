@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Partner;
 use App\Models\Testimonial;
+use App\Services\PackageService;
 use App\Services\PosReleaseService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index(Request $request, PosReleaseService $releases)
+    public function index(Request $request, PosReleaseService $releases, PackageService $packages)
     {
         return view('frontend.home.index', [
+            'homePackages' => $packages->all(),
             'posRelease' => $releases->latest(),
             'posDetectedOs' => $releases->pickFor($request->userAgent() ?? ''),
             'featuredPartners' => Partner::active()->featured()->ordered()->get(),

@@ -5,8 +5,10 @@ use App\Http\Controllers\Admin\Blog\BlogCategoryController;
 use App\Http\Controllers\Admin\Blog\BlogController;
 use App\Http\Controllers\Admin\Blog\BlogTagController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EnquiryController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\IndustryController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\PartnerCategoryController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -25,6 +27,10 @@ Route::post('/logout', [AuthController::class, 'destroy'])->middleware('auth')->
 Route::middleware('auth')->group(function () {
     Route::get('/', DashboardController::class)->name('dashboard');
 
+    Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.read-all');
+    Route::get('notifications/{notification}', [NotificationController::class, 'show'])->name('notifications.show');
+
     Route::prefix('blog')->name('blog.')->group(function () {
         Route::resource('categories', BlogCategoryController::class)->except('show');
         Route::resource('tags', BlogTagController::class)->except('show');
@@ -37,4 +43,5 @@ Route::middleware('auth')->group(function () {
     Route::patch('partners/{partner}/featured', [PartnerController::class, 'toggleFeatured'])->name('partners.featured');
     Route::resource('partners', PartnerController::class)->except('show');
     Route::resource('testimonials', TestimonialController::class)->except('show');
+    Route::resource('enquiries', EnquiryController::class)->only(['index', 'show', 'update', 'destroy']);
 });

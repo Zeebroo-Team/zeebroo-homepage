@@ -33,7 +33,7 @@
         <div><b>{{ number_format($averageRating, 1) }}<i class="fa-solid fa-star"></i></b><span>Average rating</span></div>
       </div>
 
-      <div class="tst-grid tst-masonry">
+      <div class="tst-grid">
         @foreach ($testimonials as $testimonial)
           @include('frontend.testimonials.partials.card', ['testimonial' => $testimonial])
         @endforeach
