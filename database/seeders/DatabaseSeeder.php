@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RolePermissionSeeder::class);
         $this->call(FeatureSeeder::class);
         $this->call(IndustrySeeder::class);
+        $this->call(PartnerCategorySeeder::class);
 
         if (app()->environment('local')) {
             $this->call(BlogSeeder::class);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Partner;
 use App\Services\PosReleaseService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,8 +12,9 @@ class HomeController extends Controller
     public function index(Request $request, PosReleaseService $releases)
     {
         return view('frontend.home.index', [
-            'posRelease'    => $releases->latest(),
+            'posRelease' => $releases->latest(),
             'posDetectedOs' => $releases->pickFor($request->userAgent() ?? ''),
+            'featuredPartners' => Partner::active()->featured()->ordered()->get(),
         ]);
     }
 
@@ -25,7 +27,6 @@ class HomeController extends Controller
 
         return $os
             ? redirect()->away($downloads[$os])
-            : redirect()->to(route('home') . '#download');
+            : redirect()->to(route('home').'#download');
     }
-
 }

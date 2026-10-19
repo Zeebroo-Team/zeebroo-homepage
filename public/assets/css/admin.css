@@ -206,3 +206,6 @@ a.pager-btn:hover{border-color:var(--ink)}
   .adm-search input{width:100%}
   .adm-filter,.adm-search{flex:1 1 100%}
 }
+
+/* partner logos keep their shape in the list */
+.adm-post img.adm-logo-thumb{object-fit:contain;background:#fff;border:1px solid var(--line)}

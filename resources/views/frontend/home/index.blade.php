@@ -14,6 +14,7 @@
     @include('frontend.home.modules')
     @include('frontend.home.finance')
     @include('frontend.home.industries')
+    @include('frontend.home.partners')
     @include('frontend.home.steps')
     @include('frontend.home.manifesto')
     @include('frontend.home.faq')

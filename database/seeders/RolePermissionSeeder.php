@@ -21,6 +21,8 @@ class RolePermissionSeeder extends Seeder
         'blogs' => ['view blogs', 'create blogs', 'edit blogs', 'delete blogs', 'publish blogs'],
         'features' => ['view features', 'create features', 'edit features', 'delete features'],
         'industries' => ['view industries', 'create industries', 'edit industries', 'delete industries'],
+        'partner categories' => ['view partner categories', 'create partner categories', 'edit partner categories', 'delete partner categories'],
+        'partners' => ['view partners', 'create partners', 'edit partners', 'delete partners'],
     ];
 
     /**

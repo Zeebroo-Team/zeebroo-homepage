@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\Blog\BlogTagController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\IndustryController;
+use App\Http\Controllers\Admin\PartnerCategoryController;
+use App\Http\Controllers\Admin\PartnerController;
 use Illuminate\Support\Facades\Route;
 
 // Admin (loaded from bootstrap/app.php with the "web" middleware, /admin prefix and "admin." names)
@@ -30,4 +32,6 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('features', FeatureController::class)->except('show');
     Route::resource('industries', IndustryController::class)->except('show');
+    Route::resource('partner-categories', PartnerCategoryController::class)->except('show');
+    Route::resource('partners', PartnerController::class)->except('show');
 });

@@ -6,6 +6,7 @@ use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PartnerController;
 use Illuminate\Support\Facades\Route;
 
 // Home Page
@@ -21,6 +22,9 @@ Route::get('/features/{slug}', [FeatureController::class, 'show'])->where('slug'
 // Industries (one page per industry, content in config/industries.php)
 Route::get('/industries', [IndustryController::class, 'index'])->name('industries.index');
 Route::get('/industries/{slug}', [IndustryController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('industries.show');
+
+// Partners & clients (managed in /admin)
+Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
 
 // Packages (pricing, read live from the platform's Admin → Package Management)
 Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
