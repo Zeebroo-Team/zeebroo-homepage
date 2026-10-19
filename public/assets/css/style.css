@@ -45,8 +45,8 @@ h2{font-size:clamp(38px,5vw,62px);margin-bottom:20px}
 .logo{display:flex;align-items:center;gap:10px;font:800 22px/1 var(--display);letter-spacing:-.04em}
 .logo img{height:32px;width:auto}
 .nav-links{display:flex;gap:2px;margin-left:auto}
-.nav-links a{padding:10px 16px;border-radius:999px;font-size:15px;font-weight:500;color:var(--ink-2);transition:background .2s}
-.nav-links a:hover{background:rgba(18,18,18,.06)}
+.nav-links a,.nav-links button.nav-dd-t{padding:10px 16px;border-radius:999px;font-size:15px;font-weight:500;color:var(--ink-2);transition:background .2s}
+.nav-links a:hover,.nav-links button.nav-dd-t:hover{background:rgba(18,18,18,.06)}
 .nav-in{position:relative}
 
 /* modules / industries mega menus: open on hover / keyboard focus, positioned against the nav pill */
@@ -101,6 +101,14 @@ h2{font-size:clamp(38px,5vw,62px);margin-bottom:20px}
 .nav-links .mega-foot a{margin-left:6px;font-weight:700;color:var(--ink)}
 .mega-foot a i{font-size:11px;margin-left:4px}
 @media (max-width:1100px){.mega-in{grid-template-columns:240px 1fr}.mega-grid{grid-template-columns:repeat(2,1fr)}}
+/* "More": a compact single-column dropdown anchored under its own trigger */
+@media (min-width:921px){
+  .nav-dd-sm{position:relative}
+  .mega-sm{left:auto;right:0;width:280px}
+  .mega-sm .mega-in{grid-template-columns:1fr}
+  .mega-sm .mega-main{padding:8px}
+  .mega-sm .mega-grid{grid-template-columns:1fr}
+}
 
 .nav-cta{display:flex;gap:8px;margin-left:12px}
 .nav-cta .btn{height:44px;padding:0 18px;font-size:15px}
@@ -111,7 +119,8 @@ h2{font-size:clamp(38px,5vw,62px);margin-bottom:20px}
   .nav-cta{margin-left:8px}
   .nav.open .nav-links{display:flex;position:absolute;top:76px;left:16px;right:16px;flex-direction:column;padding:12px;border-radius:var(--r-card);background:var(--card);border:1px solid var(--line);box-shadow:0 30px 60px -20px rgba(18,18,18,.3)}
   .nav.open .nav-links{max-height:calc(100vh - 110px);max-height:calc(100dvh - 110px);overflow-y:auto;overscroll-behavior:contain}
-  .nav.open .nav-links a{padding:14px 16px;font-size:17px}
+  .nav.open .nav-links a,.nav.open .nav-links button.nav-dd-t{padding:14px 16px;font-size:17px}
+  .nav.open .nav-links button.nav-dd-t{width:100%;text-align:left}
   /* mobile: the mega menu becomes an accordion inside the burger menu */
   .nav-dd{flex-direction:column}
   .nav.open .nav-links .nav-dd-t{display:flex;align-items:center;justify-content:space-between}

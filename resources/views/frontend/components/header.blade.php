@@ -101,8 +101,21 @@
         </div>
       </div>
       <a href="{{ route('home') }}#download">Download</a>
-      <a href="https://www.zeebroo.com/tutorial">Docs</a>
       <a href="{{ route('contact') }}">Contact</a>
+      <div class="nav-dd nav-dd-sm" id="moreDD">
+        <button type="button" class="nav-dd-t" aria-haspopup="true" aria-expanded="false">More <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="mega mega-sm" role="menu" aria-label="More">
+          <div class="mega-in">
+            <div class="mega-main">
+              <div class="mega-grid">
+                <a href="https://www.zeebroo.com/tutorial"><span class="mi"><i class="fa-solid fa-book-open"></i></span><div><b>Docs</b><small>Guides and tutorials</small></div></a>
+                <a href="https://www.zeebroo.com/about"><span class="mi"><i class="fa-solid fa-building"></i></span><div><b>About us</b><small>Who we are and what we do</small></div></a>
+                <a href="https://www.zeebroo.com/blog"><span class="mi"><i class="fa-solid fa-newspaper"></i></span><div><b>Blog</b><small>News, tips and updates</small></div></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
     <div class="nav-cta">
       <a class="btn btn-line" href="https://platform.zeebroo.com/login">Sign in</a>
