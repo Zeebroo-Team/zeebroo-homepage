@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Feature;
 use Illuminate\View\View;
 
 class IndustryController extends Controller
@@ -25,11 +26,11 @@ class IndustryController extends Controller
         $industry = $industries[$slug];
 
         return view('frontend.industries.show', [
-            'slug'     => $slug,
+            'slug' => $slug,
             'industry' => $industry,
-            'modules'  => array_intersect_key(config('features'), array_flip($industry['modules'])),
-            'prev'     => ['slug' => $prev] + $industries[$prev],
-            'next'     => ['slug' => $next] + $industries[$next],
+            'modules' => Feature::active()->whereIn('slug', $industry['modules'])->ordered()->get(),
+            'prev' => ['slug' => $prev] + $industries[$prev],
+            'next' => ['slug' => $next] + $industries[$next],
         ]);
     }
 }

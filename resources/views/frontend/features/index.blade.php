@@ -17,30 +17,34 @@
       <p class="fade-in">Every module shares the same data, so the register and the ledger always agree. Turn on what you need and add the rest as you grow.</p>
     </div>
 
-    <div class="feat-sec-h"><span>Core modules</span><em>{{ count($core) }}</em></div>
-    <div class="feat-core">
-      @foreach ($core as $slug => $f)
-        <a class="feat-tile reveal" href="{{ route('features.show', $slug) }}">
-          <div class="feat-tile-art">
-            @if ($f['spot'])
-              <img src="{{ asset('assets/features/' . $f['spot']) }}" alt="" width="344" height="347" loading="lazy">
-            @else
-              <span class="fi"><i class="fa-solid {{ $f['icon'] }}"></i></span>
-            @endif
-          </div>
-          <b>{{ $f['title'] }}@if ($f['badge']) <span class="badge">{{ $f['badge'] }}</span>@endif</b>
-          <p>{{ $f['lead'] }}</p>
-          <span class="feat-more">Learn more <i class="fa-solid fa-arrow-right"></i></span>
-        </a>
-      @endforeach
-    </div>
+    @if ($core->isNotEmpty())
+      <div class="feat-sec-h"><span>Core modules</span><em>{{ $core->count() }}</em></div>
+      <div class="feat-core">
+        @foreach ($core as $f)
+          <a class="feat-tile reveal" href="{{ route('features.show', $f->slug) }}">
+            <div class="feat-tile-art">
+              @if ($f->spot_url)
+                <img src="{{ $f->spot_url }}" alt="" width="344" height="347" loading="lazy">
+              @else
+                <span class="fi"><i class="fa-solid {{ $f->icon }}"></i></span>
+              @endif
+            </div>
+            <b>{{ $f->title }}@if ($f->badge) <span class="badge">{{ $f->badge }}</span>@endif</b>
+            <p>{{ $f->lead }}</p>
+            <span class="feat-more">Learn more <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+        @endforeach
+      </div>
+    @endif
 
-    <div class="feat-sec-h"><span>All included, plus</span><em>{{ count($suite) }}</em></div>
-    <div class="feat-grid">
-      @foreach ($suite as $slug => $f)
-        @include('frontend.features.partials.card', ['slug' => $slug, 'f' => $f])
-      @endforeach
-    </div>
+    @if ($suite->isNotEmpty())
+      <div class="feat-sec-h"><span>All included, plus</span><em>{{ $suite->count() }}</em></div>
+      <div class="feat-grid">
+        @foreach ($suite as $f)
+          @include('frontend.features.partials.card', ['f' => $f])
+        @endforeach
+      </div>
+    @endif
   </div>
 </section>
 

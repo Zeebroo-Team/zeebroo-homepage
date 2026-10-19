@@ -115,27 +115,23 @@ $('#roles').innerHTML=roles.map(o=>`<div class="role"><div class="role-h"><span 
   o.p.map(([l,v])=>`<div class="perm"><span>${l}</span><button class="sw" role="switch" aria-checked="${!!v}" aria-label="${o.n}: ${l}"></button></div>`).join('')+`</div>`).join('');
 $('#roles').onclick=e=>{const s=e.target.closest('.sw');if(s)s.setAttribute('aria-checked',s.getAttribute('aria-checked')!=='true')};
 
-/* ---------- modules ---------- */
-const M=[
-  {t:'Point of Sale',s:'Fast checkout and receipts',d:'Scan items, take cash or card, and finish sales without slowing the queue. Works in the browser or on the desktop app.',img:'point-of-sale',u:'point-of-sale',i:'fa-cash-register'},
-  {t:'Stock Management',s:'Products, batches, reorders',d:'Know what you have, what is running low and what to reorder. Track products and batches across shelves and warehouses.',img:'stock-management',u:'stock-management',i:'fa-boxes-stacked'},
-  {t:'Account Management',s:'Accounts, branches, balances',d:'Manage business accounts, branches and balances in one view, with the full financial picture owners need.',img:'account-management',u:'account-management',i:'fa-building-columns'},
-  {t:'Bill Management',s:'Bills, loans, expenses',d:'Create, track and pay bills on time. Stay on top of what you owe suppliers and what customers owe you.',img:'bill-management',u:'bill-management',i:'fa-file-invoice-dollar'},
-  {t:'Human Resources',s:'Staff, payroll, attendance',d:'Organise your team, roles and HR workflows so people operations sit alongside sales and finance.',img:'human-resource-management',u:'human-resources',i:'fa-people-group'},
-  {t:'Social Campaigns',s:'Promotions tied to stock',d:'Plan and run campaigns from the same platform you run the business on, so promotions match what is in stock.',img:'social-media-campaign',u:'social-media-campaign',i:'fa-bullhorn'},
-];
+/* ---------- modules (core features from the admin panel, rendered into #modData) ---------- */
+if($('#modData')){
+const M=JSON.parse($('#modData').textContent);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 const on=M.map(()=>true);let sel=0;
-$('#modList').innerHTML=M.map((m,k)=>`<div class="mod-row${k?'':' sel'}" data-k="${k}" role="option" aria-selected="${!k}" tabindex="0"><span class="mi"><i class="fa-solid ${m.i}"></i></span><div><b>${m.t}</b><small>${m.s}</small></div><button class="sw" role="switch" aria-checked="true" aria-label="Enable ${m.t}"></button><span class="bar"></span></div>`).join('');
-M.forEach(m=>{new Image().src=`assets/features/${m.img}.webp`});
+$('#modList').innerHTML=M.map((m,k)=>`<div class="mod-row${k?'':' sel'}" data-k="${k}" role="option" aria-selected="${!k}" tabindex="0"><span class="mi"><i class="fa-solid ${esc(m.i)}"></i></span><div><b>${esc(m.t)}</b><small>${esc(m.s)}</small></div><button class="sw" role="switch" aria-checked="true" aria-label="Enable ${esc(m.t)}"></button><span class="bar"></span></div>`).join('');
+M.forEach(m=>{if(m.img)new Image().src=m.img});
 function showMod(k){
   const m=M[k],img=$('#modImg'),changed=sel!==k;sel=k;
   $$('.mod-row').forEach((r,i)=>{r.classList.toggle('sel',i===k);r.setAttribute('aria-selected',i===k)});
   $('#modView').classList.toggle('off',!on[k]);
   $('#modStatus').textContent=on[k]?'Installed':'Turned off';
-  $('#modTitle').textContent=m.t;$('#modDesc').textContent=m.d;
-  const more=$('#modMore');more.href=`features/${m.u}`;more.setAttribute('aria-label','Learn more about '+m.t);
+  $('#modTitle').textContent=m.t;$('#modDesc').textContent=m.d||'';
+  const more=$('#modMore');more.href=m.u;more.setAttribute('aria-label','Learn more about '+m.t);
   img.alt='Zeebroo zebra illustration for '+m.t;
-  if(changed&&!reduce){img.classList.add('swap');setTimeout(()=>{img.src=`assets/features/${m.img}.webp`;img.classList.remove('swap')},180)}else img.src=`assets/features/${m.img}.webp`;
+  const swap=()=>{img.hidden=!m.img;if(m.img)img.src=m.img};
+  if(changed&&!reduce){img.classList.add('swap');setTimeout(()=>{swap();img.classList.remove('swap')},180)}else swap();
 }
 $('#modList').onclick=e=>{
   const row=e.target.closest('.mod-row');if(!row)return;const k=+row.dataset.k;
@@ -155,6 +151,7 @@ if(auto){
   mods.addEventListener('focusin',()=>mods.classList.add('paused'));
   mods.addEventListener('focusout',()=>mods.classList.remove('paused'));
   $('#modList').addEventListener('click',()=>{auto=false;mods.classList.remove('cycling')},true);
+}
 }
 
 /* ---------- finance map ---------- */

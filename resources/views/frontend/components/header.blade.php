@@ -20,11 +20,10 @@
               <a class="btn btn-ink" href="https://platform.zeebroo.com/register">Get started <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div class="mega-main">
-              @php($megaFeatures = collect(config('features')))
-              <div class="mega-top"><span>Modules</span><a class="mega-all" href="{{ route('features.index') }}">All {{ $megaFeatures->count() }} features <i class="fa-solid fa-arrow-right"></i></a></div>
+              <div class="mega-top"><span>Modules</span><a class="mega-all" href="{{ route('features.index') }}">All {{ $navFeatures->count() }} features <i class="fa-solid fa-arrow-right"></i></a></div>
               <div class="mega-grid mega-grid-all">
-                @foreach ($megaFeatures as $slug => $f)
-                  <a href="{{ route('features.show', $slug) }}"><span class="mi"><i class="fa-solid {{ $f['icon'] }}"></i></span><div><b>{{ $f['title'] }}@if ($f['badge']) <span class="badge">{{ $f['badge'] }}</span>@endif</b><small>{{ $f['menu'] }}</small></div></a>
+                @foreach ($navFeatures as $f)
+                  <a href="{{ route('features.show', $f->slug) }}"><span class="mi"><i class="fa-solid {{ $f->icon }}"></i></span><div><b>{{ $f->title }}@if ($f->badge) <span class="badge">{{ $f->badge }}</span>@endif</b><small>{{ $f->menu }}</small></div></a>
                 @endforeach
               </div>
               <div class="mega-foot">Need something custom? <a href="{{ route('contact') }}">Talk to us <i class="fa-solid fa-arrow-right"></i></a></div>

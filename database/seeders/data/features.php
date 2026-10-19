@@ -1,10 +1,11 @@
 <?php
 
 /*
-| Feature pages: one entry per module, keyed by its URL slug (/features/{slug}).
-| The header mega menu, the /features index and each feature page all read from here,
-| so adding a feature is one new entry. Images live in public/assets/features:
+| Starter feature pages imported by FeatureSeeder, keyed by URL slug (/features/{slug}).
+| After seeding, features are managed in /admin/features; this file is not read at runtime.
+| Images are copied from public/assets/features to the public disk:
 | "spot" is the square illustration, "scene" the wide one in features/scenes.
+| "description" becomes the meta description.
 | group: core = the six headline modules, suite = "all included, plus".
 */
 

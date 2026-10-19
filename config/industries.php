@@ -4,7 +4,7 @@
 | Industry pages: one entry per industry, keyed by its URL slug (/industries/{slug}).
 | The header mega menu, the home "industries" grid, the /industries index and each
 | industry page all read from here, so adding an industry is one new entry.
-| "modules" are feature slugs from config/features.php shown as "Modules for ...".
+| "modules" are feature slugs (managed in /admin/features) shown as "Modules for ...".
 | "scene" is an optional wide image in public/assets/features.
 */
 

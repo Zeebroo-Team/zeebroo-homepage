@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Feature;
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View as ViewFacade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,5 +28,19 @@ class AppServiceProvider extends ServiceProvider
         Gate::before(fn (User $user): ?bool => $user->hasRole('super-admin') ? true : null);
 
         Paginator::defaultView('pagination.zeebroo');
+
+        // Active features for the Modules mega menu, footer and home page, loaded once per request
+        ViewFacade::composer(
+            ['frontend.components.header', 'frontend.components.footer', 'frontend.home.modules'],
+            function (View $view): void {
+                $attributes = request()->attributes;
+
+                if (! $attributes->has('navFeatures')) {
+                    $attributes->set('navFeatures', Feature::navigation());
+                }
+
+                $view->with('navFeatures', $attributes->get('navFeatures'));
+            },
+        );
     }
 }

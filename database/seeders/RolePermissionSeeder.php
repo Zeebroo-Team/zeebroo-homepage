@@ -11,7 +11,7 @@ use Spatie\Permission\PermissionRegistrar;
 class RolePermissionSeeder extends Seeder
 {
     /**
-     * Every blog permission, grouped by resource.
+     * Every admin permission, grouped by resource.
      *
      * @var array<string, list<string>>
      */
@@ -19,10 +19,11 @@ class RolePermissionSeeder extends Seeder
         'blog categories' => ['view blog categories', 'create blog categories', 'edit blog categories', 'delete blog categories'],
         'blog tags' => ['view blog tags', 'create blog tags', 'edit blog tags', 'delete blog tags'],
         'blogs' => ['view blogs', 'create blogs', 'edit blogs', 'delete blogs', 'publish blogs'],
+        'features' => ['view features', 'create features', 'edit features', 'delete features'],
     ];
 
     /**
-     * Create the blog permissions, the super-admin / editor / author roles and the first admin user.
+     * Create the admin permissions, the super-admin / editor / author roles and the first admin user.
      */
     public function run(): void
     {

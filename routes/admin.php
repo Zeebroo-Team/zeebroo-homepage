@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Blog\BlogCategoryController;
 use App\Http\Controllers\Admin\Blog\BlogController;
 use App\Http\Controllers\Admin\Blog\BlogTagController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FeatureController;
 use Illuminate\Support\Facades\Route;
 
 // Admin (loaded from bootstrap/app.php with the "web" middleware, /admin prefix and "admin." names)
@@ -25,4 +26,6 @@ Route::middleware('auth')->group(function () {
         Route::resource('tags', BlogTagController::class)->except('show');
         Route::resource('posts', BlogController::class)->except('show')->parameters(['posts' => 'blog']);
     });
+
+    Route::resource('features', FeatureController::class)->except('show');
 });

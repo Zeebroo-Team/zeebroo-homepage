@@ -97,8 +97,8 @@
       <p>Start with these and turn on the rest as you grow.</p>
     </div>
     <div class="feat-grid ind-mods">
-      @foreach ($modules as $modSlug => $f)
-        @include('frontend.features.partials.card', ['slug' => $modSlug, 'f' => $f])
+      @foreach ($modules as $f)
+        @include('frontend.features.partials.card', ['f' => $f])
       @endforeach
     </div>
 
