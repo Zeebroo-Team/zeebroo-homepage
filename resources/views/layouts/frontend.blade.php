@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zeebroo: the POS that runs your whole business</title>
-<meta name="description" content="Zeebroo brings sales, stock, money, people and marketing into one workspace. Web and desktop POS, inventory, bills, HR and campaigns. All modules included.">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="preload" as="image" href="assets/mascot.webp">
+<title>@yield('title', 'Zeebroo: the POS that runs your whole business')</title>
+<meta name="description" content="@yield('description', 'Zeebroo brings sales, stock, money, people and marketing into one workspace. Web and desktop POS, inventory, bills, HR and campaigns. All modules included.')">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/favicon-32x32.png') }}">
+<link rel="apple-touch-icon" href="{{ asset('assets/apple-touch-icon.png') }}">
+@stack('head')
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -29,6 +29,7 @@
         @include('frontend.components.footer')
     <!-- footer close -->
 
-<script src="{{ asset('assets/js/script.js') }}"></script>
+<script src="{{ asset('assets/js/nav.js') }}"></script>
+@stack('scripts')
 </body>
 </html>

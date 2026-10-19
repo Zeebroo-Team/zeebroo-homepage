@@ -33,6 +33,11 @@ return [
         'platform_url' => env('ZEEBROO_PLATFORM_URL', 'https://platform.zeebroo.com'),
     ],
 
+    // Where contact page messages are sent
+    'contact' => [
+        'to' => env('CONTACT_MAIL_TO', 'hello@zeebroo.com'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

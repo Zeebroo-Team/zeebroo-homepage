@@ -1,5 +1,12 @@
 @extends('layouts.frontend')
 
+@push('head')
+<link rel="preload" as="image" href="{{ asset('assets/mascot.webp') }}">
+@endpush
+
+@push('scripts')
+<script src="{{ asset('assets/js/script.js') }}"></script>
+@endpush
 
 @section('content')
     @include('frontend.home.hero')

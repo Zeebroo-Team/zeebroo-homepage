@@ -1,13 +1,6 @@
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const fmt=n=>'Rs '+Math.round(n).toLocaleString('en-US');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-$('#yr').textContent=new Date().getFullYear();
-
-/* nav: border appears once the page leaves the top */
-const nav=$('#nav');
-new IntersectionObserver(([e])=>nav.classList.toggle('scrolled',!e.isIntersecting)).observe($('#topSentinel'));
-$('#burger').onclick=()=>{const o=nav.classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)};
-$$('#navLinks a').forEach(a=>a.onclick=()=>nav.classList.remove('open'));
 
 /* ---------- POS demo ---------- */
 const P=[
@@ -151,6 +144,8 @@ $('#modList').onclick=e=>{
 };
 $('#modList').onkeydown=e=>{const row=e.target.closest('.mod-row');if(row&&(e.key==='Enter'||e.key===' ')&&e.target===row){e.preventDefault();showMod(+row.dataset.k)}};
 showMod(0);
+/* header mega menu: picking a module selects it in the section */
+$$('#modDD [data-mod]').forEach(a=>a.addEventListener('click',()=>showMod(+a.dataset.mod)));
 /* autoplay: the active row's progress bar is the timer; hover pauses, a click hands control to the visitor */
 const mods=$('.mods');let auto=!reduce;
 if(auto){
