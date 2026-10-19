@@ -1,11 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FeatureController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\PackageController;
+use Illuminate\Support\Facades\Route;
 
 // Home Page
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -24,6 +25,12 @@ Route::get('/industries/{slug}', [IndustryController::class, 'show'])->where('sl
 // Packages (pricing, read live from the platform's Admin → Package Management)
 Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
 Route::get('/packages/{slug}', [PackageController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('packages.show');
+
+// Blog (posts, categories and tags managed in /admin)
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/category/{slug}', [BlogController::class, 'category'])->where('slug', '[a-z0-9-]+')->name('blog.category');
+Route::get('/blog/tag/{slug}', [BlogController::class, 'tag'])->where('slug', '[a-z0-9-]+')->name('blog.tag');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('blog.show');
 
 // Contact Us
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
