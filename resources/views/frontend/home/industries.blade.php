@@ -5,6 +5,6 @@
       <h2>Built for the way your industry works.</h2>
       <p>Zeebroo adapts to your business, not the other way round.</p>
     </div>
-    <div class="inds reveal" id="inds"></div>
+    @include('frontend.industries.partials.grid')
   </div>
 </section>

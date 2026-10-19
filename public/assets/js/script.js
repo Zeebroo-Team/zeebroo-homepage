@@ -179,20 +179,6 @@ if(auto){
   });
 })();
 
-/* ---------- industries ---------- */
-const I=[
-  ['Restaurant','Tables, orders and kitchen flow','fa-utensils','restaurant',1],
-  ['Retail Stores','Counter sales, stock and daily reports','fa-store','retail-stores',1],
-  ['Ecommerce','Orders, inventory and fulfilment','fa-bag-shopping','ecommerce'],
-  ['Manufacturing','Production, materials and dispatch','fa-industry','manufacturing'],
-  ['Spare Parts','Parts catalogue and fast checkout','fa-gears','spare-parts'],
-  ['Wholesale &amp; Distribution','Bulk orders and client accounts','fa-truck-ramp-box','wholesale-distribution'],
-  ['Non-Profit','Donations, campaigns and volunteers','fa-hand-holding-heart','non-profit'],
-  ['Pharmacy &amp; Healthcare','Medicine stock and compliance','fa-prescription-bottle-medical','pharmacy-healthcare'],
-  ['Hotel &amp; Hospitality','Rooms, billing and staff','fa-bell-concierge','hotel-hospitality'],
-];
-$('#inds').innerHTML=I.map(([t,d,i,u,pop])=>`<a class="ind" href="https://www.zeebroo.com/industry/${u}"><span class="ii"><i class="fa-solid ${i}"></i></span><div><h3>${t}${pop?' <span class="badge">Popular</span>':''}</h3><p>${d}</p></div></a>`).join('');
-
 /* ---------- manifesto words (revealed by CSS scroll timeline where supported) ---------- */
 const mf=$('#manifesto');
 mf.innerHTML=mf.innerHTML.split('<br>').map(l=>l.split(' ').map(w=>`<span class="w">${w}</span>`).join(' ')).join('<br>');

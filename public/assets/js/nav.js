@@ -8,16 +8,22 @@
   new IntersectionObserver(([e])=>nav.classList.toggle('scrolled',!e.isIntersecting)).observe($('#topSentinel'));
   $('#burger').onclick=()=>{const o=nav.classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)};
 
-  /* mobile: "Modules" expands its list in place instead of navigating; registered first so it can stop the close-on-click handlers */
-  const modDD=$('#modDD'), ddT=$('#modDD .nav-dd-t'), mobile=matchMedia('(max-width:920px)');
-  ddT.addEventListener('click',e=>{
-    if(!mobile.matches)return;
-    e.preventDefault();e.stopImmediatePropagation();
-    ddT.setAttribute('aria-expanded',modDD.classList.toggle('open'));
+  /* mobile: "Modules"/"Industries" expand their list in place instead of navigating; registered first so they can stop the close-on-click handlers */
+  const dds=$$('.nav-dd'), mobile=matchMedia('(max-width:920px)');
+  dds.forEach(dd=>{
+    const t=dd.querySelector('.nav-dd-t');
+    t.addEventListener('click',e=>{
+      if(!mobile.matches)return;
+      e.preventDefault();e.stopImmediatePropagation();
+      dds.forEach(o=>{if(o!==dd){o.classList.remove('open');o.querySelector('.nav-dd-t').setAttribute('aria-expanded',false)}});
+      t.setAttribute('aria-expanded',dd.classList.toggle('open'));
+    });
   });
   $$('#navLinks a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
 
-  /* mega menu: close after a pick until the pointer leaves */
-  $$('#modDD a').forEach(a=>a.addEventListener('click',()=>{modDD.classList.add('shut');a.blur()}));
-  modDD.addEventListener('mouseleave',()=>modDD.classList.remove('shut'));
+  /* mega menus: close after a pick until the pointer leaves */
+  dds.forEach(dd=>{
+    dd.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{dd.classList.add('shut');a.blur()}));
+    dd.addEventListener('mouseleave',()=>dd.classList.remove('shut'));
+  });
 })();

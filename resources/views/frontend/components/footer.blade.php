@@ -2,7 +2,7 @@
   <div class="wrap">
     <div class="foot">
       <div><a href="{{ route('home') }}#top" class="logo"><img src="{{ asset('assets/mark.png') }}" alt="" width="25" height="32">Zeebroo</a><p>The all-in-one platform to run, track and grow your business.</p></div>
-      <div><h4>Explore</h4><ul><li><a href="{{ route('home') }}#benefits">Benefits</a></li><li><a href="{{ route('features.index') }}">Features</a></li><li><a href="https://www.zeebroo.com/about">About</a></li><li><a href="https://www.zeebroo.com/blog">Blog</a></li></ul></div>
+      <div><h4>Explore</h4><ul><li><a href="{{ route('home') }}#benefits">Benefits</a></li><li><a href="{{ route('features.index') }}">Features</a></li><li><a href="{{ route('industries.index') }}">Industries</a></li><li><a href="https://www.zeebroo.com/about">About</a></li><li><a href="https://www.zeebroo.com/blog">Blog</a></li></ul></div>
       <div><h4>Includes</h4><ul><li>Stock and POS</li><li>Accounts and bills</li><li>HR and campaigns</li><li><a href="https://www.zeebroo.com/download">Desktop POS app</a></li></ul></div>
       <div><h4>Contact</h4><ul><li><a href="{{ route('contact') }}">Contact us</a></li><li><a href="mailto:hello@zeebroo.com">hello@zeebroo.com</a></li><li><a href="https://platform.zeebroo.com/">Sign in</a></li></ul></div>
     </div>
