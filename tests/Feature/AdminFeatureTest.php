@@ -62,6 +62,7 @@ class AdminFeatureTest extends TestCase
             'spot' => UploadedFile::fake()->image('spot.png'),
             'scene' => UploadedFile::fake()->image('scene.png'),
             'screenshots' => [UploadedFile::fake()->image('one.png'), UploadedFile::fake()->image('two.png')],
+            'new_screenshot_captions' => ['First screen', ''],
             'meta_title' => 'Loyalty | POS',
             'meta_description' => 'Loyalty points for your shop',
             'meta_keywords' => 'loyalty, rewards',
@@ -77,6 +78,7 @@ class AdminFeatureTest extends TestCase
         $this->assertTrue($feature->is_active);
         $this->assertSame([$related->id], $feature->related->pluck('id')->all());
         $this->assertCount(2, $feature->screenshots);
+        $this->assertSame(['First screen', null], $feature->screenshots->pluck('caption')->all());
         Storage::disk('public')->assertExists([$feature->spot_path, $feature->scene_path, ...$feature->screenshots->pluck('path')]);
 
         $this->get(route('features.show', $feature->slug))->assertOk()->assertSee('Reward every purchase.');

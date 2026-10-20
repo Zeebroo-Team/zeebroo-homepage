@@ -31,20 +31,37 @@
     sync();
   });
 
-  /* thumbnails of the screenshots picked for upload */
+  /* screenshots picked for upload: each pick adds to the queue (capped at data-max), every card gets a caption and an x to drop it */
   $$('[data-multi-preview]').forEach(box=>{
-    const input=box.querySelector('input[type=file]'), list=box.nextElementSibling;
-    input.addEventListener('change',()=>{
+    const input=box.querySelector('input[type=file]'), list=box.nextElementSibling, max=+box.dataset.max||12;
+    let queue=[];
+    const render=()=>{
+      const dt=new DataTransfer();
+      queue.forEach(q=>dt.items.add(q.file));
+      input.files=dt.files;
       list.innerHTML='';
-      [...input.files].forEach(f=>{
-        const item=document.createElement('div'), img=document.createElement('img'), name=document.createElement('small');
+      queue.forEach((q,i)=>{
+        const item=document.createElement('div'), img=document.createElement('img'), cap=document.createElement('input'), foot=document.createElement('div'), name=document.createElement('small'), rm=document.createElement('button');
         item.className='adm-shot';
-        img.src=URL.createObjectURL(f);img.alt='';
-        name.textContent=f.name;
-        item.append(img,name);
+        img.src=q.url;img.alt='';
+        cap.type='text';cap.name='new_screenshot_captions['+i+']';cap.maxLength=255;cap.placeholder='Caption (optional)';cap.value=q.caption;
+        cap.setAttribute('aria-label','Caption');
+        cap.oninput=()=>{q.caption=cap.value};
+        foot.className='adm-shot-f';
+        name.textContent=q.file.name;
+        rm.type='button';rm.className='adm-shot-x';rm.title='Remove';rm.innerHTML='<i class="fa-solid fa-xmark"></i>';
+        rm.onclick=()=>{URL.revokeObjectURL(q.url);queue.splice(i,1);render()};
+        foot.append(name,rm);
+        item.append(img,cap,foot);
         list.append(item);
       });
-      list.hidden=!input.files.length;
+      list.hidden=!queue.length;
+    };
+    input.addEventListener('change',()=>{
+      const picked=[...input.files], room=max-queue.length;
+      if(picked.length>room){alert('Up to '+max+' screenshots per upload, so only the first '+Math.max(room,0)+' were added.')}
+      picked.slice(0,Math.max(room,0)).forEach(file=>queue.push({file,url:URL.createObjectURL(file),caption:''}));
+      render();
     });
   });
 })();

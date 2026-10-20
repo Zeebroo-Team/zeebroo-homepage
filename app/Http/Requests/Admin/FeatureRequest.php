@@ -82,6 +82,8 @@ class FeatureRequest extends FormRequest
             'remove_scene' => ['boolean'],
             'screenshots' => ['nullable', 'array', 'max:12'],
             'screenshots.*' => ['image', 'mimes:jpg,jpeg,png,webp,gif', 'max:4096'],
+            'new_screenshot_captions' => ['nullable', 'array'],
+            'new_screenshot_captions.*' => ['nullable', 'string', 'max:255'],
             'screenshot_captions' => ['nullable', 'array'],
             'screenshot_captions.*' => ['nullable', 'string', 'max:255'],
             'screenshot_order' => ['nullable', 'array'],

@@ -117,7 +117,7 @@ class FeatureController extends Controller implements HasMiddleware
     {
         return collect($request->validated())->except([
             'related', 'spot', 'remove_spot', 'scene', 'remove_scene',
-            'screenshots', 'screenshot_captions', 'screenshot_order', 'remove_screenshots',
+            'screenshots', 'new_screenshot_captions', 'screenshot_captions', 'screenshot_order', 'remove_screenshots',
         ])->all();
     }
 
@@ -137,7 +137,7 @@ class FeatureController extends Controller implements HasMiddleware
     }
 
     /**
-     * Removes ticked screenshots, saves captions and order of the rest, then appends new uploads.
+     * Removes ticked screenshots, saves captions and order of the rest, then appends new uploads with their captions.
      */
     private function syncScreenshots(Feature $feature, FeatureRequest $request): void
     {
@@ -160,10 +160,12 @@ class FeatureController extends Controller implements HasMiddleware
         }
 
         $next = (int) $feature->screenshots()->max('sort_order') + 1;
+        $newCaptions = $request->validated('new_screenshot_captions', []);
 
         foreach ($request->file('screenshots', []) as $i => $file) {
             $feature->screenshots()->create([
                 'path' => $file->store('features/screenshots', 'public'),
+                'caption' => $newCaptions[$i] ?? null,
                 'sort_order' => $next + $i,
             ]);
         }

@@ -75,15 +75,15 @@
               <input type="text" name="screenshot_captions[{{ $shot->id }}]" value="{{ old('screenshot_captions.'.$shot->id, $shot->caption) }}" maxlength="255" placeholder="Caption (optional)" aria-label="Caption">
               <div class="adm-shot-f">
                 <label>Order <input type="number" name="screenshot_order[{{ $shot->id }}]" value="{{ old('screenshot_order.'.$shot->id, $shot->sort_order) }}" min="0" max="9999"></label>
-                <label class="adm-check"><input type="checkbox" name="remove_screenshots[]" value="{{ $shot->id }}" @checked($removeScreenshots->contains($shot->id))> Remove</label>
+                <label class="adm-shot-rm"><input type="checkbox" name="remove_screenshots[]" value="{{ $shot->id }}" @checked($removeScreenshots->contains($shot->id))><i class="fa-solid fa-trash-can"></i> Remove</label>
               </div>
             </div>
           @endforeach
         </div>
       @endif
 
-      <label class="adm-drop adm-drop-sm" data-multi-preview>
-        <span><i class="fa-solid fa-images"></i>Add screenshots</span>
+      <label class="adm-drop adm-drop-sm" data-multi-preview data-max="12">
+        <span><i class="fa-solid fa-images"></i>Add screenshots (pick or drop several at once)</span>
         <input type="file" name="screenshots[]" multiple accept="image/jpeg,image/png,image/webp,image/gif">
       </label>
       <div class="adm-shots adm-shots-new" hidden></div>
