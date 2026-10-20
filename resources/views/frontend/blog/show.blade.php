@@ -30,51 +30,118 @@
 
 @push('scripts')
 <script src="{{ asset('assets/js/features.js') }}"></script>
+<script src="{{ asset('assets/js/blog.js') }}"></script>
 @endpush
 
+@php
+  $postUrl = route('blog.show', $blog->slug);
+  $shareLinks = [
+      ['label' => 'Share on X', 'icon' => 'fa-x-twitter', 'href' => 'https://twitter.com/intent/tweet?' . http_build_query(['url' => $postUrl, 'text' => $blog->title])],
+      ['label' => 'Share on LinkedIn', 'icon' => 'fa-linkedin-in', 'href' => 'https://www.linkedin.com/sharing/share-offsite/?' . http_build_query(['url' => $postUrl])],
+      ['label' => 'Share on Facebook', 'icon' => 'fa-facebook-f', 'href' => 'https://www.facebook.com/sharer/sharer.php?' . http_build_query(['u' => $postUrl])],
+  ];
+  $hasSidebar = $related->isNotEmpty() || $recent->isNotEmpty();
+@endphp
+
 @section('content')
+<div class="blog-progress" data-progress aria-hidden="true"><span></span></div>
+
 <!-- BLOG POST -->
-<article class="blog-post">
+<div class="blog-post">
   <div class="wrap">
     <header class="blog-post-head">
-      <a class="blog-back" href="{{ route('blog.index') }}"><i class="fa-solid fa-arrow-left"></i> All posts</a>
-      @if ($blog->category)
-        <a class="chip" href="{{ route('blog.category', $blog->category->slug) }}">{{ $blog->category->name }}</a>
-      @endif
+      <nav class="blog-crumbs" aria-label="Breadcrumb">
+        <a href="{{ route('blog.index') }}"><i class="fa-solid fa-arrow-left"></i> Blog</a>
+        @if ($blog->category)
+          <i class="fa-solid fa-chevron-right"></i>
+          <a href="{{ route('blog.category', $blog->category->slug) }}">{{ $blog->category->name }}</a>
+        @endif
+      </nav>
       <h1 class="rise"><span class="line"><span>{{ $blog->title }}</span></span></h1>
+      @if ($blog->meta_description)<p class="blog-post-lede fade-in">{{ $blog->meta_description }}</p>@endif
       <div class="blog-post-meta fade-in">
-        @if ($blog->author_name)<span><i class="fa-regular fa-user"></i>{{ $blog->author_name }}</span>@endif
-        <span><i class="fa-regular fa-calendar"></i><time datetime="{{ $blog->published_at->toDateString() }}">{{ $blog->published_at->format('F j, Y') }}</time></span>
-        <span><i class="fa-regular fa-clock"></i>{{ $blog->reading_minutes }} min read</span>
+        @if ($blog->author_name)
+          <span class="blog-author">
+            <span class="blog-avatar">{{ Str::upper(Str::substr($blog->author_name, 0, 1)) }}</span>
+            <b>{{ $blog->author_name }}</b>
+          </span>
+        @endif
+        <time datetime="{{ $blog->published_at->toDateString() }}">{{ $blog->published_at->format('F j, Y') }}</time>
+        <span>{{ $blog->reading_minutes }} min read</span>
       </div>
     </header>
 
-    @if ($blog->image_url)
-      <figure class="blog-post-img fade-in"><img src="{{ $blog->image_url }}" alt="{{ $blog->title }}"></figure>
-    @endif
+    <div @class(['blog-post-layout', 'solo' => ! $hasSidebar])>
+      <article class="blog-post-main" data-post>
+        @if ($blog->image_url)
+          <figure class="blog-post-img fade-in"><img src="{{ $blog->image_url }}" alt="{{ $blog->title }}"></figure>
+        @endif
 
-    <div class="blog-prose">{!! $blog->description !!}</div>
+        <div class="blog-prose">{!! $blog->description !!}</div>
 
-    @if ($blog->tags->isNotEmpty())
-      <div class="blog-tags">
-        @foreach ($blog->tags as $t)
-          <a href="{{ route('blog.tag', $t->slug) }}">#{{ $t->name }}</a>
-        @endforeach
-      </div>
-    @endif
-  </div>
-</article>
+        <footer class="blog-post-foot">
+          @if ($blog->tags->isNotEmpty())
+            <div class="blog-tags">
+              @foreach ($blog->tags as $t)
+                <a href="{{ route('blog.tag', $t->slug) }}">#{{ $t->name }}</a>
+              @endforeach
+            </div>
+          @endif
+          <div class="blog-share">
+            <span>Share</span>
+            @foreach ($shareLinks as $link)
+              <a href="{{ $link['href'] }}" target="_blank" rel="noopener" aria-label="{{ $link['label'] }}"><i class="fa-brands {{ $link['icon'] }}"></i></a>
+            @endforeach
+            <button type="button" data-copy="{{ $postUrl }}" aria-label="Copy link"><i class="fa-solid fa-link"></i><em>Copied</em></button>
+          </div>
+        </footer>
+      </article>
 
-@if ($related->isNotEmpty())
-  <section class="blog-related">
-    <div class="wrap">
-      <div class="feat-sec-h"><span>Keep reading</span><em>{{ $related->count() }}</em></div>
-      <div class="blog-grid">
-        @foreach ($related as $post)
-          @include('frontend.blog.partials.card', ['post' => $post])
-        @endforeach
-      </div>
+      @if ($hasSidebar)
+        <aside class="blog-aside">
+          @if ($related->isNotEmpty())
+            <section class="blog-aside-box">
+              <h2 class="blog-aside-h">{{ $blog->category ? 'Related posts' : 'More posts' }}</h2>
+              @foreach ($related as $post)
+                <a class="blog-aside-post" href="{{ route('blog.show', $post->slug) }}">
+                  <span class="blog-aside-art">
+                    @if ($post->image_url)
+                      <img src="{{ $post->image_url }}" alt="" loading="lazy">
+                    @else
+                      <i class="fa-solid fa-newspaper"></i>
+                    @endif
+                  </span>
+                  <span class="blog-aside-txt">
+                    <b>{{ $post->title }}</b>
+                    <time datetime="{{ $post->published_at->toDateString() }}">{{ $post->published_at->format('M j, Y') }}</time>
+                  </span>
+                </a>
+              @endforeach
+              @if ($blog->category)
+                <a class="feat-more" href="{{ route('blog.category', $blog->category->slug) }}">More in {{ $blog->category->name }} <i class="fa-solid fa-arrow-right"></i></a>
+              @endif
+            </section>
+          @endif
+
+          @if ($recent->isNotEmpty())
+            <section class="blog-aside-box">
+              <h2 class="blog-aside-h">Recent posts</h2>
+              <ol class="blog-aside-list">
+                @foreach ($recent as $post)
+                  <li>
+                    <a href="{{ route('blog.show', $post->slug) }}">
+                      <b>{{ $post->title }}</b>
+                      <time datetime="{{ $post->published_at->toDateString() }}">{{ $post->published_at->format('M j, Y') }}</time>
+                    </a>
+                  </li>
+                @endforeach
+              </ol>
+              <a class="feat-more" href="{{ route('blog.index') }}">All posts <i class="fa-solid fa-arrow-right"></i></a>
+            </section>
+          @endif
+        </aside>
+      @endif
     </div>
-  </section>
-@endif
+  </div>
+</div>
 @endsection

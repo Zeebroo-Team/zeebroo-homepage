@@ -975,7 +975,8 @@ footer{padding:var(--sec) 0 0}
 .reveal.in{opacity:1;transform:none}
 
 /* entrance on page load (contact, feature and industry pages) */
-.rise .line{display:block;overflow:hidden;padding-bottom:.06em}
+.rise .line{display:block;overflow:hidden;padding:0 0 .06em;border-radius:0;animation:none}
+.rise .line:hover{background:none}
 .rise .line>span{display:inline-block;transform:translateY(105%);animation:rise 1s var(--ease) forwards}
 .rise .line:nth-child(2)>span{animation-delay:.1s}
 .fade-in{opacity:0;animation:fade .8s var(--ease) var(--d,.3s) forwards}

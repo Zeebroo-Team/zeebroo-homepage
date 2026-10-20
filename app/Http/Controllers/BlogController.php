@@ -33,7 +33,7 @@ class BlogController extends Controller
         return $this->listing($request, tag: $tag);
     }
 
-    // GET /blog/{slug} — one published post plus a few from the same category
+    // GET /blog/{slug} — one published post, a few from the same category and the latest others
     public function show(string $slug): View
     {
         $blog = Blog::published()
@@ -49,9 +49,16 @@ class BlogController extends Controller
             ->take(3)
             ->get();
 
+        $recent = Blog::published()
+            ->whereKeyNot([$blog->getKey(), ...$related->modelKeys()])
+            ->latest('published_at')
+            ->take(5)
+            ->get();
+
         return view('frontend.blog.show', [
             'blog' => $blog,
             'related' => $related,
+            'recent' => $recent,
         ]);
     }
 
