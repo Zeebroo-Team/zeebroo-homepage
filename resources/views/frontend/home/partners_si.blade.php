@@ -3,8 +3,8 @@
 <section class="section" id="partners">
   <div class="wrap">
     <div class="head reveal">
-      <h2>ව්‍යාපාර සහ හවුල්කරුවන් විශ්වාස කරයි.</h2>
-      <p>අප සමඟ එක්ව ගොඩනගන සමාගම් සහ සෑම දිනකම Zeebroo මත ක්‍රියාත්මක වන ව්‍යාපාර.</p>
+      <h2>ව්‍යාපාර සහ හවුල්කරුවන් විශ්වාසය තබන Zeebroo.</h2>
+      <p>අප සමඟ අත්වැල් බැඳගත් ආයතන සහ තම දෛනික කටයුතු සඳහා Zeebroo මත විශ්වාසය තබන ව්‍යාපාර.</p>
     </div>
     <div class="ptn-strip reveal">
       <div class="ptn-track">

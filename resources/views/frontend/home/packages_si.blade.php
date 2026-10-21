@@ -3,8 +3,8 @@
 <section class="section" id="pricing">
   <div class="wrap">
     <div class="head reveal">
-      <h2>සෑම අදියරකටම සරල මිල ගණන්.</h2>
-      <p>ඔබට අවශ්‍ය මොඩියුල එකට ඇතුළත් මාසික පැකේජ. කුඩාවට ආරම්භ කර ව්‍යාපාරය වර්ධනය වන විට ඉහළට යන්න.</p>
+      <h2>කුඩා හෝ විශාල ඕනෑම ව්‍යාපාරයකට ගැළපෙන සරල මිල ගණන්.</h2>
+      <p>ඔබට අවශ්‍ය සියලුම මොඩියුල එකම පැකේජයකට ඇතුළත් මාසික සැලසුම්. කුඩා පැකේජයකින් ආරම්භ කර, ව්‍යාපාරය වර්ධනය වන විට ඉහළ පැකේජයකට මාරු වන්න.</p>
     </div>
     <div class="pkgs home-pkgs">
       @foreach ($homePackages as $p)
@@ -13,7 +13,7 @@
           <div class="pkg-top">
             <div class="pkg-name">
               <h3>{{ $p['name'] }}</h3>
-              @if ($p['save'])<span class="pkg-save">{{ $p['save'] }}% ඉතිරි කරන්න</span>@endif
+              @if ($p['save'])<span class="pkg-save">{{ $p['save'] }}% ක් ඉතිරියි</span>@endif
             </div>
             <div class="pkg-price">
               <b>{{ $p['price'] }}</b>@unless ($p['is_free'])<span>/මසකට</span>@endunless
@@ -23,14 +23,14 @@
           </div>
 
           <div class="pkg-body">
-            <span class="pkg-k">මොඩියුල {{ count($p['features']) }} ක් ඇතුළත්</span>
+            <span class="pkg-k">මොඩියුල {{ count($p['features']) }} ක් ඇතුළත් වේ</span>
             <ul>
               @foreach ($shown as $feature)
                 <li><span><i class="fa-solid fa-check"></i></span>{{ $feature['label'] }}</li>
               @endforeach
             </ul>
             @if (count($p['features']) > count($shown))
-              <span class="pkg-more">තවත් මොඩියුල {{ count($p['features']) - count($shown) }} ක්</span>
+              <span class="pkg-more">+ තවත් මොඩියුල {{ count($p['features']) - count($shown) }} ක්</span>
             @endif
           </div>
 
@@ -40,7 +40,7 @@
         </article>
       @endforeach
     </div>
-    <a class="btn btn-line pkg-home-more" href="{{ route('packages.index') }}">සියලුම පැකේජ සසඳන්න <i class="fa-solid fa-arrow-right"></i></a>
+    <a class="btn btn-line pkg-home-more" href="{{ route('packages.index') }}">සියලුම පැකේජ සසඳා බලන්න <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 </section>
 @endif

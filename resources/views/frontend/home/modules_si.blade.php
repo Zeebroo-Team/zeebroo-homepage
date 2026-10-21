@@ -3,14 +3,14 @@
 <section class="section" id="modules">
   <div class="wrap">
     <div class="head reveal">
-      <h2>ඔබට අවශ්‍ය දේ සක්‍රිය කරන්න. වර්ධනය වන විට ඉතිරිය එක් කරන්න.</h2>
-      <p>සෑම මොඩියුලයක්ම එකම දත්ත බෙදාගන්නා නිසා, මුදල් ලාච්චුව සහ ලෙජරය සැමවිටම එකඟ වේ.</p>
+      <h2>දැන් අවශ්‍ය දේ සක්‍රිය කරන්න. ව්‍යාපාරය වැඩෙද්දී අනෙකුත් මොඩියුල එකතු කරන්න.</h2>
+      <p>හැම මොඩියුලයක්ම එකම දත්ත භාවිත කරන නිසා, කැෂ් ලාච්චුවේ මුදලයි ගිණුම් පොතයි හැමවිටම ගැළපෙනවා.</p>
     </div>
     @if ($homeModules->isNotEmpty())
       <div class="mods reveal">
         <div class="mod-list" id="modList" role="listbox" aria-label="Modules"></div>
         <div class="mod-view" id="modView" aria-live="polite">
-          <span class="mod-status" id="modStatus">ස්ථාපිතයි</span>
+          <span class="mod-status" id="modStatus">සක්‍රියයි</span>
           <div class="art"><img id="modImg" src="{{ $homeModules[0]->spot_url }}" alt="" width="344" height="347" @if (! $homeModules[0]->spot_url) hidden @endif></div>
           <h3 id="modTitle"></h3>
           <p id="modDesc"></p>
@@ -28,7 +28,7 @@
       ])->toJson(JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}</script>
     @endif
     <div class="suite reveal">
-      <span>සියල්ල ඇතුළත්, ඊට අමතරව:</span>
+      <span>ඒ වගේම මේවාත් ඇතුළත්:</span>
       @foreach ($navFeatures->where('group', 'suite') as $f)
         <a href="{{ route('features.show', $f->slug) }}"><i class="fa-solid {{ $f->icon }}"></i>{{ $f->title }}@if ($f->badge) <span class="new">{{ $f->badge }}</span>@endif</a>
       @endforeach

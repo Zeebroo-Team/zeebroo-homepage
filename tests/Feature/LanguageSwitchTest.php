@@ -46,7 +46,7 @@ class LanguageSwitchTest extends TestCase
             ->assertOk()
             ->assertSee('<html lang="en">', false)
             ->assertSee('Grow your business')
-            ->assertDontSee('ඔබේ ව්‍යාපාරය වර්ධනය කරන්න');
+            ->assertDontSee('සියල්ල එකම ඇප් එකකින් පාලනය කරන්න');
     }
 
     public function test_sinhala_visitors_get_the_si_views_and_sinhala_database_content(): void
@@ -57,8 +57,8 @@ class LanguageSwitchTest extends TestCase
             ->get(route('home'))
             ->assertOk()
             ->assertSee('<html lang="si">', false)
-            ->assertSee('ඔබේ ව්‍යාපාරය වර්ධනය කරන්න')
-            ->assertSee('එකම වේදිකාවක්, සියලුම මොඩියුල')
+            ->assertSee('සියල්ල එකම ඇප් එකකින් පාලනය කරන්න')
+            ->assertSee('ඔබේ ව්‍යාපාරයට අවශ්‍ය සියල්ල එකම තැනක')
             ->assertSee('තොග පාලනය')
             ->assertDontSee('Grow your business');
     }
