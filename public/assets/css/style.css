@@ -1017,6 +1017,10 @@ html:lang(si) .pkg-save{font:600 12px/1.2 var(--body);letter-spacing:0;text-tran
 /* Sinhala package cards: the longer button labels can't sit side by side, and their min-content width was stretching the card track past its clipped edge */
 html:lang(si) .pkg{grid-template-columns:minmax(0,1fr)}
 html:lang(si) .pkg-btns{grid-template-columns:1fr}
+/* Sinhala small labels: wide mono tracking splits the conjunct letters apart */
+html:lang(si) .label,html:lang(si) .ptn-stats span,html:lang(si) .feat-sec-h span{font-family:var(--body);letter-spacing:0;text-transform:none;line-height:1.4}
+html:lang(si) .label{font-size:14px}
+html:lang(si) .ptn-stats span,html:lang(si) .feat-sec-h span{font-size:14px}
 html:lang(si) .mega .badge{font-family:var(--body);letter-spacing:0;font-size:10px;padding:3px 8px}
 html:lang(si) .mega-side h3{font-size:19px;line-height:1.4}
 html:lang(si) .mega-side p{font-size:13px;line-height:1.7}
