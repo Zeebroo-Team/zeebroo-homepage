@@ -109,7 +109,7 @@
                 <a href="{{ route('about') }}"><span class="mi"><i class="fa-solid fa-building"></i></span><div><b>අපි ගැන</b><small>අපි කවුද, අපි කරන්නේ මොනවාද</small></div></a>
                 <a href="{{ route('partners.index') }}"><span class="mi"><i class="fa-solid fa-handshake"></i></span><div><b>හවුල්කරුවන් සහ ගනුදෙනුකරුවන්</b><small>අපිත් එක්ක එකට වැඩ කරන අය</small></div></a>
                 <a href="{{ route('testimonials.index') }}"><span class="mi"><i class="fa-solid fa-comment-dots"></i></span><div><b>පාරිභෝගික අදහස්</b><small>අපේ පාරිභෝගිකයන් කියන දේ</small></div></a>
-                <a href="{{ route('blog.index') }}"><span class="mi"><i class="fa-solid fa-newspaper"></i></span><div><b>බ්ලොග්</b><small>පුවත්, උපදෙස් සහ අලුත් තොරතුරු</small></div></a>
+                <a href="{{ route('blog.index') }}"><span class="mi"><i class="fa-solid fa-newspaper"></i></span><div><b>ලිපි</b><small>පුවත්, උපදෙස් සහ අලුත් තොරතුරු</small></div></a>
               </div>
             </div>
           </div>

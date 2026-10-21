@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', ($blog->meta_title ?: $blog->title) . ' | Zeebroo බ්ලොග්')
+@section('title', ($blog->meta_title ?: $blog->title) . ' | Zeebroo ලිපි')
 @section('description', $blog->meta_description ?: $blog->excerpt)
 
 @push('head')
@@ -51,7 +51,7 @@
   <div class="wrap">
     <header class="blog-post-head">
       <nav class="blog-crumbs" aria-label="පිටු මාර්ගය">
-        <a href="{{ route('blog.index') }}"><i class="fa-solid fa-arrow-left"></i> බ්ලොග්</a>
+        <a href="{{ route('blog.index') }}"><i class="fa-solid fa-arrow-left"></i> ලිපි</a>
         @if ($blog->category)
           <i class="fa-solid fa-chevron-right"></i>
           <a href="{{ route('blog.category', $blog->category->slug) }}">{{ $blog->category->name }}</a>

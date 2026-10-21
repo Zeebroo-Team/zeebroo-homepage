@@ -10,7 +10,7 @@
   $rest = $showLead ? $posts->slice(3) : $posts;
 @endphp
 
-@section('title', ($heading ? $heading . ' | ' : '') . 'බ්ලොග් | Zeebroo: පුවත්, උපදෙස් සහ යාවත්කාලීන කිරීම්')
+@section('title', ($heading ? $heading . ' | ' : '') . 'ලිපි | Zeebroo: පුවත්, උපදෙස් සහ යාවත්කාලීන කිරීම්')
 @section('description', $category?->description ?: 'Zeebroo සමඟ ඔබේ සාප්පුව, තොගය, මුදල් සහ කාර්ය මණ්ඩලය කළමනාකරණය සඳහා පුවත්, නිෂ්පාදන යාවත්කාලීන කිරීම් සහ ප්‍රායෝගික උපදෙස්.')
 
 @push('head')
@@ -29,7 +29,7 @@
   <div class="wrap">
     <div class="blog-top">
       <div class="head">
-        <span class="label">{{ $tag ? 'ටැගය' : ($category ? 'කාණ්ඩය' : 'බ්ලොග්') }}</span>
+        <span class="label">{{ $tag ? 'ටැගය' : ($category ? 'කාණ්ඩය' : 'ලිපි') }}</span>
         @if ($heading)
           <h1 class="rise"><span class="line"><span>{{ $heading }}</span></span></h1>
           @if ($category?->description)<p class="fade-in">{{ $category->description }}</p>@endif
@@ -46,7 +46,7 @@
 
     <div class="blog-cats-wrap" data-cats>
       <button type="button" class="blog-cats-btn prev" data-cats-step="-1" aria-label="කාණ්ඩ වමට අනුචලනය කරන්න" tabindex="-1"><i class="fa-solid fa-chevron-left"></i></button>
-      <nav class="blog-cats" aria-label="බ්ලොග් කාණ්ඩ">
+      <nav class="blog-cats" aria-label="ලිපි කාණ්ඩ">
         <a href="{{ route('blog.index') }}" @class(['on' => ! $category && ! $tag])>සියල්ල</a>
         @foreach ($categories as $c)
           <a href="{{ route('blog.category', $c->slug) }}" @class(['on' => $category?->is($c)])>{{ $c->name }} <em>{{ $c->blogs_count }}</em></a>
