@@ -10,12 +10,12 @@
   </div>
   <div class="blog-card-body">
     <div class="blog-card-meta">
-      @if ($variant === 'lead')<span class="blog-card-flag"><i class="fa-solid fa-star"></i> විශේෂිත</span>@endif
+      @if ($variant === 'lead')<span class="blog-card-flag"><i class="fa-solid fa-star"></i> විශේෂ ලිපිය</span>@endif
       <time datetime="{{ $post->published_at->toDateString() }}">{{ $post->published_at->translatedFormat('Y M j') }}</time>
-      <span>කියවීමට මිනිත්තු {{ $post->reading_minutes }}</span>
+      <span>මිනිත්තු {{ $post->reading_minutes }}ක කියවීමක්</span>
     </div>
     <b>{{ $post->title }}</b>
     @if ($variant !== 'mini')<p>{{ $post->excerpt }}</p>@endif
-    <span class="feat-more">ලිපිය කියවන්න <i class="fa-solid fa-arrow-right"></i></span>
+    <span class="feat-more">සම්පූර්ණ ලිපිය කියවන්න <i class="fa-solid fa-arrow-right"></i></span>
   </div>
 </a>

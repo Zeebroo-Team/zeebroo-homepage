@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', ($blog->meta_title ?: $blog->title) . ' | Zeebroo ලිපි')
+@section('title', ($blog->meta_title ?: $blog->title) . ' | Zeebroo බ්ලොග්')
 @section('description', $blog->meta_description ?: $blog->excerpt)
 
 @push('head')
@@ -36,9 +36,9 @@
 @php
   $postUrl = route('blog.show', $blog->slug);
   $shareLinks = [
-      ['label' => 'X හි බෙදාගන්න', 'icon' => 'fa-x-twitter', 'href' => 'https://twitter.com/intent/tweet?' . http_build_query(['url' => $postUrl, 'text' => $blog->title])],
-      ['label' => 'LinkedIn හි බෙදාගන්න', 'icon' => 'fa-linkedin-in', 'href' => 'https://www.linkedin.com/sharing/share-offsite/?' . http_build_query(['url' => $postUrl])],
-      ['label' => 'Facebook හි බෙදාගන්න', 'icon' => 'fa-facebook-f', 'href' => 'https://www.facebook.com/sharer/sharer.php?' . http_build_query(['u' => $postUrl])],
+      ['label' => 'X හරහා බෙදාගන්න', 'icon' => 'fa-x-twitter', 'href' => 'https://twitter.com/intent/tweet?' . http_build_query(['url' => $postUrl, 'text' => $blog->title])],
+      ['label' => 'LinkedIn හරහා බෙදාගන්න', 'icon' => 'fa-linkedin-in', 'href' => 'https://www.linkedin.com/sharing/share-offsite/?' . http_build_query(['url' => $postUrl])],
+      ['label' => 'Facebook හරහා බෙදාගන්න', 'icon' => 'fa-facebook-f', 'href' => 'https://www.facebook.com/sharer/sharer.php?' . http_build_query(['u' => $postUrl])],
   ];
   $hasSidebar = $related->isNotEmpty() || $recent->isNotEmpty();
 @endphp
@@ -51,7 +51,7 @@
   <div class="wrap">
     <header class="blog-post-head">
       <nav class="blog-crumbs" aria-label="පිටු මාර්ගය">
-        <a href="{{ route('blog.index') }}"><i class="fa-solid fa-arrow-left"></i> ලිපි</a>
+        <a href="{{ route('blog.index') }}"><i class="fa-solid fa-arrow-left"></i> බ්ලොග්</a>
         @if ($blog->category)
           <i class="fa-solid fa-chevron-right"></i>
           <a href="{{ route('blog.category', $blog->category->slug) }}">{{ $blog->category->name }}</a>
@@ -67,7 +67,7 @@
           </span>
         @endif
         <time datetime="{{ $blog->published_at->toDateString() }}">{{ $blog->published_at->translatedFormat('Y F j') }}</time>
-        <span>කියවීමට මිනිත්තු {{ $blog->reading_minutes }}</span>
+        <span>මිනිත්තු {{ $blog->reading_minutes }}ක කියවීමක්</span>
       </div>
     </header>
 
@@ -88,11 +88,11 @@
             </div>
           @endif
           <div class="blog-share">
-            <span>බෙදාගන්න</span>
+            <span>මෙම ලිපිය බෙදාගන්න</span>
             @foreach ($shareLinks as $link)
               <a href="{{ $link['href'] }}" target="_blank" rel="noopener" aria-label="{{ $link['label'] }}"><i class="fa-brands {{ $link['icon'] }}"></i></a>
             @endforeach
-            <button type="button" data-copy="{{ $postUrl }}" aria-label="සබැඳිය පිටපත් කරන්න"><i class="fa-solid fa-link"></i><em>පිටපත් විය</em></button>
+            <button type="button" data-copy="{{ $postUrl }}" aria-label="සබැඳිය පිටපත් කරන්න"><i class="fa-solid fa-link"></i><em>පිටපත් කළා!</em></button>
           </div>
         </footer>
       </article>
@@ -118,14 +118,14 @@
                 </a>
               @endforeach
               @if ($blog->category)
-                <a class="feat-more" href="{{ route('blog.category', $blog->category->slug) }}">{{ $blog->category->name }} හි තවත් <i class="fa-solid fa-arrow-right"></i></a>
+                <a class="feat-more" href="{{ route('blog.category', $blog->category->slug) }}">{{ $blog->category->name }} යටතේ තවත් ලිපි <i class="fa-solid fa-arrow-right"></i></a>
               @endif
             </section>
           @endif
 
           @if ($recent->isNotEmpty())
             <section class="blog-aside-box">
-              <h2 class="blog-aside-h">මෑත ලිපි</h2>
+              <h2 class="blog-aside-h">නවතම ලිපි</h2>
               <ol class="blog-aside-list">
                 @foreach ($recent as $post)
                   <li>
@@ -136,7 +136,7 @@
                   </li>
                 @endforeach
               </ol>
-              <a class="feat-more" href="{{ route('blog.index') }}">සියලුම ලිපි <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="feat-more" href="{{ route('blog.index') }}">සියලු ලිපි බලන්න <i class="fa-solid fa-arrow-right"></i></a>
             </section>
           @endif
         </aside>
