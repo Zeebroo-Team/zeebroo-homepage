@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasTranslations;
 use Database\Factories\FeatureScreenshotFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -17,7 +18,12 @@ use Illuminate\Support\Facades\Storage;
 class FeatureScreenshot extends Model
 {
     /** @use HasFactory<FeatureScreenshotFactory> */
-    use HasFactory;
+    use HasFactory, HasTranslations;
+
+    protected function translatableAttributes(): array
+    {
+        return ['caption'];
+    }
 
     /**
      * @return BelongsTo<Feature, $this>

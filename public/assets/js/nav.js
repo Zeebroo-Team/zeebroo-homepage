@@ -13,7 +13,7 @@
     nav.classList.toggle('open',open);
     document.body.classList.toggle('nav-lock',open);
     burger.setAttribute('aria-expanded',open);
-    burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+    burger.setAttribute('aria-label',open?(burger.dataset.labelClose||'Close menu'):(burger.dataset.labelOpen||'Open menu'));
     burgerIcon.className=open?'fa-solid fa-xmark':'fa-solid fa-bars';
     if(!open){dds.forEach(dd=>{dd.classList.remove('open');dd.querySelector('.nav-dd-t').setAttribute('aria-expanded',false)})}
   };

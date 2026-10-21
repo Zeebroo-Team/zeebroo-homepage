@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasTranslations;
 use App\Models\Concerns\HasUniqueSlug;
 use Database\Factories\BlogFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -22,11 +23,16 @@ use Illuminate\Support\Str;
 class Blog extends Model
 {
     /** @use HasFactory<BlogFactory> */
-    use HasFactory, HasUniqueSlug;
+    use HasFactory, HasTranslations, HasUniqueSlug;
 
     protected function slugSource(): string
     {
         return 'title';
+    }
+
+    protected function translatableAttributes(): array
+    {
+        return ['title', 'meta_title', 'meta_description', 'meta_keywords', 'description'];
     }
 
     /**
@@ -78,7 +84,10 @@ class Blog extends Model
      */
     protected function readingMinutes(): Attribute
     {
-        return Attribute::get(fn (): int => max(1, (int) ceil(str_word_count(strip_tags((string) $this->description)) / 200)));
+        // split on whitespace rather than str_word_count(), which only counts Latin letters and misses Sinhala words
+        $words = fn (): int => count(preg_split('/\s+/u', strip_tags((string) $this->description), -1, PREG_SPLIT_NO_EMPTY));
+
+        return Attribute::get(fn (): int => max(1, (int) ceil($words() / 200)));
     }
 
     /**

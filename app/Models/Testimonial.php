@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasTranslations;
 use Database\Factories\TestimonialFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,7 +22,7 @@ use Illuminate\Support\Str;
 class Testimonial extends Model
 {
     /** @use HasFactory<TestimonialFactory> */
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     /**
      * Lowest and highest star rating an admin can give.
@@ -29,6 +30,11 @@ class Testimonial extends Model
     public const MIN_RATING = 1;
 
     public const MAX_RATING = 5;
+
+    protected function translatableAttributes(): array
+    {
+        return ['name', 'position', 'message'];
+    }
 
     /**
      * @param  Builder<self>  $query

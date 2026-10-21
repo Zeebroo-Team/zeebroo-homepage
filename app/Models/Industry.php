@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasTranslations;
 use App\Models\Concerns\HasUniqueSlug;
 use Database\Factories\IndustryFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -31,11 +32,19 @@ use Illuminate\Support\Facades\Storage;
 class Industry extends Model
 {
     /** @use HasFactory<IndustryFactory> */
-    use HasFactory, HasUniqueSlug;
+    use HasFactory, HasTranslations, HasUniqueSlug;
 
     protected function slugSource(): string
     {
         return 'title';
+    }
+
+    protected function translatableAttributes(): array
+    {
+        return [
+            'title', 'menu', 'badge', 'headline', 'lead', 'highlights', 'capabilities',
+            'meta_title', 'meta_description', 'meta_keywords',
+        ];
     }
 
     /**

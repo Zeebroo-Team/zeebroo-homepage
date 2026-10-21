@@ -2,6 +2,21 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const fmt=n=>'Rs '+Math.round(n).toLocaleString('en-US');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/* visible text, English by default; a translated home page (index_si.blade.php) sets window.ZB_TEXT with the same keys */
+const T=Object.assign({
+  cats:{All:'All',Bakery:'Bakery',Drinks:'Drinks',Dairy:'Dairy',Fresh:'Fresh'},
+  products:[],
+  add:'Add {name}, {price}',lowStock:'Low stock: ',left:'{n} left',noResults:'No products match. Try another search.',
+  empty:'The cart is empty. Tap a product to start a sale.',removeOne:'Remove one {name}',addOne:'Add one {name}',discRule:'(5% over Rs 2,000)',
+  methods:{Cash:'Cash',Card:'Card',QR:'QR'},
+  shop:'ZEEBROO MART',branch:'Colombo 03, Branch 1',receiptNo:'Receipt #{no}',subtotal:'Subtotal',discount:'Discount',total:'TOTAL',paidBy:'Paid by {method}',thanks:'Thank you, come again!',
+  sold:'Ka-ching! <b>{amount}</b> sold.',
+  roles:null,
+  modOn:'Installed',modOff:'Turned off',enable:'Enable {name}',learnMore:'Learn more about {name}',illustration:'Zeebroo zebra illustration for {name}',
+  bills:null,income:null,expenses:'Expenses',expensesTotal:'106,839.88 / month',business:'Your business',incomeLabel:'Income',streams:'4 streams',
+},window.ZB_TEXT||{});
+const tr=(s,v)=>s.replace(/\{(\w+)\}/g,(m,k)=>v[k]??m);
+
 /* ---------- POS demo ---------- */
 const P=[
   {n:'Fresh Bread Loaf',c:'Bakery',p:180,s:24,i:'fa-bread-slice',bg:'#FFF3DC',fg:'#B5730F'},
@@ -15,17 +30,18 @@ const P=[
   {n:'Red Apples 1kg',c:'Fresh',p:890,s:18,i:'fa-apple-whole',bg:'#FDECEC',fg:'#CC3535'},
   {n:'Carrots 500g',c:'Fresh',p:260,s:30,i:'fa-carrot',bg:'#FFEFE2',fg:'#D25F12'},
 ];
+T.products.forEach((n,k)=>{if(n&&P[k])P[k].n=n});
 const cats=['All','Bakery','Drinks','Dairy','Fresh'];
 let cat='All', cart=new Map([[2,1],[0,2]]), method='Cash', sales=235, rev=753292;
 const grid=$('#grid'), lines=$('#lines'), bubble=$('#bubble'), mascot=$('#mascot');
 
-$('#cats').innerHTML=cats.map(c=>`<button role="tab" aria-selected="${c===cat}" class="${c===cat?'on':''}">${c}</button>`).join('');
-$('#cats').onclick=e=>{const b=e.target.closest('button');if(!b)return;cat=b.textContent;$$('#cats button').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-selected',x===b)});filter()};
+$('#cats').innerHTML=cats.map(c=>`<button role="tab" data-c="${c}" aria-selected="${c===cat}" class="${c===cat?'on':''}">${T.cats[c]||c}</button>`).join('');
+$('#cats').onclick=e=>{const b=e.target.closest('button');if(!b)return;cat=b.dataset.c;$$('#cats button').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-selected',x===b)});filter()};
 
 function renderGrid(){
-  grid.innerHTML=P.map((p,k)=>`<button class="prod" data-k="${k}" style="--bg:${p.bg};--fg:${p.fg}" aria-label="Add ${p.n}, ${fmt(p.p)}">
+  grid.innerHTML=P.map((p,k)=>`<button class="prod" data-k="${k}" style="--bg:${p.bg};--fg:${p.fg}" aria-label="${tr(T.add,{name:p.n,price:fmt(p.p)})}">
     <div class="ic"><i class="fa-solid ${p.i}"></i></div><b>${p.n}</b>
-    <small class="${p.s<5?'low':''}">${p.s<5?'Low stock: ':''}${p.s} left</small><em>${fmt(p.p)}</em></button>`).join('')+'<div class="nores" hidden>No products match. Try another search.</div>';
+    <small class="${p.s<5?'low':''}">${p.s<5?T.lowStock:''}${tr(T.left,{n:p.s})}</small><em>${fmt(p.p)}</em></button>`).join('')+`<div class="nores" hidden>${T.noResults}</div>`;
   filter();
 }
 function filter(){
@@ -61,11 +77,11 @@ function renderCart(){
   const t=totals();
   lines.innerHTML=cart.size?[...cart].map(([k,q])=>{const p=P[k];return `<div class="line" style="--bg:${p.bg};--fg:${p.fg}">
     <span class="ic"><i class="fa-solid ${p.i}"></i></span><div><b>${p.n}</b><small>${fmt(p.p*q)}</small></div>
-    <div class="qty"><button data-k="${k}" data-d="-1" aria-label="Remove one ${p.n}"><i class="fa-solid fa-minus"></i></button><span>${q}</span><button data-k="${k}" data-d="1" aria-label="Add one ${p.n}"><i class="fa-solid fa-plus"></i></button></div></div>`}).join('')
-    :`<div class="empty"><i class="fa-solid fa-cart-plus"></i>The cart is empty. Tap a product to start a sale.</div>`;
+    <div class="qty"><button data-k="${k}" data-d="-1" aria-label="${tr(T.removeOne,{name:p.n})}"><i class="fa-solid fa-minus"></i></button><span>${q}</span><button data-k="${k}" data-d="1" aria-label="${tr(T.addOne,{name:p.n})}"><i class="fa-solid fa-plus"></i></button></div></div>`}).join('')
+    :`<div class="empty"><i class="fa-solid fa-cart-plus"></i>${T.empty}</div>`;
   $('#count').textContent=t.qty;
   $('#sub').textContent=fmt(t.sub);
-  $('#disc').textContent=t.disc?'-'+fmt(t.disc)+' (5% over Rs 2,000)':'Rs 0';
+  $('#disc').textContent=t.disc?'-'+fmt(t.disc)+' '+T.discRule:'Rs 0';
   $('#tot').textContent=fmt(t.tot);
   $('#chargeAmt').textContent=fmt(t.tot);
   $('#charge').disabled=!t.qty;
@@ -89,15 +105,15 @@ $('#stSales').dataset.v=sales;$('#stRev').dataset.v=rev;
 $('#charge').onclick=()=>{
   const t=totals();if(!t.qty)return;
   const now=new Date(), no=String(1000+sales).padStart(6,'0');
-  $('#receipt').innerHTML=`<h4>ZEEBROO MART</h4><div class="c">Colombo 03, Branch 1</div><div class="c">${now.toLocaleDateString('en-GB')} ${now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</div><div class="c">Receipt #${no}</div><hr>`+
+  $('#receipt').innerHTML=`<h4>${T.shop}</h4><div class="c">${T.branch}</div><div class="c">${now.toLocaleDateString('en-GB')} ${now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</div><div class="c">${tr(T.receiptNo,{no})}</div><hr>`+
     [...cart].map(([k,q])=>`<div class="r"><span>${q}x ${P[k].n}</span><span>${(P[k].p*q).toLocaleString('en-US')}</span></div>`).join('')+
-    `<hr><div class="r"><span>Subtotal</span><span>${t.sub.toLocaleString('en-US')}</span></div>`+(t.disc?`<div class="r"><span>Discount</span><span>-${t.disc.toLocaleString('en-US')}</span></div>`:'')+
-    `<div class="r tot"><span>TOTAL</span><span>${fmt(t.tot)}</span></div><div class="r"><span>Paid by ${method}</span><span>OK</span></div><hr><div class="c">Thank you, come again!</div><div class="barcode"></div>`;
+    `<hr><div class="r"><span>${T.subtotal}</span><span>${t.sub.toLocaleString('en-US')}</span></div>`+(t.disc?`<div class="r"><span>${T.discount}</span><span>-${t.disc.toLocaleString('en-US')}</span></div>`:'')+
+    `<div class="r tot"><span>${T.total}</span><span>${fmt(t.tot)}</span></div><div class="r"><span>${tr(T.paidBy,{method:T.methods[method]||method})}</span><span>OK</span></div><hr><div class="c">${T.thanks}</div><div class="barcode"></div>`;
   $('#rwrap').classList.add('show');
   cart.forEach((q,k)=>P[k].s-=q);
   sales++;rev+=t.tot;
   countTo($('#stSales'),sales);countTo($('#stRev'),rev);
-  bubble.innerHTML=`Ka-ching! <b>${fmt(t.tot)}</b> sold.`;bubble.classList.remove('hide');
+  bubble.innerHTML=tr(T.sold,{amount:fmt(t.tot)});bubble.classList.remove('hide');
   if(!reduce){mascot.classList.remove('cheer');void mascot.offsetWidth;mascot.classList.add('cheer')}
   setTimeout(()=>bubble.classList.add('hide'),3000);
   setTimeout(()=>$('#newSale').focus({preventScroll:true}),1500);
@@ -106,7 +122,7 @@ $('#newSale').onclick=()=>{$('#rwrap').classList.remove('show');cart.clear();ren
 renderGrid();renderCart();
 
 /* ---------- roles ---------- */
-const roles=[
+const roles=T.roles||[
   {n:'Nimali',r:'Cashier',p:[['Ring up sales',1],['Issue refunds',0],['View reports',0]]},
   {n:'Kasun',r:'Manager',p:[['Ring up sales',1],['Edit stock',1],['View reports',1]]},
   {n:'Ayesha',r:'Accountant',p:[['Pay bills',1],['View reports',1],['Edit stock',0]]},
@@ -120,16 +136,16 @@ if($('#modData')){
 const M=JSON.parse($('#modData').textContent);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 const on=M.map(()=>true);let sel=0;
-$('#modList').innerHTML=M.map((m,k)=>`<div class="mod-row${k?'':' sel'}" data-k="${k}" role="option" aria-selected="${!k}" tabindex="0"><span class="mi"><i class="fa-solid ${esc(m.i)}"></i></span><div><b>${esc(m.t)}</b><small>${esc(m.s)}</small></div><button class="sw" role="switch" aria-checked="true" aria-label="Enable ${esc(m.t)}"></button><span class="bar"></span></div>`).join('');
+$('#modList').innerHTML=M.map((m,k)=>`<div class="mod-row${k?'':' sel'}" data-k="${k}" role="option" aria-selected="${!k}" tabindex="0"><span class="mi"><i class="fa-solid ${esc(m.i)}"></i></span><div><b>${esc(m.t)}</b><small>${esc(m.s)}</small></div><button class="sw" role="switch" aria-checked="true" aria-label="${esc(tr(T.enable,{name:m.t}))}"></button><span class="bar"></span></div>`).join('');
 M.forEach(m=>{if(m.img)new Image().src=m.img});
 function showMod(k){
   const m=M[k],img=$('#modImg'),changed=sel!==k;sel=k;
   $$('.mod-row').forEach((r,i)=>{r.classList.toggle('sel',i===k);r.setAttribute('aria-selected',i===k)});
   $('#modView').classList.toggle('off',!on[k]);
-  $('#modStatus').textContent=on[k]?'Installed':'Turned off';
+  $('#modStatus').textContent=on[k]?T.modOn:T.modOff;
   $('#modTitle').textContent=m.t;$('#modDesc').textContent=m.d||'';
-  const more=$('#modMore');more.href=m.u;more.setAttribute('aria-label','Learn more about '+m.t);
-  img.alt='Zeebroo zebra illustration for '+m.t;
+  const more=$('#modMore');more.href=m.u;more.setAttribute('aria-label',tr(T.learnMore,{name:m.t}));
+  img.alt=tr(T.illustration,{name:m.t});
   const swap=()=>{img.hidden=!m.img;if(m.img)img.src=m.img};
   if(changed&&!reduce){img.classList.add('swap');setTimeout(()=>{swap();img.classList.remove('swap')},180)}else swap();
 }
@@ -156,8 +172,8 @@ if(auto){
 
 /* ---------- finance map ---------- */
 (function(){
-  const L=[['Electricity Bill','Overdue',1],['Gas Bill','5,000.00, overdue',1],['Telephone Bill','Overdue',1],['Waste Bill','2,999.97, overdue',1],['Water Bill','Overdue',1],['Enterprise Loan','20,023.96 / month',0],['Car Rental','48,815.95 / month',0]];
-  const R=[['POS Sales','Sales transactions'],['Quotations','Web panel'],['Invoices','Web panel'],['Credit Recovery','Outstanding credits']];
+  const L=T.bills||[['Electricity Bill','Overdue',1],['Gas Bill','5,000.00, overdue',1],['Telephone Bill','Overdue',1],['Waste Bill','2,999.97, overdue',1],['Water Bill','Overdue',1],['Enterprise Loan','20,023.96 / month',0],['Car Rental','48,815.95 / month',0]];
+  const R=T.income||[['POS Sales','Sales transactions'],['Quotations','Web panel'],['Invoices','Web panel'],['Credit Recovery','Outstanding credits']];
   let s='';
   const node=(x,y,w,h,t,sub,id,od)=>`<g class="nd${od?' od':''}" data-id="${id}" tabindex="0"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h/2}"/><text x="${x+26}" y="${y+h/2-3}">${t}</text><text class="s" x="${x+26}" y="${y+h/2+15}">${sub}</text></g>`;
   L.forEach((n,i)=>{const y=24+i*76+28;s+=`<path class="wire" id="wl${i}" d="M250 ${y} C 300 ${y}, 290 280, 330 280"/><path class="pulse ex" d="M330 280 C 290 280, 300 ${y}, 250 ${y}" style="animation-delay:${-i*.2}s"/>`});
@@ -165,9 +181,9 @@ if(auto){
   s+=`<path class="wire" d="M545 280 L500 280"/><path class="pulse ex" d="M545 280 L500 280"/><path class="wire" d="M780 280 L735 280"/><path class="pulse inc" d="M780 280 L735 280"/>`;
   L.forEach((n,i)=>s+=node(20,24+i*76,230,56,n[0],n[1],'l'+i,n[2]));
   R.forEach((n,i)=>s+=node(990,110+i*96,230,56,n[0],n[1],'r'+i));
-  s+=`<g class="nd hub"><rect x="330" y="244" width="170" height="72" rx="36" style="stroke:#FF7A7E"/><text x="415" y="274" text-anchor="middle" style="fill:#FF7A7E">Expenses</text><text class="s" x="415" y="296" text-anchor="middle">106,839.88 / month</text></g>`;
-  s+=`<g class="nd hub"><rect x="545" y="244" width="190" height="72" rx="36" style="fill:#FFCB2F;stroke:#FFCB2F"/><text x="640" y="287" text-anchor="middle" style="fill:#121212">Your business</text></g>`;
-  s+=`<g class="nd hub"><rect x="780" y="244" width="150" height="72" rx="36" style="stroke:#4ADE80"/><text x="855" y="274" text-anchor="middle" style="fill:#4ADE80">Income</text><text class="s" x="855" y="296" text-anchor="middle">4 streams</text></g>`;
+  s+=`<g class="nd hub"><rect x="330" y="244" width="170" height="72" rx="36" style="stroke:#FF7A7E"/><text x="415" y="274" text-anchor="middle" style="fill:#FF7A7E">${T.expenses}</text><text class="s" x="415" y="296" text-anchor="middle">${T.expensesTotal}</text></g>`;
+  s+=`<g class="nd hub"><rect x="545" y="244" width="190" height="72" rx="36" style="fill:#FFCB2F;stroke:#FFCB2F"/><text x="640" y="287" text-anchor="middle" style="fill:#121212">${T.business}</text></g>`;
+  s+=`<g class="nd hub"><rect x="780" y="244" width="150" height="72" rx="36" style="stroke:#4ADE80"/><text x="855" y="274" text-anchor="middle" style="fill:#4ADE80">${T.incomeLabel}</text><text class="s" x="855" y="296" text-anchor="middle">${T.streams}</text></g>`;
   const f=$('#flow');f.innerHTML=s;
   f.querySelectorAll('.nd[data-id]').forEach(g=>{
     const w=f.querySelector('#w'+g.dataset.id), hl=v=>{g.classList.toggle('hl',v);w.classList.toggle('hl',v)};

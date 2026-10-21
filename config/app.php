@@ -86,6 +86,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Website Languages
+    |--------------------------------------------------------------------------
+    |
+    | Languages a visitor can pick with the switch on the public website,
+    | keyed by locale. Static text lives in lang/{locale}/*.php and database
+    | content in the matching `{column}_{locale}` columns.
+    |
+    */
+
+    'locales' => [
+        'en' => 'English',
+        'si' => 'සිංහල',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Encryption Key
     |--------------------------------------------------------------------------
     |

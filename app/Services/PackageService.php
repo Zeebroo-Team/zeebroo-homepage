@@ -21,14 +21,17 @@ class PackageService
     /** @return array<string, array> slug => package, in the platform's sort order */
     public function all(): array
     {
-        $cached = Cache::get('packages.all');
+        // one copy per website language, since module names and the "Free" price are translated
+        $cacheKey = 'packages.all.'.app()->getLocale();
+
+        $cached = Cache::get($cacheKey);
         if ($cached !== null) {
             return $cached;
         }
 
         $packages = $this->fetch();
         // A failed lookup is cached briefly so a platform outage doesn't slow every page view
-        Cache::put('packages.all', $packages ?? [], $packages ? now()->addMinutes(10) : now()->addMinute());
+        Cache::put($cacheKey, $packages ?? [], $packages ? now()->addMinutes(10) : now()->addMinute());
 
         return $packages ?? [];
     }
@@ -71,7 +74,7 @@ class PackageService
         }
 
         // feature pages a package's modules link to, keyed by slug
-        $pages = Feature::active()->get(['slug', 'title', 'icon', 'menu'])->keyBy('slug')->all();
+        $pages = Feature::active()->get(['slug', 'title', 'title_si', 'icon', 'menu', 'menu_si'])->keyBy('slug')->all();
 
         $packages = [];
         foreach ($data as $row) {
@@ -92,12 +95,16 @@ class PackageService
         $hasDiscount = $discounted !== null && $discounted < $price;
         $isFree = (bool) ($row['is_free'] ?? false);
 
+        // the platform only names modules in English, so a translated website uses the module page's own title
+        $isTranslated = app()->getLocale() !== config('app.fallback_locale');
+
         $features = [];
         foreach (array_values($row['features'] ?? []) as $i => $key) {
             $slug = self::FEATURE_SLUGS[$key] ?? str_replace('_', '-', (string) $key);
             $page = $pages[$slug] ?? null;
+            $platformLabel = $isTranslated && $page ? null : ($row['feature_labels'][$i] ?? null);
             $features[$key] = [
-                'label' => $row['feature_labels'][$i] ?? ($page['title'] ?? ucwords(str_replace('_', ' ', (string) $key))),
+                'label' => $platformLabel ?? ($page['title'] ?? ucwords(str_replace('_', ' ', (string) $key))),
                 'slug' => $page ? $slug : null,
                 'icon' => $page['icon'] ?? 'fa-puzzle-piece',
                 'menu' => $page['menu'] ?? null,
@@ -113,7 +120,7 @@ class PackageService
             'description' => $row['description'] ?? null,
             'image_url' => $row['image_url'] ?? null,
             'is_free' => $isFree,
-            'price' => $isFree ? 'Free' : $money($hasDiscount ? $discounted : $price),
+            'price' => $isFree ? __('Free') : $money($hasDiscount ? $discounted : $price),
             'was' => ! $isFree && $hasDiscount ? $money($price) : null,
             'save' => ! $isFree && $hasDiscount && $price > 0 ? (int) round(100 - $discounted / $price * 100) : null,
             'pos_lite' => (bool) ($row['supports_pos_lite'] ?? false),

@@ -72,7 +72,9 @@ class BlogController extends Controller
             ->when($tag, fn (Builder $q) => $q->whereHas('tags', fn (Builder $t) => $t->whereKey($tag->id)))
             ->when($search !== '', fn (Builder $q) => $q->where(fn (Builder $w) => $w
                 ->where('title', 'like', "%{$search}%")
-                ->orWhere('description', 'like', "%{$search}%")))
+                ->orWhere('title_si', 'like', "%{$search}%")
+                ->orWhere('description', 'like', "%{$search}%")
+                ->orWhere('description_si', 'like', "%{$search}%")))
             ->latest('published_at')
             ->paginate(9)
             ->withQueryString();

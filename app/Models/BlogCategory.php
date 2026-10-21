@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasTranslations;
 use App\Models\Concerns\HasUniqueSlug;
 use Database\Factories\BlogCategoryFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -14,11 +15,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class BlogCategory extends Model
 {
     /** @use HasFactory<BlogCategoryFactory> */
-    use HasFactory, HasUniqueSlug;
+    use HasFactory, HasTranslations, HasUniqueSlug;
 
     protected function slugSource(): string
     {
         return 'name';
+    }
+
+    protected function translatableAttributes(): array
+    {
+        return ['name', 'description'];
     }
 
     /**

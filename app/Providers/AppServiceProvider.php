@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Feature;
 use App\Models\Industry;
 use App\Models\User;
+use App\Services\LocalizedViewFinder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
@@ -18,7 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Sinhala copies of views (hero_si.blade.php) are picked automatically when the website is in Sinhala
+        $this->app->bind('view.finder', fn ($app) => new LocalizedViewFinder($app['files'], $app['config']['view.paths']));
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasTranslations;
 use App\Models\Concerns\HasUniqueSlug;
 use Database\Factories\FeatureFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -32,7 +33,7 @@ use Illuminate\Support\Facades\Storage;
 class Feature extends Model
 {
     /** @use HasFactory<FeatureFactory> */
-    use HasFactory, HasUniqueSlug;
+    use HasFactory, HasTranslations, HasUniqueSlug;
 
     /**
      * Groups a feature can belong to: core = the headline modules with big cards, suite = "all included, plus".
@@ -47,6 +48,14 @@ class Feature extends Model
     protected function slugSource(): string
     {
         return 'title';
+    }
+
+    protected function translatableAttributes(): array
+    {
+        return [
+            'title', 'menu', 'badge', 'headline', 'lead', 'highlights', 'capabilities',
+            'meta_title', 'meta_description', 'meta_keywords',
+        ];
     }
 
     /**
