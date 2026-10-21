@@ -34,13 +34,13 @@
       <h1 class="rise">@include('frontend.components.rise-title', ['text' => (string) $industry->headline])</h1>
       <p class="feat-lead fade-in">{{ $industry->lead }}</p>
       <div class="feat-ctas fade-in" style="--d:.42s">
-        <a class="btn btn-ink" href="https://platform.zeebroo.com/register">ආරම්භ කරන්න <i class="fa-solid fa-arrow-right"></i></a>
-        <a class="btn btn-line" href="{{ route('contact') }}"><i class="fa-regular fa-envelope"></i> ආදර්ශනයක් වෙන් කරන්න</a>
+        <a class="btn btn-ink" href="https://platform.zeebroo.com/register">දැන්ම ආරම්භ කරන්න <i class="fa-solid fa-arrow-right"></i></a>
+        <a class="btn btn-line" href="{{ route('contact') }}"><i class="fa-regular fa-envelope"></i> Demo සැසියක් වෙන් කරන්න</a>
       </div>
       <ul class="feat-meta fade-in" style="--d:.54s">
-        <li><i class="fa-solid fa-check"></i>{{ $industry->title }} සඳහා සකසා ඇත</li>
+        <li><i class="fa-solid fa-check"></i>{{ $industry->title }} සඳහා විශේෂයෙන් සකසා ඇත</li>
         <li><i class="fa-solid fa-check"></i>වෙබ් සහ ඩෙස්ක්ටොප්</li>
-        <li><i class="fa-solid fa-check"></i>බෙදාගත්, සජීවී දත්ත</li>
+        <li><i class="fa-solid fa-check"></i>තත්‍ය කාලීන, එකම දත්ත</li>
       </ul>
     </div>
 
@@ -60,7 +60,7 @@
 <!-- INDUSTRY SCENE -->
 <section class="wrap feat-scene-wrap">
   <figure class="feat-scene reveal">
-    <img src="{{ $industry->scene_url }}" alt="{{ $industry->title }} තුළ වැඩ කරන Zeebroo සීබ්‍රා" width="1280" height="768" loading="lazy">
+    <img src="{{ $industry->scene_url }}" alt="{{ $industry->title }} ව්‍යාපාරයක Zeebroo භාවිත කරන සීබ්‍රා චරිතය" width="1280" height="768" loading="lazy">
   </figure>
 </section>
 @endif
@@ -69,8 +69,8 @@
 <section class="section">
   <div class="wrap">
     <div class="head reveal">
-      <span class="label">එය ගැළපෙන්නේ ඇයි</span>
-      <h2>{{ $industry->title }} සඳහා Zeebroo කරන දේ</h2>
+      <span class="label">ප්‍රධාන ප්‍රතිලාභ</span>
+      <h2>{{ $industry->title }} සඳහා Zeebroo උපකාරී වන ආකාරය</h2>
     </div>
     <div class="feat-cards">
       @foreach ($industry->highlights ?? [] as $h)
@@ -88,10 +88,10 @@
 <section class="section">
   <div class="wrap feat-caps">
     <div class="feat-caps-l reveal">
-      <span class="label">සූදානම් කර ඇත</span>
+      <span class="label">ලැබෙන පහසුකම්</span>
       <h2>{{ $industry->title }} සඳහා අවශ්‍ය සියල්ල</h2>
-      <p>කවුන්ටරය, ගබඩා කාමරය සහ ගිණුම් පොත් සඳහා එකම වේදිකාවක් නිසා, කිසිවක් දෙවරක් ටයිප් කිරීමට අවශ්‍ය නැති අතර සෑම වාර්තාවක්ම එකඟ වේ.</p>
-      <a class="btn btn-line" href="{{ route('contact') }}">{{ $industry->title }} ගැන විමසන්න <i class="fa-solid fa-arrow-right"></i></a>
+      <p>කවුන්ටරය, ගබඩාව සහ ගිණුම් සියල්ල එකම පද්ධතියක පවතින බැවින්, කිසිදු තොරතුරක් දෙවරක් ඇතුළත් කිරීමට අවශ්‍ය නැත. සියලුම වාර්තා එකිනෙකට ගැළපේ.</p>
+      <a class="btn btn-line" href="{{ route('contact') }}">{{ $industry->title }} පිළිබඳ විමසන්න <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <ul class="feat-list reveal">
       @foreach ($industry->capabilities ?? [] as $cap)
@@ -106,8 +106,8 @@
   <div class="wrap">
     <div class="head reveal">
       <span class="label">නිර්දේශිත මොඩියුල</span>
-      <h2>{{ $industry->title }} සඳහා මොඩියුල</h2>
-      <p>මේවායින් ආරම්භ කර, වර්ධනය වන විට ඉතිරිය සක්‍රිය කරන්න.</p>
+      <h2>{{ $industry->title }} සඳහා සුදුසු මොඩියුල</h2>
+      <p>මෙම මොඩියුල සමඟ ආරම්භ කර, ව්‍යාපාරය වර්ධනය වන විට අනෙක්වා සක්‍රිය කරගන්න.</p>
     </div>
     <div class="feat-grid ind-mods">
       @foreach ($modules as $f)
