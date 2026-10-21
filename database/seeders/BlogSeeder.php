@@ -18,7 +18,7 @@ class BlogSeeder extends Seeder
     /**
      * @var list<array{name: string, slug: string, description: string}>
      */
-    private const CATEGORIES = [
+    public const CATEGORIES = [
         ['name' => 'Product Updates', 'slug' => 'product-updates', 'description' => 'New modules, features and improvements shipping across the Zeebroo platform.'],
         ['name' => 'Retail & POS Tips', 'slug' => 'retail-pos-tips', 'description' => 'Practical advice for faster checkouts, happier customers and a smoother shop floor.'],
         ['name' => 'Inventory & Stock', 'slug' => 'inventory-stock', 'description' => 'Reorder levels, batches, expiry dates and stock counts, done right.'],
@@ -56,23 +56,37 @@ class BlogSeeder extends Seeder
     {
         $this->clean();
 
+        /** @var array{categories: array<string, array{name: string, description: string}>, posts: array<string, array{title: string, meta_title: string, meta_description: string, meta_keywords: string, body: string}>} $sinhala */
+        $sinhala = require database_path('seeders/data/blogs.si.php');
+
         $categories = collect(self::CATEGORIES)
-            ->mapWithKeys(fn (array $c) => [$c['slug'] => BlogCategory::create($c + ['is_active' => true])]);
+            ->mapWithKeys(fn (array $c) => [$c['slug'] => BlogCategory::create($c + [
+                'name_si' => $sinhala['categories'][$c['slug']]['name'] ?? null,
+                'description_si' => $sinhala['categories'][$c['slug']]['description'] ?? null,
+                'is_active' => true,
+            ])]);
 
         $tags = collect(self::TAGS)
             ->map(fn (string $name, string $slug) => BlogTag::create(['name' => $name, 'slug' => $slug, 'is_active' => true]));
 
-        foreach ($this->posts() as $post) {
+        foreach (self::posts() as $post) {
+            $si = $sinhala['posts'][$post['slug']] ?? [];
+
             $blog = Blog::create([
                 'title' => $post['title'],
+                'title_si' => $si['title'] ?? null,
                 'slug' => $post['slug'],
                 'meta_title' => $post['meta_title'],
+                'meta_title_si' => $si['meta_title'] ?? null,
                 'meta_description' => $post['meta_description'],
+                'meta_description_si' => $si['meta_description'] ?? null,
                 'meta_keywords' => $post['meta_keywords'],
+                'meta_keywords_si' => $si['meta_keywords'] ?? null,
                 'category_id' => $categories[$post['category']]->id,
                 'author_name' => 'Zeebroo Team',
                 'published_at' => now()->subDays($post['days_ago'])->setTime(9, 0),
                 'description' => trim($post['body']),
+                'description_si' => isset($si['body']) ? trim($si['body']) : null,
                 'image_path' => $this->copyCover($post['image'], $post['slug']),
                 'is_active' => true,
             ]);
@@ -114,7 +128,7 @@ class BlogSeeder extends Seeder
     /**
      * @return list<array{title: string, slug: string, meta_title: string, meta_description: string, meta_keywords: string, category: string, tags: list<string>, image: ?string, days_ago: int, body: string}>
      */
-    private function posts(): array
+    public static function posts(): array
     {
         return [
             [

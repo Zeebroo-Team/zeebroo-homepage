@@ -31,9 +31,10 @@
     sync();
   });
 
-  /* screenshots picked for upload: each pick adds to the queue (capped at data-max), every card gets a caption and an x to drop it */
+  /* screenshots picked for upload: each pick adds to the queue (capped at data-max), every card gets a caption
+     (plus a Sinhala one when data-bilingual) and an x to drop it */
   $$('[data-multi-preview]').forEach(box=>{
-    const input=box.querySelector('input[type=file]'), list=box.nextElementSibling, max=+box.dataset.max||12;
+    const input=box.querySelector('input[type=file]'), list=box.nextElementSibling, max=+box.dataset.max||12, bilingual='bilingual' in box.dataset;
     let queue=[];
     const render=()=>{
       const dt=new DataTransfer();
@@ -52,7 +53,16 @@
         rm.type='button';rm.className='adm-shot-x';rm.title='Remove';rm.innerHTML='<i class="fa-solid fa-xmark"></i>';
         rm.onclick=()=>{URL.revokeObjectURL(q.url);queue.splice(i,1);render()};
         foot.append(name,rm);
-        item.append(img,cap,foot);
+        item.append(img,cap);
+        if(bilingual){
+          const capSi=document.createElement('input');
+          capSi.type='text';capSi.name='new_screenshot_captions_si['+i+']';capSi.maxLength=255;capSi.placeholder='Sinhala caption (optional)';capSi.value=q.captionSi;
+          capSi.lang='si';capSi.dataset.langPane='si';cap.dataset.langPane='en';
+          capSi.setAttribute('aria-label','Sinhala caption');
+          capSi.oninput=()=>{q.captionSi=capSi.value};
+          item.append(capSi);
+        }
+        item.append(foot);
         list.append(item);
       });
       list.hidden=!queue.length;
@@ -60,7 +70,7 @@
     input.addEventListener('change',()=>{
       const picked=[...input.files], room=max-queue.length;
       if(picked.length>room){alert('Up to '+max+' screenshots per upload, so only the first '+Math.max(room,0)+' were added.')}
-      picked.slice(0,Math.max(room,0)).forEach(file=>queue.push({file,url:URL.createObjectURL(file),caption:''}));
+      picked.slice(0,Math.max(room,0)).forEach(file=>queue.push({file,url:URL.createObjectURL(file),caption:'',captionSi:''}));
       render();
     });
   });

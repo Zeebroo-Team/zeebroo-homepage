@@ -128,6 +128,53 @@ class AdminBlogTest extends TestCase
         $this->get(route('blog.show', $blog->slug))->assertOk();
     }
 
+    public function test_category_stores_sinhala_name_and_description(): void
+    {
+        $category = BlogCategory::factory()->create(['name' => 'Finance & Accounting']);
+        $this->actingAs($this->userWithRole('editor'));
+
+        $this->put(route('admin.blog.categories.update', $category), [
+            'name' => 'Finance & Accounting',
+            'name_si' => 'මූල්‍ය සහ ගිණුම්කරණය',
+            'description' => 'Bills and ledgers.',
+            'description_si' => 'බිල්පත් සහ ලෙජර.',
+            'slug' => $category->slug,
+            'is_active' => '1',
+        ])->assertRedirect(route('admin.blog.categories.index'));
+
+        $category->refresh();
+        $this->assertSame('මූල්‍ය සහ ගිණුම්කරණය', $category->name_si);
+        $this->assertSame('බිල්පත් සහ ලෙජර.', $category->description_si);
+
+        $this->get(route('admin.blog.categories.edit', $category))->assertOk()->assertSee('මූල්‍ය සහ ගිණුම්කරණය');
+    }
+
+    public function test_post_stores_sinhala_content_alongside_english(): void
+    {
+        $blog = Blog::factory()->create();
+        $this->actingAs($this->userWithRole('editor'));
+
+        $this->put(route('admin.blog.posts.update', $blog), [
+            'title' => $blog->title,
+            'title_si' => 'Zeebroo AI නියෝජිතයා හඳුන්වා දීම',
+            'description_si' => '<p>ඔබේ ව්‍යාපාරයෙන් ඕනෑම දෙයක් අසන්න.</p>',
+            'meta_title_si' => 'AI නියෝජිතයා',
+            'meta_description_si' => 'නව මොඩියුලය',
+            'meta_keywords_si' => 'pos, AI',
+            'slug' => $blog->slug,
+            'is_active' => '1',
+        ])->assertRedirect(route('admin.blog.posts.index'));
+
+        $blog->refresh();
+        $this->assertSame('Zeebroo AI නියෝජිතයා හඳුන්වා දීම', $blog->title_si);
+        $this->assertSame('<p>ඔබේ ව්‍යාපාරයෙන් ඕනෑම දෙයක් අසන්න.</p>', $blog->description_si);
+        $this->assertSame('AI නියෝජිතයා', $blog->meta_title_si);
+        $this->assertSame('නව මොඩියුලය', $blog->meta_description_si);
+        $this->assertSame('pos, AI', $blog->meta_keywords_si);
+
+        $this->get(route('admin.blog.posts.edit', $blog))->assertOk()->assertSee('Zeebroo AI නියෝජිතයා හඳුන්වා දීම');
+    }
+
     public function test_updating_a_post_can_replace_and_remove_the_image(): void
     {
         Storage::fake('public');

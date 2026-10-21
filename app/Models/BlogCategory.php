@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['name', 'slug', 'description', 'is_active'])]
+#[Fillable(['name', 'name_si', 'slug', 'description', 'description_si', 'is_active'])]
 class BlogCategory extends Model
 {
     /** @use HasFactory<BlogCategoryFactory> */

@@ -1,10 +1,10 @@
-/* admin: Quill rich-text editor that writes its HTML back into the hidden description textarea */
+/* admin: Quill rich-text editors that write their HTML back into the hidden description textareas */
 (function(){
   document.querySelectorAll('[data-editor]').forEach(box=>{
     const field=document.querySelector(box.dataset.editor);
     const quill=new Quill(box,{
       theme:'snow',
-      placeholder:'Write the post…',
+      placeholder:box.dataset.placeholder||'Write the post…',
       modules:{toolbar:[
         [{header:[2,3,4,false]}],
         ['bold','italic','underline','strike'],

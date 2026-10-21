@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 #[Fillable([
-    'title', 'slug', 'meta_title', 'meta_description', 'meta_keywords', 'category_id',
-    'author_name', 'published_at', 'description', 'image_path', 'is_active',
+    'title', 'title_si', 'slug', 'meta_title', 'meta_title_si', 'meta_description', 'meta_description_si',
+    'meta_keywords', 'meta_keywords_si', 'category_id', 'author_name', 'published_at', 'description',
+    'description_si', 'image_path', 'is_active',
 ])]
 class Blog extends Model
 {

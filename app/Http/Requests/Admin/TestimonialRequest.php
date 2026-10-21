@@ -39,6 +39,9 @@ class TestimonialRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'position' => ['nullable', 'string', 'max:255'],
             'message' => ['required', 'string', 'max:1000'],
+            'name_si' => ['nullable', 'string', 'max:255'],
+            'position_si' => ['nullable', 'string', 'max:255'],
+            'message_si' => ['nullable', 'string', 'max:1000'],
             'rating' => ['integer', 'min:'.Testimonial::MIN_RATING, 'max:'.Testimonial::MAX_RATING],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'remove_image' => ['boolean'],
@@ -56,6 +59,9 @@ class TestimonialRequest extends FormRequest
         return [
             'rating' => 'star rating',
             'image' => 'photo',
+            'name_si' => 'Sinhala customer name',
+            'position_si' => 'Sinhala position',
+            'message_si' => 'Sinhala message',
         ];
     }
 }

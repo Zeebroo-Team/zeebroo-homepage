@@ -1,16 +1,34 @@
-<label class="adm-field">
-  <span>Name</span>
-  <input type="text" name="name" id="name" value="{{ old('name', $category->name) }}" required maxlength="255" @class(['bad' => $errors->has('name')])>
-  @error('name')<small class="adm-err">{{ $message }}</small>@enderror
-</label>
+@include('admin.partials.lang-tabs')
+
+<div class="adm-lang-pane" data-lang-pane="en">
+  <label class="adm-field">
+    <span>Name</span>
+    <input type="text" name="name" id="name" value="{{ old('name', $category->name) }}" required maxlength="255" @class(['bad' => $errors->has('name')])>
+    @error('name')<small class="adm-err">{{ $message }}</small>@enderror
+  </label>
+
+  <label class="adm-field">
+    <span>Description</span>
+    <textarea name="description" rows="4" maxlength="2000" @class(['bad' => $errors->has('description')])>{{ old('description', $category->description) }}</textarea>
+    @error('description')<small class="adm-err">{{ $message }}</small>@enderror
+  </label>
+</div>
+
+<div class="adm-lang-pane" data-lang-pane="si" lang="si">
+  <label class="adm-field">
+    <span>Name <em>Sinhala, optional</em></span>
+    <input type="text" name="name_si" value="{{ old('name_si', $category->name_si) }}" maxlength="255" @class(['bad' => $errors->has('name_si')])>
+    @error('name_si')<small class="adm-err">{{ $message }}</small>@enderror
+  </label>
+
+  <label class="adm-field">
+    <span>Description <em>Sinhala, optional</em></span>
+    <textarea name="description_si" rows="4" maxlength="2000" @class(['bad' => $errors->has('description_si')])>{{ old('description_si', $category->description_si) }}</textarea>
+    @error('description_si')<small class="adm-err">{{ $message }}</small>@enderror
+  </label>
+</div>
 
 @include('admin.partials.slug', ['source' => 'name', 'value' => old('slug', $category->slug), 'prefix' => '/blog/category/'])
-
-<label class="adm-field">
-  <span>Description</span>
-  <textarea name="description" rows="4" maxlength="2000" @class(['bad' => $errors->has('description')])>{{ old('description', $category->description) }}</textarea>
-  @error('description')<small class="adm-err">{{ $message }}</small>@enderror
-</label>
 
 <label class="adm-switch">
   <input type="hidden" name="is_active" value="0">

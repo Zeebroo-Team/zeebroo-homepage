@@ -19,11 +19,15 @@ use Illuminate\Support\Facades\Storage;
  * the home page module switcher and the modules listed on industry and pricing pages.
  *
  * @property list<array{icon: string, title: string, text: string}>|null $highlights
+ * @property list<array{title: string, text: string}>|null $highlights_si Sinhala text of the highlight at the same index
  * @property list<string>|null $capabilities
+ * @property list<string>|null $capabilities_si
  */
 #[Fillable([
-    'title', 'slug', 'menu', 'icon', 'group', 'badge', 'headline', 'lead', 'highlights', 'capabilities',
-    'spot_path', 'scene_path', 'meta_title', 'meta_description', 'meta_keywords', 'sort_order', 'is_active',
+    'title', 'title_si', 'slug', 'menu', 'menu_si', 'icon', 'group', 'badge', 'badge_si', 'headline', 'headline_si',
+    'lead', 'lead_si', 'highlights', 'highlights_si', 'capabilities', 'capabilities_si', 'spot_path', 'scene_path',
+    'meta_title', 'meta_title_si', 'meta_description', 'meta_description_si', 'meta_keywords', 'meta_keywords_si',
+    'sort_order', 'is_active',
 ])]
 class Feature extends Model
 {
@@ -128,7 +132,9 @@ class Feature extends Model
     {
         return [
             'highlights' => 'array',
+            'highlights_si' => 'array',
             'capabilities' => 'array',
+            'capabilities_si' => 'array',
             'sort_order' => 'integer',
             'is_active' => 'boolean',
         ];

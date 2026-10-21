@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 /**
  * A product screenshot shown in the gallery on a feature page.
  */
-#[Fillable(['feature_id', 'path', 'caption', 'sort_order'])]
+#[Fillable(['feature_id', 'path', 'caption', 'caption_si', 'sort_order'])]
 class FeatureScreenshot extends Model
 {
     /** @use HasFactory<FeatureScreenshotFactory> */

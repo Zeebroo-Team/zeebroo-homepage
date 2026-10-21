@@ -37,7 +37,20 @@ class BlogCategoryRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', Rule::unique('blog_categories', 'slug')->ignore($this->route('category'))],
             'description' => ['nullable', 'string', 'max:2000'],
+            'name_si' => ['nullable', 'string', 'max:255'],
+            'description_si' => ['nullable', 'string', 'max:2000'],
             'is_active' => ['boolean'],
+        ];
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function attributes(): array
+    {
+        return [
+            'name_si' => 'Sinhala name',
+            'description_si' => 'Sinhala description',
         ];
     }
 }

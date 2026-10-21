@@ -103,6 +103,58 @@ class AdminIndustryTest extends TestCase
         $this->get(route('industries.show', $industry->slug))->assertNotFound();
     }
 
+    public function test_industry_stores_sinhala_content(): void
+    {
+        $industry = Industry::factory()->create();
+        $this->actingAs($this->userWithRole('editor'));
+
+        $this->put(route('admin.industries.update', $industry), [
+            'title' => 'Restaurants',
+            'title_si' => 'ආපනශාලා',
+            'slug' => $industry->slug,
+            'menu_si' => 'මේස සහ කුස්සිය',
+            'headline_si' => 'මේසයේ සිට කුස්සියට',
+            'lead_si' => 'ඇණවුම් නැති නොවේ.',
+            'badge_si' => 'ජනප්‍රිය',
+            'icon' => 'fa-utensils',
+            'highlights' => [
+                ['icon' => 'fa-bolt', 'title' => 'Fast', 'text' => 'Quick orders.', 'title_si' => 'වේගවත්', 'text_si' => 'ඉක්මන් ඇණවුම්.'],
+                ['icon' => '', 'title' => '', 'text' => '', 'title_si' => '', 'text_si' => ''],
+                ['icon' => 'fa-print', 'title' => 'Tickets', 'text' => '', 'title_si' => '', 'text_si' => ''],
+            ],
+            'capabilities' => "Table layout\nKitchen tickets",
+            'capabilities_si' => "මේස සැලැස්ම\n\nකුස්සි ටිකට්\n",
+            'meta_title_si' => 'ආපනශාලා POS',
+            'meta_description_si' => 'ආපනශාලා සඳහා POS',
+            'meta_keywords_si' => 'ආපනශාලා, pos',
+            'is_active' => '1',
+        ])->assertRedirect(route('admin.industries.index'));
+
+        $industry->refresh();
+        $this->assertSame('ආපනශාලා', $industry->title_si);
+        $this->assertSame('මේස සහ කුස්සිය', $industry->menu_si);
+        $this->assertSame('මේසයේ සිට කුස්සියට', $industry->headline_si);
+        $this->assertSame('ඇණවුම් නැති නොවේ.', $industry->lead_si);
+        $this->assertSame('ජනප්‍රිය', $industry->badge_si);
+        $this->assertSame([
+            ['icon' => 'fa-bolt', 'title' => 'Fast', 'text' => 'Quick orders.'],
+            ['icon' => 'fa-print', 'title' => 'Tickets', 'text' => ''],
+        ], $industry->highlights);
+        $this->assertSame([
+            ['title' => 'වේගවත්', 'text' => 'ඉක්මන් ඇණවුම්.'],
+            ['title' => '', 'text' => ''],
+        ], $industry->highlights_si);
+        $this->assertSame(['මේස සැලැස්ම', 'කුස්සි ටිකට්'], $industry->capabilities_si);
+        $this->assertSame('ආපනශාලා POS', $industry->meta_title_si);
+        $this->assertSame('ආපනශාලා සඳහා POS', $industry->meta_description_si);
+        $this->assertSame('ආපනශාලා, pos', $industry->meta_keywords_si);
+
+        $this->get(route('admin.industries.edit', $industry))->assertOk()
+            ->assertSee('ආපනශාලා')
+            ->assertSee('ඉක්මන් ඇණවුම්.')
+            ->assertSee('කුස්සි ටිකට්');
+    }
+
     public function test_deleting_an_industry_removes_its_scene(): void
     {
         Storage::fake('public');

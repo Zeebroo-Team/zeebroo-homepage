@@ -93,6 +93,31 @@ class AdminTestimonialTest extends TestCase
         Storage::disk('public')->assertMissing($newImage);
     }
 
+    public function test_testimonial_stores_sinhala_content(): void
+    {
+        $testimonial = Testimonial::factory()->create();
+        $this->actingAs($this->userWithRole('editor'));
+
+        $this->put(route('admin.testimonials.update', $testimonial), [
+            'name' => 'Nuwan Perera',
+            'name_si' => 'නුවන් පෙරේරා',
+            'position' => 'Owner, Perera Hardware',
+            'position_si' => 'හිමිකරු, පෙරේරා හාඩ්වෙයාර්',
+            'message' => 'Stock counts are finally right.',
+            'message_si' => 'තොග ගණන් දැන් නිවැරදියි.',
+            'is_active' => '1',
+        ])->assertRedirect(route('admin.testimonials.index'));
+
+        $testimonial->refresh();
+        $this->assertSame('නුවන් පෙරේරා', $testimonial->name_si);
+        $this->assertSame('හිමිකරු, පෙරේරා හාඩ්වෙයාර්', $testimonial->position_si);
+        $this->assertSame('තොග ගණන් දැන් නිවැරදියි.', $testimonial->message_si);
+
+        $this->get(route('admin.testimonials.edit', $testimonial))->assertOk()
+            ->assertSee('නුවන් පෙරේරා')
+            ->assertSee('තොග ගණන් දැන් නිවැරදියි.');
+    }
+
     public function test_deleting_a_testimonial_removes_its_photo(): void
     {
         Storage::fake('public');

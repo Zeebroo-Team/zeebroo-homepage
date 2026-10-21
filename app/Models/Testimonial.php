@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
  * featured ones also show in the home page testimonials section.
  */
 #[Fillable([
-    'name', 'position', 'message', 'image_path', 'rating', 'is_featured', 'sort_order', 'is_active',
+    'name', 'name_si', 'position', 'position_si', 'message', 'message_si', 'image_path', 'rating', 'is_featured', 'sort_order', 'is_active',
 ])]
 class Testimonial extends Model
 {

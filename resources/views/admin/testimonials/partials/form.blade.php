@@ -1,23 +1,47 @@
 <div class="adm-split">
   <div class="adm-split-main">
     <div class="adm-card">
-      <label class="adm-field">
-        <span>Customer name</span>
-        <input type="text" name="name" value="{{ old('name', $testimonial->name) }}" required maxlength="255" @class(['bad' => $errors->has('name')])>
-        @error('name')<small class="adm-err">{{ $message }}</small>@enderror
-      </label>
+      @include('admin.partials.lang-tabs')
 
-      <label class="adm-field">
-        <span>Position <em>optional, e.g. "Owner, Corner Café"</em></span>
-        <input type="text" name="position" value="{{ old('position', $testimonial->position) }}" maxlength="255" @class(['bad' => $errors->has('position')])>
-        @error('position')<small class="adm-err">{{ $message }}</small>@enderror
-      </label>
+      <div class="adm-lang-pane" data-lang-pane="en">
+        <label class="adm-field">
+          <span>Customer name</span>
+          <input type="text" name="name" value="{{ old('name', $testimonial->name) }}" required maxlength="255" @class(['bad' => $errors->has('name')])>
+          @error('name')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
 
-      <label class="adm-field">
-        <span>Message <em>what the customer said, in their words</em></span>
-        <textarea name="message" rows="6" required maxlength="1000" data-count="320" @class(['bad' => $errors->has('message')])>{{ old('message', $testimonial->message) }}</textarea>
-        @error('message')<small class="adm-err">{{ $message }}</small>@enderror
-      </label>
+        <label class="adm-field">
+          <span>Position <em>optional, e.g. "Owner, Corner Café"</em></span>
+          <input type="text" name="position" value="{{ old('position', $testimonial->position) }}" maxlength="255" @class(['bad' => $errors->has('position')])>
+          @error('position')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
+
+        <label class="adm-field">
+          <span>Message <em>what the customer said, in their words</em></span>
+          <textarea name="message" rows="6" required maxlength="1000" data-count="320" @class(['bad' => $errors->has('message')])>{{ old('message', $testimonial->message) }}</textarea>
+          @error('message')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
+      </div>
+
+      <div class="adm-lang-pane" data-lang-pane="si" lang="si">
+        <label class="adm-field">
+          <span>Customer name <em>Sinhala, optional</em></span>
+          <input type="text" name="name_si" value="{{ old('name_si', $testimonial->name_si) }}" maxlength="255" @class(['bad' => $errors->has('name_si')])>
+          @error('name_si')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
+
+        <label class="adm-field">
+          <span>Position <em>Sinhala, optional</em></span>
+          <input type="text" name="position_si" value="{{ old('position_si', $testimonial->position_si) }}" maxlength="255" @class(['bad' => $errors->has('position_si')])>
+          @error('position_si')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
+
+        <label class="adm-field">
+          <span>Message <em>Sinhala</em></span>
+          <textarea name="message_si" rows="6" maxlength="1000" data-count="320" @class(['bad' => $errors->has('message_si')])>{{ old('message_si', $testimonial->message_si) }}</textarea>
+          @error('message_si')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
+      </div>
 
       <label class="adm-field">
         <span>Star rating</span>

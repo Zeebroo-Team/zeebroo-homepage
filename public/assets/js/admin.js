@@ -22,6 +22,27 @@
     if(reset)reset.onclick=()=>{manual=false;sync();slug.focus()};
   });
 
+  /* English / Sinhala tabs: one switch drives every language pane on the page. The language sits on <html>
+     and CSS hides the other panes, so rows added later (highlights, new screenshots) follow it too */
+  const langTabs=$$('[data-lang-tab]');
+  if(langTabs.length){
+    const root=document.documentElement;
+    const showLang=lang=>{
+      root.dataset.adminLang=lang;
+      langTabs.forEach(t=>t.setAttribute('aria-selected',t.dataset.langTab===lang));
+    };
+    langTabs.forEach(t=>t.onclick=()=>showLang(t.dataset.langTab));
+    /* flag tabs with validation errors and open the first one */
+    const withErrors=[...new Set($$('[data-lang-pane]').filter(p=>p.querySelector('.adm-err')).map(p=>p.dataset.langPane))];
+    langTabs.forEach(t=>t.classList.toggle('bad',withErrors.includes(t.dataset.langTab)));
+    if(withErrors.length)showLang(withErrors[0]);
+    /* a required field in a hidden pane would block submit silently, so reveal its pane */
+    document.addEventListener('invalid',e=>{
+      const pane=e.target.closest('[data-lang-pane]');
+      if(pane&&pane.dataset.langPane!==(root.dataset.adminLang||'en'))showLang(pane.dataset.langPane);
+    },true);
+  }
+
   /* featured image preview */
   $$('[data-preview]').forEach(box=>{
     const input=box.querySelector('input[type=file]'), img=box.querySelector('img'), hint=box.querySelector('span');

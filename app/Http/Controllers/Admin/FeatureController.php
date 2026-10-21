@@ -117,7 +117,8 @@ class FeatureController extends Controller implements HasMiddleware
     {
         return collect($request->validated())->except([
             'related', 'spot', 'remove_spot', 'scene', 'remove_scene',
-            'screenshots', 'new_screenshot_captions', 'screenshot_captions', 'screenshot_order', 'remove_screenshots',
+            'screenshots', 'new_screenshot_captions', 'new_screenshot_captions_si', 'screenshot_captions',
+            'screenshot_captions_si', 'screenshot_order', 'remove_screenshots',
         ])->all();
     }
 
@@ -137,12 +138,14 @@ class FeatureController extends Controller implements HasMiddleware
     }
 
     /**
-     * Removes ticked screenshots, saves captions and order of the rest, then appends new uploads with their captions.
+     * Removes ticked screenshots, saves captions (English and Sinhala) and order of the rest,
+     * then appends new uploads with their captions.
      */
     private function syncScreenshots(Feature $feature, FeatureRequest $request): void
     {
         $remove = collect($request->validated('remove_screenshots', []))->map(fn ($id) => (int) $id);
         $captions = $request->validated('screenshot_captions', []);
+        $captionsSi = $request->validated('screenshot_captions_si', []);
         $order = $request->validated('screenshot_order', []);
 
         foreach ($feature->screenshots()->get() as $screenshot) {
@@ -155,17 +158,20 @@ class FeatureController extends Controller implements HasMiddleware
 
             $screenshot->update([
                 'caption' => $captions[$screenshot->id] ?? $screenshot->caption,
+                'caption_si' => $captionsSi[$screenshot->id] ?? $screenshot->caption_si,
                 'sort_order' => (int) ($order[$screenshot->id] ?? $screenshot->sort_order),
             ]);
         }
 
         $next = (int) $feature->screenshots()->max('sort_order') + 1;
         $newCaptions = $request->validated('new_screenshot_captions', []);
+        $newCaptionsSi = $request->validated('new_screenshot_captions_si', []);
 
         foreach ($request->file('screenshots', []) as $i => $file) {
             $feature->screenshots()->create([
                 'path' => $file->store('features/screenshots', 'public'),
                 'caption' => $newCaptions[$i] ?? null,
+                'caption_si' => $newCaptionsSi[$i] ?? null,
                 'sort_order' => $next + $i,
             ]);
         }

@@ -121,6 +121,65 @@ class AdminFeatureTest extends TestCase
         $this->get(route('features.show', $feature->slug))->assertNotFound();
     }
 
+    public function test_feature_stores_sinhala_content_and_screenshot_captions(): void
+    {
+        Storage::fake('public');
+        $feature = Feature::factory()->create();
+        $shot = FeatureScreenshot::factory()->for($feature)->create(['path' => UploadedFile::fake()->image('a.png')->store('features/screenshots', 'public')]);
+        $this->actingAs($this->userWithRole('editor'));
+
+        $this->put(route('admin.features.update', $feature), [
+            'title' => 'Point of Sale',
+            'title_si' => 'විකුණුම් ස්ථානය',
+            'slug' => $feature->slug,
+            'menu_si' => 'වේගවත් ගෙවීම්',
+            'headline_si' => 'පෝලිම ඉක්මනින් යන ගෙවීම්',
+            'lead_si' => 'අයිතම ස්කෑන් කරන්න.',
+            'badge_si' => 'නව',
+            'icon' => 'fa-cash-register',
+            'group' => 'core',
+            'highlights' => [
+                ['icon' => 'fa-bolt', 'title' => 'Fast', 'text' => 'Quick sales.', 'title_si' => 'වේගවත්', 'text_si' => 'ඉක්මන් විකුණුම්.'],
+                ['icon' => '', 'title' => '', 'text' => '', 'title_si' => '', 'text_si' => ''],
+                ['icon' => 'fa-print', 'title' => 'Receipts', 'text' => '', 'title_si' => '', 'text_si' => ''],
+            ],
+            'capabilities' => "Barcode scanning\nReceipts",
+            'capabilities_si' => "බාර්කෝඩ් ස්කෑන් කිරීම\n\nරිසිට්පත්\nඅලෙවි වාර්තා\n",
+            'meta_title_si' => 'POS | Zeebroo',
+            'screenshot_captions' => [$shot->id => 'Checkout screen'],
+            'screenshot_captions_si' => [$shot->id => 'ගෙවීම් තිරය'],
+            'screenshots' => [UploadedFile::fake()->image('new.png')],
+            'new_screenshot_captions' => ['Receipt'],
+            'new_screenshot_captions_si' => ['රිසිට්පත'],
+            'is_active' => '1',
+        ])->assertRedirect(route('admin.features.index'));
+
+        $feature->refresh();
+        $this->assertSame('විකුණුම් ස්ථානය', $feature->title_si);
+        $this->assertSame('වේගවත් ගෙවීම්', $feature->menu_si);
+        $this->assertSame('පෝලිම ඉක්මනින් යන ගෙවීම්', $feature->headline_si);
+        $this->assertSame('අයිතම ස්කෑන් කරන්න.', $feature->lead_si);
+        $this->assertSame('නව', $feature->badge_si);
+        $this->assertSame([
+            ['icon' => 'fa-bolt', 'title' => 'Fast', 'text' => 'Quick sales.'],
+            ['icon' => 'fa-print', 'title' => 'Receipts', 'text' => ''],
+        ], $feature->highlights);
+        $this->assertSame([
+            ['title' => 'වේගවත්', 'text' => 'ඉක්මන් විකුණුම්.'],
+            ['title' => '', 'text' => ''],
+        ], $feature->highlights_si);
+        $this->assertSame(['බාර්කෝඩ් ස්කෑන් කිරීම', 'රිසිට්පත්', 'අලෙවි වාර්තා'], $feature->capabilities_si);
+        $this->assertSame('POS | Zeebroo', $feature->meta_title_si);
+        $this->assertSame('ගෙවීම් තිරය', $shot->fresh()->caption_si);
+        $this->assertSame('Checkout screen', $shot->fresh()->caption);
+        $this->assertSame('රිසිට්පත', $feature->screenshots->last()->caption_si);
+
+        $this->get(route('admin.features.edit', $feature))->assertOk()
+            ->assertSee('විකුණුම් ස්ථානය')
+            ->assertSee('ඉක්මන් විකුණුම්.')
+            ->assertSee('ගෙවීම් තිරය');
+    }
+
     public function test_deleting_a_feature_removes_its_files(): void
     {
         Storage::fake('public');

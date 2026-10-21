@@ -40,6 +40,11 @@ class BlogRequest extends FormRequest
             'meta_title' => ['nullable', 'string', 'max:255'],
             'meta_description' => ['nullable', 'string', 'max:500'],
             'meta_keywords' => ['nullable', 'string', 'max:500'],
+            'title_si' => ['nullable', 'string', 'max:255'],
+            'meta_title_si' => ['nullable', 'string', 'max:255'],
+            'meta_description_si' => ['nullable', 'string', 'max:500'],
+            'meta_keywords_si' => ['nullable', 'string', 'max:500'],
+            'description_si' => ['nullable', 'string'],
             'category_id' => ['nullable', 'integer', Rule::exists('blog_categories', 'id')],
             'tags' => ['nullable', 'array'],
             'tags.*' => ['integer', Rule::exists('blog_tags', 'id')],
@@ -60,6 +65,11 @@ class BlogRequest extends FormRequest
         return [
             'category_id' => 'category',
             'tags.*' => 'tag',
+            'title_si' => 'Sinhala title',
+            'meta_title_si' => 'Sinhala meta title',
+            'meta_description_si' => 'Sinhala meta description',
+            'meta_keywords_si' => 'Sinhala meta keywords',
+            'description_si' => 'Sinhala description',
         ];
     }
 }

@@ -14,39 +14,79 @@
 <div class="adm-split">
   <div class="adm-split-main">
     <div class="adm-card">
-      <label class="adm-field">
-        <span>Title</span>
-        <input type="text" name="title" id="title" value="{{ old('title', $blog->title) }}" required maxlength="255" @class(['bad' => $errors->has('title')])>
-        @error('title')<small class="adm-err">{{ $message }}</small>@enderror
-      </label>
+      @include('admin.partials.lang-tabs')
 
-      @include('admin.partials.slug', ['source' => 'title', 'value' => old('slug', $blog->slug), 'prefix' => '/blog/'])
+      <div class="adm-lang-pane" data-lang-pane="en">
+        <label class="adm-field">
+          <span>Title</span>
+          <input type="text" name="title" id="title" value="{{ old('title', $blog->title) }}" required maxlength="255" @class(['bad' => $errors->has('title')])>
+          @error('title')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
 
-      <div class="adm-field">
-        <span>Description</span>
-        <div class="adm-editor" data-editor="#description"></div>
-        <textarea name="description" id="description" hidden>{{ old('description', $blog->description) }}</textarea>
-        @error('description')<small class="adm-err">{{ $message }}</small>@enderror
+        @include('admin.partials.slug', ['source' => 'title', 'value' => old('slug', $blog->slug), 'prefix' => '/blog/'])
+
+        <div class="adm-field">
+          <span>Description</span>
+          <div class="adm-editor" data-editor="#description"></div>
+          <textarea name="description" id="description" hidden>{{ old('description', $blog->description) }}</textarea>
+          @error('description')<small class="adm-err">{{ $message }}</small>@enderror
+        </div>
+      </div>
+
+      <div class="adm-lang-pane" data-lang-pane="si" lang="si">
+        <label class="adm-field">
+          <span>Title <em>Sinhala, optional</em></span>
+          <input type="text" name="title_si" value="{{ old('title_si', $blog->title_si) }}" maxlength="255" @class(['bad' => $errors->has('title_si')])>
+          @error('title_si')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
+
+        <div class="adm-field">
+          <span>Description <em>Sinhala, optional</em></span>
+          <div class="adm-editor" data-editor="#description_si" data-placeholder="ලිපිය මෙහි ලියන්න…"></div>
+          <textarea name="description_si" id="description_si" hidden>{{ old('description_si', $blog->description_si) }}</textarea>
+          @error('description_si')<small class="adm-err">{{ $message }}</small>@enderror
+        </div>
       </div>
     </div>
 
     <div class="adm-card">
       <div class="adm-card-h"><h2>SEO</h2><small>Left empty, the title and the start of the description are used.</small></div>
-      <label class="adm-field">
-        <span>Meta title</span>
-        <input type="text" name="meta_title" value="{{ old('meta_title', $blog->meta_title) }}" maxlength="255" data-count="60" @class(['bad' => $errors->has('meta_title')])>
-        @error('meta_title')<small class="adm-err">{{ $message }}</small>@enderror
-      </label>
-      <label class="adm-field">
-        <span>Meta description</span>
-        <textarea name="meta_description" rows="3" maxlength="500" data-count="160" @class(['bad' => $errors->has('meta_description')])>{{ old('meta_description', $blog->meta_description) }}</textarea>
-        @error('meta_description')<small class="adm-err">{{ $message }}</small>@enderror
-      </label>
-      <label class="adm-field">
-        <span>Meta keywords <em>comma separated</em></span>
-        <input type="text" name="meta_keywords" value="{{ old('meta_keywords', $blog->meta_keywords) }}" maxlength="500" placeholder="pos, inventory, small business" @class(['bad' => $errors->has('meta_keywords')])>
-        @error('meta_keywords')<small class="adm-err">{{ $message }}</small>@enderror
-      </label>
+
+      <div class="adm-lang-pane" data-lang-pane="en">
+        <label class="adm-field">
+          <span>Meta title</span>
+          <input type="text" name="meta_title" value="{{ old('meta_title', $blog->meta_title) }}" maxlength="255" data-count="60" @class(['bad' => $errors->has('meta_title')])>
+          @error('meta_title')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
+        <label class="adm-field">
+          <span>Meta description</span>
+          <textarea name="meta_description" rows="3" maxlength="500" data-count="160" @class(['bad' => $errors->has('meta_description')])>{{ old('meta_description', $blog->meta_description) }}</textarea>
+          @error('meta_description')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
+        <label class="adm-field">
+          <span>Meta keywords <em>comma separated</em></span>
+          <input type="text" name="meta_keywords" value="{{ old('meta_keywords', $blog->meta_keywords) }}" maxlength="500" placeholder="pos, inventory, small business" @class(['bad' => $errors->has('meta_keywords')])>
+          @error('meta_keywords')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
+      </div>
+
+      <div class="adm-lang-pane" data-lang-pane="si" lang="si">
+        <label class="adm-field">
+          <span>Meta title <em>Sinhala</em></span>
+          <input type="text" name="meta_title_si" value="{{ old('meta_title_si', $blog->meta_title_si) }}" maxlength="255" data-count="60" @class(['bad' => $errors->has('meta_title_si')])>
+          @error('meta_title_si')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
+        <label class="adm-field">
+          <span>Meta description <em>Sinhala</em></span>
+          <textarea name="meta_description_si" rows="3" maxlength="500" data-count="160" @class(['bad' => $errors->has('meta_description_si')])>{{ old('meta_description_si', $blog->meta_description_si) }}</textarea>
+          @error('meta_description_si')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
+        <label class="adm-field">
+          <span>Meta keywords <em>Sinhala, comma separated</em></span>
+          <input type="text" name="meta_keywords_si" value="{{ old('meta_keywords_si', $blog->meta_keywords_si) }}" maxlength="500" @class(['bad' => $errors->has('meta_keywords_si')])>
+          @error('meta_keywords_si')<small class="adm-err">{{ $message }}</small>@enderror
+        </label>
+      </div>
     </div>
   </div>
 
