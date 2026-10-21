@@ -2,20 +2,20 @@
 <section class="contact">
   <div class="wrap">
     <div class="head">
-      <span class="label">අප අමතන්න</span>
-      <h1 class="rise"><span class="line"><span>ඔබේ ව්‍යාපාරය ගැන</span></span><span class="line"><span><span class="mark">කතා කරමු.</span></span></span></h1>
-      <p class="fade-in">ඔබ අද වැඩ කරන ආකාරය අපට කියන්න, Zeebroo ගැළපෙන හැටි අපි පෙන්වන්නම්. අපි සාමාන්‍යයෙන් එක් වැඩ කරන දිනයක් ඇතුළත පිළිතුරු දෙමු.</p>
+      <span class="label">අප හා සම්බන්ධ වන්න</span>
+      <h1 class="rise"><span class="line"><span>ඔබේ ව්‍යාපාරය ගැන</span></span><span class="line"><span><span class="mark">අපි කතා කරමු.</span></span></span></h1>
+      <p class="fade-in">ඔබ දැනට ව්‍යාපාරය කරගෙන යන ආකාරය අපට කියන්න. Zeebroo ඔබේ වැඩට ගැළපෙන්නේ කොහොමද කියා අපි පෙන්වා දෙන්නම්. සාමාන්‍යයෙන් වැඩ කරන දින එකක් ඇතුළත අපි ඔබට පිළිතුරු දෙනවා.</p>
     </div>
 
     <div class="contact-grid">
       <aside class="contact-side reveal">
         <span class="mega-ic"><i class="fa-solid fa-headset"></i></span>
-        <h2>සැබෑ මිනිසෙකු හා කතා කරන්න</h2>
-        <p>ආදර්ශනයක් වෙන් කරන්න, මිල ගණන් ගැන විමසන්න, නැතහොත් ඔබේ සාප්පුව සැකසීමට උදව් ලබාගන්න.</p>
+        <h2>අපගේ කණ්ඩායම සමඟ කෙලින්ම කතා කරන්න</h2>
+        <p>Demo එකක් වෙන් කරගන්න, මිල ගණන් ගැන විමසන්න, නැත්නම් ඔබේ ව්‍යාපාරය Zeebroo හි සකසා ගැනීමට අපගේ සහාය ලබාගන්න.</p>
         <ul class="contact-ways">
-          <li><span><i class="fa-regular fa-envelope"></i></span><div><small>අපට ඊමේල් කරන්න</small><a href="mailto:hello@zeebroo.com">hello@zeebroo.com</a></div></li>
-          <li><span><i class="fa-solid fa-book-open"></i></span><div><small>උපදෙස් සහ නිබන්ධන</small><a href="https://www.zeebroo.com/tutorial">මාර්ගෝපදේශ කියවන්න</a></div></li>
-          <li><span><i class="fa-solid fa-right-to-bracket"></i></span><div><small>දැනටමත් ගනුදෙනුකරුවෙක්ද?</small><a href="https://platform.zeebroo.com/login">Zeebroo වෙත පිවිසෙන්න</a></div></li>
+          <li><span><i class="fa-regular fa-envelope"></i></span><div><small>ඊමේල් කරන්න</small><a href="mailto:hello@zeebroo.com">hello@zeebroo.com</a></div></li>
+          <li><span><i class="fa-solid fa-book-open"></i></span><div><small>මාර්ගෝපදේශ සහ පාඩම්</small><a href="https://www.zeebroo.com/tutorial">උපදෙස් කියවන්න</a></div></li>
+          <li><span><i class="fa-solid fa-right-to-bracket"></i></span><div><small>දැනටමත් Zeebroo භාවිත කරනවාද?</small><a href="https://platform.zeebroo.com/login">ඔබේ ගිණුමට ලොග් වන්න</a></div></li>
         </ul>
         <img class="contact-art" src="{{ asset('assets/ufo.webp') }}" alt="" width="179" height="187" loading="lazy">
       </aside>
@@ -24,9 +24,9 @@
         @if (session('contact_sent'))
           <div class="contact-ok" role="status">
             <span><i class="fa-solid fa-check"></i></span>
-            <h3>ස්තූතියි, ඔබේ පණිවිඩය යවා ඇත.</h3>
-            <p>අපේ කණ්ඩායම ඉක්මනින් ඊමේල් මගින් ඔබට පිළිතුරු දෙනු ඇත.</p>
-            <a class="btn btn-line" href="{{ route('home') }}">මුල් පිටුවට ආපසු</a>
+            <h3>ස්තූතියි! ඔබේ පණිවිඩය අපට ලැබුණා.</h3>
+            <p>අපගේ කණ්ඩායම ඉක්මනින්ම ඊමේල් මගින් ඔබව සම්බන්ධ කරගනීවි.</p>
+            <a class="btn btn-line" href="{{ route('home') }}">මුල් පිටුවට යන්න</a>
           </div>
         @else
           <form class="contact-form" method="POST" action="{{ route('contact.store') }}" novalidate>
@@ -35,19 +35,19 @@
 
             <div class="f-row">
               <label class="f">
-                <span>සම්පූර්ණ නම *</span>
+                <span>ඔබේ නම *</span>
                 <input type="text" name="name" value="{{ old('name') }}" autocomplete="name" required>
                 @error('name')<em>{{ $message }}</em>@enderror
               </label>
               <label class="f">
-                <span>ඊමේල් *</span>
+                <span>ඊමේල් ලිපිනය *</span>
                 <input type="email" name="email" value="{{ old('email') }}" autocomplete="email" required>
                 @error('email')<em>{{ $message }}</em>@enderror
               </label>
             </div>
             <div class="f-row">
               <label class="f">
-                <span>දුරකථනය</span>
+                <span>දුරකථන අංකය</span>
                 <input type="tel" name="phone" value="{{ old('phone') }}" autocomplete="tel">
                 @error('phone')<em>{{ $message }}</em>@enderror
               </label>
@@ -59,9 +59,9 @@
             </div>
 
             <fieldset class="f">
-              <legend>අපට උදව් කළ හැක්කේ කෙසේද? *</legend>
+              <legend>අපෙන් ඔබට අවශ්‍ය කුමක්ද? *</legend>
               <div class="topics">
-                @php($topicLabels = ['demo' => 'ආදර්ශනයක් වෙන් කරන්න', 'sales' => 'මිල ගණන් සහ විකුණුම්', 'support' => 'මගේ ගිණුම සඳහා උදව්', 'partnership' => 'හවුල්කාරිත්වය', 'other' => 'වෙනත් දෙයක්'])
+                @php($topicLabels = ['demo' => 'Demo එකක් වෙන් කරගන්න', 'sales' => 'මිල ගණන් සහ මිලදී ගැනීම', 'support' => 'මගේ ගිණුමට සහාය', 'partnership' => 'ව්‍යාපාරික හවුල්කාරිත්වය', 'other' => 'වෙනත් කරුණක්'])
                 @foreach ($topics as $key => $label)
                   <label class="topic"><input type="radio" name="topic" value="{{ $key }}" @checked(old('topic', 'demo') === $key)><span>{{ $topicLabels[$key] ?? $label }}</span></label>
                 @endforeach
@@ -70,8 +70,8 @@
             </fieldset>
 
             <label class="f">
-              <span>පණිවිඩය *</span>
-              <textarea name="message" rows="5" required placeholder="ඔබේ ව්‍යාපාරය සහ ඔබට අවශ්‍ය දේ ගැන අපට කියන්න.">{{ old('message') }}</textarea>
+              <span>ඔබේ පණිවිඩය *</span>
+              <textarea name="message" rows="5" required placeholder="ඔබේ ව්‍යාපාරය ගැනත්, ඔබට අවශ්‍ය දේ ගැනත් කෙටියෙන් අපට කියන්න.">{{ old('message') }}</textarea>
               @error('message')<em>{{ $message }}</em>@enderror
             </label>
 
@@ -90,7 +90,7 @@
                 btn.setAttribute('aria-busy', 'true');
                 btn.style.opacity = '.6';
                 btn.style.cursor = 'not-allowed';
-                btn.innerHTML = 'යවමින්... <i class="fa-solid fa-spinner fa-spin"></i>';
+                btn.innerHTML = 'යවමින් පවතී... <i class="fa-solid fa-spinner fa-spin"></i>';
               });
 
               // Re-enable if the user comes back via the browser back button (bfcache)

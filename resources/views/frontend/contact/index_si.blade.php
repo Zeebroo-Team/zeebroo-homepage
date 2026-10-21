@@ -1,7 +1,7 @@
 @extends('layouts.frontend')
 
-@section('title', 'Zeebroo අමතන්න: අපේ කණ්ඩායම හා කතා කරන්න')
-@section('description', 'Zeebroo POS, මිල ගණන් හෝ ආදර්ශනයක් ගැන ප්‍රශ්න තිබේද? අපට පණිවිඩයක් එවන්න, අපේ කණ්ඩායම ඔබට පිළිතුරු දෙනු ඇත.')
+@section('title', 'Zeebroo අමතන්න: අපගේ කණ්ඩායම සමඟ කතා කරන්න')
+@section('description', 'Zeebroo POS ගැන, මිල ගණන් ගැන හෝ Demo එකක් ගැන දැනගන්න ඕනද? අපට පණිවිඩයක් එවන්න. අපගේ කණ්ඩායම ඉක්මනින්ම ඔබව සම්බන්ධ කරගනීවි.')
 
 @push('scripts')
 <script src="{{ asset('assets/js/features.js') }}"></script>

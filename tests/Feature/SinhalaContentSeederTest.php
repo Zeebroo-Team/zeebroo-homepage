@@ -58,9 +58,9 @@ class SinhalaContentSeederTest extends TestCase
         $this->seed(SinhalaContentSeeder::class);
 
         $feature = Feature::firstWhere('slug', 'point-of-sale');
-        $this->assertSame('විකුණුම් ස්ථානය (POS)', $feature->title_si);
+        $this->assertSame('POS පද්ධතිය', $feature->title_si);
         $this->assertSame('ජනප්‍රිය', $feature->badge_si);
-        $this->assertSame(['title' => 'ස්කෑන් කරන්න හෝ සොයන්න', 'text' => 'බාර්කෝඩ්, නම හෝ කාණ්ඩය අනුව භාණ්ඩ සොයා එක් ස්පර්ශයකින් කරත්තයට එක් කරන්න.'], $feature->highlights_si[0]);
+        $this->assertSame(['title' => 'ස්කෑන් කරන්න හෝ සොයන්න', 'text' => 'බාර්කෝඩ්, නම හෝ කාණ්ඩය අනුව භාණ්ඩය සොයාගෙන එක ටච් එකකින් බිලට එකතු කරන්න.'], $feature->highlights_si[0]);
         $this->assertCount(6, $feature->capabilities_si);
         $this->assertNotNull($feature->meta_description_si);
         $this->assertNull(Feature::firstWhere('slug', 'accounting')->badge_si);
@@ -122,7 +122,7 @@ class SinhalaContentSeederTest extends TestCase
         $this->assertSame(0, BlogCategory::whereNull('name_si')->orWhereNull('description_si')->count());
 
         $blog = Blog::firstWhere('slug', 'introducing-the-zeebroo-ai-agent');
-        $this->assertSame('Zeebroo AI සහායක හඳුන්වා දීම: ඔබේ ව්‍යාපාරයෙන් ඕනෑම දෙයක් අසන්න', $blog->title_si);
+        $this->assertSame('Zeebroo AI සහායක: ඔබේ ව්‍යාපාරය ගැන ඕනෑම දෙයක් අහන්න', $blog->title_si);
         $this->assertStringStartsWith('<p>', $blog->description_si);
         $this->assertSame(0, Blog::whereNull('title_si')->orWhereNull('description_si')->orWhereNull('meta_description_si')->count());
     }
