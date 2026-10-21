@@ -73,7 +73,7 @@ class LanguageSwitchTest extends TestCase
             'industries' => ['industries.index', 'සියලුම ක්ෂේත්‍ර', 'All industries'],
             'pricing' => ['packages.index', 'මිල ගණන් මේ මොහොතේ ලබාගත නොහැක', 'Pricing is loading slowly'],
             'partners' => ['partners.index', 'Zeebroo හවුල්කරුවෙකු ලෙස එක්වන්න', 'Become a Zeebroo partner'],
-            'testimonials' => ['testimonials.index', 'ඔබේම කතාව ලිවීමට සූදානම්ද?', 'Ready to write your own story?'],
+            'testimonials' => ['testimonials.index', 'ඊළඟ සාර්ථක කතාව ඔබේ විය හැකියි.', 'Ready to write your own story?'],
             'blog' => ['blog.index', 'තවම මෙහි ලිපි නැත', 'here yet'],
             'about' => ['about', 'අප කටයුතු කරන මූලධර්ම හය.', 'Six promises behind every screen.'],
             'contact' => ['contact', 'පණිවිඩය යවන්න', 'Send message'],
