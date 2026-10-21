@@ -13,7 +13,7 @@
           <div class="pkg-top">
             <div class="pkg-name">
               <h3>{{ $p['name'] }}</h3>
-              @if ($p['save'])<span class="pkg-save">{{ $p['save'] }}% ක් ඉතිරියි</span>@endif
+              @if ($p['save'])<span class="pkg-save">{{ $p['save'] }}% ඉතිරියි</span>@endif
             </div>
             <div class="pkg-price">
               <b>{{ $p['price'] }}</b>@unless ($p['is_free'])<span>/මසකට</span>@endunless

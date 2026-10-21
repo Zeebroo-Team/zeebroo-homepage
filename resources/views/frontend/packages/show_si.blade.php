@@ -1,7 +1,7 @@
 @extends('layouts.frontend')
 
 @section('title', $package['name'] . ' | Zeebroo මිල ගණන්')
-@section('description', 'Zeebroo ' . $package['name'] . ': මොඩියුල ' . count($package['features']) . ' ක් සඳහා ' . $package['price'] . ($package['is_free'] ? '' : ' මසකට') . ', ' . implode(', ', array_slice(array_column($package['features'], 'label'), 0, 3)) . ' ඇතුළුව.')
+@section('description', 'Zeebroo ' . $package['name'] . ': මොඩියුල ' . count($package['features']) . 'ක් සඳහා ' . $package['price'] . ($package['is_free'] ? '' : ' (මාසිකව)') . '. ' . implode(', ', array_slice(array_column($package['features'], 'label'), 0, 3)) . ' ඇතුළුව.')
 
 @push('scripts')
 <script src="{{ asset('assets/js/features.js') }}"></script>
@@ -17,19 +17,19 @@
         <a href="{{ route('packages.index') }}">මිල ගණන්</a><i class="fa-solid fa-chevron-right"></i>
         <span aria-current="page">{{ $package['name'] }}</span>
       </nav>
-      <span class="feat-tag"><i class="fa-solid fa-box-open"></i>මොඩියුල {{ count($package['features']) }} @if ($package['save'])<em>{{ $package['save'] }}% ඉතිරි කරන්න</em>@endif</span>
+      <span class="feat-tag"><i class="fa-solid fa-box-open"></i>මොඩියුල {{ count($package['features']) }} @if ($package['save'])<em>{{ $package['save'] }}% ඉතිරියි</em>@endif</span>
       <h1 class="rise">@include('frontend.components.rise-title', ['text' => $package['name']])</h1>
       <div class="pkg-price pkg-price-lg fade-in">
         <b>{{ $package['price'] }}</b>@unless ($package['is_free'])<span>/මසකට</span>@endunless
         @if ($package['was'])<s class="pkg-was">{{ $package['was'] }}</s>@endif
       </div>
-      <p class="feat-lead fade-in">{{ $package['description'] ?: $package['name'] . ' හි සියල්ල එකම සජීවී දත්ත බෙදාගන්නා නිසා, ඔබේ විකුණුම්, තොගය සහ ගිණුම් පොත් සැමවිටම එකඟ වේ.' }}</p>
+      <p class="feat-lead fade-in">{{ $package['description'] ?: $package['name'] . ' හි සියලුම මොඩියුල එකම දත්ත භාවිත කරන බැවින්, ඔබේ විකුණුම්, තොග සහ ගිණුම් සැමවිටම එකිනෙකට ගැළපේ.' }}</p>
       <div class="feat-ctas fade-in" style="--d:.42s">
-        <a class="btn btn-ink" href="https://platform.zeebroo.com/register">ආරම්භ කරන්න <i class="fa-solid fa-arrow-right"></i></a>
-        <a class="btn btn-line" href="{{ route('packages.index') }}">පැකේජ සසඳන්න</a>
+        <a class="btn btn-ink" href="https://platform.zeebroo.com/register">දැන්ම ආරම්භ කරන්න <i class="fa-solid fa-arrow-right"></i></a>
+        <a class="btn btn-line" href="{{ route('packages.index') }}">පැකේජ සසඳා බලන්න</a>
       </div>
       <ul class="feat-meta fade-in" style="--d:.54s">
-        <li><i class="fa-solid fa-check"></i>මාසිකව අය කෙරේ</li>
+        <li><i class="fa-solid fa-check"></i>මාසික ගෙවීම්</li>
         <li><i class="fa-solid fa-check"></i>වෙබ් සහ ඩෙස්ක්ටොප්</li>
         @if ($package['pos_lite'])<li><i class="fa-solid fa-check"></i>POS Lite සමඟ ක්‍රියා කරයි</li>@endif
       </ul>
@@ -51,9 +51,9 @@
 <section class="section">
   <div class="wrap">
     <div class="head reveal">
-      <span class="label">ඇතුළත් දේ</span>
-      <h2>{{ $package['name'] }} හි මොඩියුල {{ count($package['features']) }}</h2>
-      <p>ඔබේ ව්‍යාපාරය සැකසූ සැණින් සෑම එකක්ම සූදානම්. එය කරන දේ බැලීමට ඕනෑම මොඩියුලයක් විවෘත කරන්න.</p>
+      <span class="label">ඇතුළත් මොඩියුල</span>
+      <h2>{{ $package['name'] }} පැකේජයේ මොඩියුල {{ count($package['features']) }}</h2>
+      <p>ඔබේ ව්‍යාපාරය සැකසූ විගස සියලුම මොඩියුල භාවිතයට සූදානම්. වැඩි විස්තර සඳහා ඕනෑම මොඩියුලයක් තෝරන්න.</p>
     </div>
     <div class="feat-grid ind-mods">
       @foreach ($package['features'] as $feature)
@@ -79,10 +79,10 @@
 <section class="section">
   <div class="wrap feat-caps">
     <div class="feat-caps-l reveal">
-      <span class="label">තවත් අවශ්‍යද?</span>
-      <h2>විශාල පැකේජයකින් තවත් දේ ලබාගන්න</h2>
-      <p>මෙම මොඩියුල වෙනත් Zeebroo පැකේජ සමඟ ලැබේ. ඕනෑම වේලාවක උසස් කරන්න, ඔබේ දත්තද ඔබ සමඟම පැමිණේ.</p>
-      <a class="btn btn-line" href="{{ route('packages.index') }}">පැකේජ සසඳන්න <i class="fa-solid fa-arrow-right"></i></a>
+      <span class="label">තවත් පහසුකම් අවශ්‍යද?</span>
+      <h2>ඉහළ පැකේජයකින් තවත් මොඩියුල ලබාගන්න</h2>
+      <p>මෙම මොඩියුල වෙනත් Zeebroo පැකේජවල ඇතුළත් වේ. ඕනෑම අවස්ථාවක ඉහළ පැකේජයකට මාරු විය හැකි අතර, ඔබේ සියලු දත්ත සුරක්ෂිතව පවතී.</p>
+      <a class="btn btn-line" href="{{ route('packages.index') }}">පැකේජ සසඳා බලන්න <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <ul class="feat-list pkg-missing reveal">
       @foreach ($missing as $feature)
