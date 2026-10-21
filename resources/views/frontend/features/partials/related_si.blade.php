@@ -3,9 +3,9 @@
   <div class="wrap">
     @if ($related->isNotEmpty())
       <div class="head reveal">
-        <span class="label">හොඳින් ගැළපෙන්නේ</span>
-        <h2>එකට වඩා හොඳයි</h2>
-        <p>{{ $feature->title }} කිසිදු සැකසුමකින් තොරව මෙම මොඩියුල සමඟ තම දත්ත බෙදාගනී.</p>
+        <span class="label">සම්බන්ධිත මොඩියුල</span>
+        <h2>එක්ව භාවිත කිරීමෙන් වැඩි ප්‍රතිඵල</h2>
+        <p>{{ $feature->title }} අමතර සැකසුම් කිසිවක් නොමැතිව මෙම මොඩියුල සමඟ ස්වයංක්‍රීයව දත්ත හුවමාරු කරයි.</p>
       </div>
       <div class="feat-grid">
         @foreach ($related as $f)

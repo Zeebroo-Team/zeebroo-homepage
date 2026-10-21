@@ -13,13 +13,13 @@
         <p class="feat-lead fade-in">{{ $feature->lead }}</p>
       @endif
       <div class="feat-ctas fade-in" style="--d:.42s">
-        <a class="btn btn-ink" href="https://platform.zeebroo.com/register">ආරම්භ කරන්න <i class="fa-solid fa-arrow-right"></i></a>
-        <a class="btn btn-line" href="{{ route('contact') }}"><i class="fa-regular fa-envelope"></i> ආදර්ශනයක් වෙන් කරන්න</a>
+        <a class="btn btn-ink" href="https://platform.zeebroo.com/register">දැන්ම ආරම්භ කරන්න <i class="fa-solid fa-arrow-right"></i></a>
+        <a class="btn btn-line" href="{{ route('contact') }}"><i class="fa-regular fa-envelope"></i> Demo සැසියක් වෙන් කරන්න</a>
       </div>
       <ul class="feat-meta fade-in" style="--d:.54s">
-        <li><i class="fa-solid fa-check"></i>{{ $feature->group === 'core' ? 'ප්‍රධාන මොඩියුලයක්' : 'Zeebroo හි ඇතුළත්' }}</li>
+        <li><i class="fa-solid fa-check"></i>{{ $feature->group === 'core' ? 'ප්‍රධාන මොඩියුලයකි' : 'Zeebroo තුළ ඇතුළත්' }}</li>
         <li><i class="fa-solid fa-check"></i>වෙබ් සහ ඩෙස්ක්ටොප්</li>
-        <li><i class="fa-solid fa-check"></i>බෙදාගත්, සජීවී දත්ත</li>
+        <li><i class="fa-solid fa-check"></i>තත්‍ය කාලීන, එකම දත්ත</li>
       </ul>
     </div>
 

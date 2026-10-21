@@ -99,7 +99,7 @@ class LanguageSwitchTest extends TestCase
         $this->withCookie(SetLocale::COOKIE, 'si')
             ->get(route('features.show', $feature->slug))
             ->assertOk()
-            ->assertSee('වැටුප් ලේඛනය ඔබට කරන දේ')
+            ->assertSee('වැටුප් ලේඛනය ඔබේ ව්‍යාපාරයට උපකාරී වන ආකාරය')
             ->assertDontSee('Book a demo');
     }
 

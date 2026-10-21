@@ -3,8 +3,8 @@
 <section class="section">
   <div class="wrap">
     <div class="head reveal">
-      <span class="label">එය උපකාර වන්නේ ඇයි</span>
-      <h2>{{ $feature->title }} ඔබට කරන දේ</h2>
+      <span class="label">ප්‍රධාන ප්‍රතිලාභ</span>
+      <h2>{{ $feature->title }} ඔබේ ව්‍යාපාරයට උපකාරී වන ආකාරය</h2>
     </div>
     <div class="feat-cards">
       @foreach ($feature->highlights as $h)

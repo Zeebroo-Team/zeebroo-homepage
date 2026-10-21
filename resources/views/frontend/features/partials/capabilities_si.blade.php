@@ -3,10 +3,10 @@
 <section class="section">
   <div class="wrap feat-caps">
     <div class="feat-caps-l reveal">
-      <span class="label">මොඩියුලය තුළ</span>
-      <h2>{{ $feature->title }} හි ඇති සියල්ල</h2>
-      <p>Zeebroo හි අනෙක් සියල්ල සමඟ එකම වේදිකාවේ කොටසක් නිසා, කිසිවක් දෙවරක් ටයිප් කිරීමට අවශ්‍ය නැති අතර සෑම වාර්තාවක්ම එකඟ වේ.</p>
-      <a class="btn btn-line" href="{{ route('contact') }}">{{ $feature->title }} ගැන විමසන්න <i class="fa-solid fa-arrow-right"></i></a>
+      <span class="label">මොඩියුලයේ අඩංගු දේ</span>
+      <h2>{{ $feature->title }} මගින් ලැබෙන පහසුකම්</h2>
+      <p>මෙය Zeebroo හි අනෙකුත් මොඩියුල සමඟ එකම පද්ධතියේ කොටසක් බැවින්, කිසිදු තොරතුරක් දෙවරක් ඇතුළත් කිරීමට අවශ්‍ය නැත. සියලුම වාර්තා එකිනෙකට ගැළපේ.</p>
+      <a class="btn btn-line" href="{{ route('contact') }}">{{ $feature->title }} පිළිබඳ විමසන්න <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <ul class="feat-list reveal">
       @foreach ($feature->capabilities as $cap)
