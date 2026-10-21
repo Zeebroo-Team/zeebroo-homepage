@@ -3,9 +3,9 @@
 <section class="section abt-trust">
   <div class="wrap">
     <div class="head reveal">
-      <span class="label">විශ්වාස කරන අය</span>
-      <h2>අප මත විශ්වාසය තබන ව්‍යාපාර.</h2>
-      <p>තම දවස Zeebroo මත පවත්වාගෙන යන සාප්පු, ආපනශාලා සහ හවුල්කරුවන්, ඔවුන්ගේම වචනවලින්.</p>
+      <span class="label">අප කෙරෙහි විශ්වාසය</span>
+      <h2>Zeebroo භාවිත කරන ව්‍යාපාර.</h2>
+      <p>දිනපතා Zeebroo භාවිත කරන වෙළඳසැල්, ආපනශාලා සහ හවුල්කරුවන්ගේ අත්දැකීම්, ඔවුන්ගේම වචනවලින්.</p>
     </div>
 
     @if ($partners->isNotEmpty())
@@ -29,10 +29,10 @@
 
     <div class="abt-trust-links">
       @if ($partnerCount > 0)
-        <a class="btn btn-line" href="{{ route('partners.index') }}">සියලුම හවුල්කරුවන් සහ ගනුදෙනුකරුවන් <i class="fa-solid fa-arrow-right"></i></a>
+        <a class="btn btn-line" href="{{ route('partners.index') }}">සියලුම හවුල්කරුවන් සහ ගනුදෙනුකරුවන් බලන්න <i class="fa-solid fa-arrow-right"></i></a>
       @endif
       @if ($testimonialCount > 0)
-        <a class="btn btn-line" href="{{ route('testimonials.index') }}">සමාලෝචන {{ $testimonialCount }} ම කියවන්න <i class="fa-solid fa-arrow-right"></i></a>
+        <a class="btn btn-line" href="{{ route('testimonials.index') }}">පාරිභෝගික අදහස් {{ $testimonialCount }}ම කියවන්න <i class="fa-solid fa-arrow-right"></i></a>
       @endif
     </div>
   </div>

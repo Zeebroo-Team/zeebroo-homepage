@@ -5,10 +5,10 @@
     @if ($features->isNotEmpty())
       <div class="abt-split abt-split-h reveal">
         <div>
-          <span class="label">අප ගොඩනගන දේ</span>
+          <span class="label">අපගේ විසඳුම්</span>
           <h2>ව්‍යාපාරයක් පවත්වාගෙන යාමට අවශ්‍ය සියල්ල.</h2>
         </div>
-        <p>මොඩියුල {{ $features->count() }}, එකම පිවිසුමක්, එකම ඉලක්කම් කට්ටලයක්. අද ඔබට අවශ්‍ය දේ පමණක් සක්‍රිය කර, වර්ධනය වන විට ඉතිරිය සක්‍රිය කරන්න.</p>
+        <p>මොඩියුල {{ $features->count() }}ක්, එකම ගිණුමක්, එකම දත්ත. අද ඔබට අවශ්‍ය මොඩියුල පමණක් සක්‍රිය කර, ව්‍යාපාරය වර්ධනය වන විට අනෙක්වා එකතු කරගන්න.</p>
       </div>
       <div class="abt-chips">
         @foreach ($features as $feature)
@@ -24,10 +24,10 @@
     @if ($industries->isNotEmpty())
       <div class="abt-split abt-split-h abt-ind-h reveal">
         <div>
-          <span class="label">අප සේවය කරන්නේ කාටද</span>
-          <h2>ඔබ වැඩ කරන ආකාරයටම නිර්මාණය කළා.</h2>
+          <span class="label">අප සේවය කරන ක්ෂේත්‍ර</span>
+          <h2>ඔබේ ව්‍යාපාරයේ ස්වභාවයට ගැළපෙන ලෙස.</h2>
         </div>
-        <p>ක්ෂේත්‍ර {{ $industries->count() }} ක් සඳහා සූදානම් කළ සැකසුම්, එබැවින් පළමු දිනයේ සිටම නිවැරදි මොඩියුල සක්‍රියව ඔබ ආරම්භ කරයි.</p>
+        <p>ව්‍යාපාර ක්ෂේත්‍ර {{ $industries->count() }}ක් සඳහා සූදානම් සැකසුම් ඇති බැවින්, පළමු දිනයේ සිටම ඔබට අවශ්‍ය මොඩියුල සමඟ ආරම්භ කළ හැක.</p>
       </div>
       <div class="abt-inds">
         @foreach ($industries as $industry)
@@ -35,7 +35,7 @@
             <i class="fa-solid {{ $industry->icon }}"></i>{{ $industry->title }}
           </a>
         @endforeach
-        <a class="abt-ind is-more reveal" href="{{ route('contact') }}"><i class="fa-solid fa-plus"></i>ඔබේ ක්ෂේත්‍රය නැද්ද? අප හා කතා කරන්න</a>
+        <a class="abt-ind is-more reveal" href="{{ route('contact') }}"><i class="fa-solid fa-plus"></i>ඔබේ ක්ෂේත්‍රය මෙහි නැද්ද? අප අමතන්න</a>
       </div>
     @endif
   </div>

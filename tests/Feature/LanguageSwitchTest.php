@@ -75,7 +75,7 @@ class LanguageSwitchTest extends TestCase
             'partners' => ['partners.index', 'Zeebroo හවුල්කරුවෙකු වන්න', 'Become a Zeebroo partner'],
             'testimonials' => ['testimonials.index', 'ඔබේම කතාව ලිවීමට සූදානම්ද?', 'Ready to write your own story?'],
             'blog' => ['blog.index', 'තවම මෙහි ලිපි නැත', 'here yet'],
-            'about' => ['about', 'සෑම තිරයක් පිටුපසම ඇති පොරොන්දු හය.', 'Six promises behind every screen.'],
+            'about' => ['about', 'අප කටයුතු කරන මූලධර්ම හය.', 'Six promises behind every screen.'],
             'contact' => ['contact', 'පණිවිඩය යවන්න', 'Send message'],
         ];
     }
