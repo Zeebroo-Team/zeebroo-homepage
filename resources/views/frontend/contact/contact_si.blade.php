@@ -14,7 +14,7 @@
         <p>Demo එකක් වෙන් කරගන්න, මිල ගණන් ගැන විමසන්න, නැත්නම් ඔබේ ව්‍යාපාරය Zeebroo හි සකසා ගැනීමට අපගේ සහාය ලබාගන්න.</p>
         <ul class="contact-ways">
           <li><span><i class="fa-regular fa-envelope"></i></span><div><small>ඊමේල් කරන්න</small><a href="mailto:hello@zeebroo.com">hello@zeebroo.com</a></div></li>
-          <li><span><i class="fa-solid fa-book-open"></i></span><div><small>මාර්ගෝපදේශ සහ පාඩම්</small><a href="https://www.zeebroo.com/tutorial">උපදෙස් කියවන්න</a></div></li>
+          <li><span><i class="fa-solid fa-book-open"></i></span><div><small>මාර්ගෝපදේශ සහ පාඩම්</small><a href="{{ route('docs.index') }}">උපදෙස් කියවන්න</a></div></li>
           <li><span><i class="fa-solid fa-right-to-bracket"></i></span><div><small>දැනටමත් Zeebroo භාවිත කරනවාද?</small><a href="https://platform.zeebroo.com/login">ඔබේ ගිණුමට ලොග් වන්න</a></div></li>
         </ul>
         <img class="contact-art" src="{{ asset('assets/ufo.webp') }}" alt="" width="179" height="187" loading="lazy">

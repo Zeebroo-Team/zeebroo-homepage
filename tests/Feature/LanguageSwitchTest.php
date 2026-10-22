@@ -77,6 +77,8 @@ class LanguageSwitchTest extends TestCase
             'blog' => ['blog.index', 'තවම මෙහි ලිපි නැත', 'here yet'],
             'about' => ['about', 'අප කටයුතු කරන මූලධර්ම හය.', 'Six promises behind every screen.'],
             'contact' => ['contact', 'පණිවිඩය යවන්න', 'Send message'],
+            'docs' => ['docs.index', 'පියවරෙන් පියවර <span class="mark">ඉගෙන ගන්න.</span>', 'Learn Zeebroo, step by'],
+            'api docs' => ['docs.api.index', 'Zeebroo API මත <span class="mark">ගොඩනගන්න.</span>', 'Build on the Zeebroo'],
         ];
     }
 

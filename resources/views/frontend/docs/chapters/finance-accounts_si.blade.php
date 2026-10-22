@@ -1,0 +1,82 @@
+<figure class="screenshot-figure">
+  <img src="{{ asset('assets/docs/06-finance.png') }}" alt="මූල්‍ය සහ ගිණුම් ටැබය" loading="lazy">
+  <figcaption class="screenshot-caption">Finance ටැබය: මුදල් ප්‍රවාහ දළ විශ්ලේෂණය, ගිණුම්, බිල්පත් සහ වියදම් කළමනාකරණය.</figcaption>
+</figure>
+
+<div class="doc-sec">
+  <h3 id="financial-overview-cash-flow">මූල්‍ය දළ විශ්ලේෂණය: මුදල් ප්‍රවාහය</h3>
+  <p>මූල්‍ය පැනලය විවෘත කිරීමට <span class="tab-label">FINANCE</span> ටැබය ක්ලික් කරන්න. පෙරනිමි දසුන <strong>Cash Flow</strong> වන අතර එහි පෙන්වන්නේ:</p>
+  <ul>
+    <li>මාසික ආදායම සහ වියදම් සංසන්දන ප්‍රස්තාරය</li>
+    <li>ගිණුම්වල වත්මන් ශේෂ</li>
+    <li>මෑත ආදායම් සහ වියදම් ගනුදෙනු</li>
+    <li>වත්මන් කාල සීමාවේ ශුද්ධ මුදල් තත්ත්වය</li>
+  </ul>
+  <p>ඕනෑම කාල සීමාවක් විස්තරාත්මකව බැලීමට හෝ මාස සංසන්දනය කිරීමට දින පරාස තේරීම භාවිත කරන්න.</p>
+</div>
+
+<div class="doc-sec">
+  <h3 id="bank-accounts">බැංකු ගිණුම්</h3>
+  <p>සියලු ගෙවීම් ගිණුම් හරහා ගලා යයි. Finance පැනලයට ගොස් උප සංචාලනයේ <span class="ui">Accounts</span> ක්ලික් කරන්න. මෙහිදී ඔබට:</p>
+  <ul>
+    <li>බැංකු ගිණුම්, මුදල් ලාච්චු සහ ජංගම මුදල් පසුම්බි (mobile wallets) එක් කළ හැක</li>
+    <li>සෑම ගිණුමකම සම්පූර්ණ ගනුදෙනු ලෙජරය බැලිය හැක</li>
+    <li>ගිණුම් අතර මුදල් මාරු කළ හැක</li>
+    <li>ගිණුම් ශේෂ බැංකු ප්‍රකාශය සමඟ ගැළපිය හැක</li>
+  </ul>
+  <div class="callout note">
+    <div class="callout-icon"><i class="fa-solid fa-circle-info"></i></div>
+    <div class="callout-body">
+      <strong>සටහන</strong>
+      විකුණුම් කිරීමට පෙර අවම වශයෙන් එක් බැංකු ගිණුමක් එක් කළ යුතුය. පළමු පිවිසුමේදී බැංකු ගිණුම් සැකසුම් විශාරදය ස්වයංක්‍රීයව විවෘත වේ.
+    </div>
+  </div>
+</div>
+
+<div class="doc-sec">
+  <h3 id="bill-management">බිල්පත් කළමනාකරණය</h3>
+  <p>ඔබ ගෙවිය යුතු සැපයුම්කරු ඉන්වොයිසි සහ බිල්පත් සටහන් කරන්න. Finance රිබනයේ <span class="ui">New Bill</span> ක්ලික් කරන්න.</p>
+  <div class="doc-steps">
+    <div class="doc-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>බිල්පත් විස්තර ඇතුළත් කරන්න</strong>
+        <p>සැපයුම්කරු තෝරා ඉන්වොයිස් අංකය, දිනය සහ ගෙවිය යුතු දිනය ඇතුළත් කරන්න. එක් එක් වියදම් කාණ්ඩය සඳහා අයිතම එක් කරන්න.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>ගෙවීම සටහන් කරන්න</strong>
+        <p>බිල්පත ගෙවූ විට එය විවෘත කර <span class="ui">Record Payment</span> ක්ලික් කරන්න. ගෙවීම කළ ගිණුම සහ ගෙවූ මුදල තෝරන්න.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>කොටස් ගෙවීම් නිරීක්ෂණය කරන්න</strong>
+        <p>එක් බිල්පතකට කොටස් ගෙවීම් කිහිපයක් කළ හැක. බිල්පත සම්පූර්ණයෙන් ගෙවා අවසන් වන තුරු සෑම ගෙවීමකින් පසුවම ඉතිරි ශේෂය යාවත්කාලීන වේ.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-sec">
+  <h3 id="loans">ණය</h3>
+  <p>ව්‍යාපාරික ණය සටහන් කරන්න: ඔබ ගත් ණය සහ ඔබ දුන් ණය යන දෙකම. Finance පැනලයේ උප සංචාලනයේ <strong>Loans</strong> ක්ලික් කරන්න. මුල් මුදල, පොලී අනුපාතය සහ ආපසු ගෙවීමේ කාලසටහන ඇතුළත් කරන්න. පද්ධතිය සෑම ගෙවීමක්ම සටහන් කර ඉතිරි ශේෂය පෙන්වයි.</p>
+</div>
+
+<div class="doc-sec">
+  <h3 id="rentals-properties">කුලී සහ දේපළ</h3>
+  <p>ඔබේ ව්‍යාපාරය කුලී දේපළ කළමනාකරණය කරන්නේ නම් හෝ කුලී ගෙවන්නේ නම්, <strong>Rentals</strong> සහ <strong>Properties</strong> දසුන් මගින් කුලී කොන්දේසි, මාසික ගෙවීම් සහ දේපළ ආශ්‍රිත වියදම් නිරීක්ෂණය කළ හැක. සෑම දේපළකටම ඉදිරි ගෙවීම් ගැන මතක් කරන බිල්පත් කාලසටහනක් සම්බන්ධ වේ.</p>
+</div>
+
+<div class="doc-sec">
+  <h3 id="finance-reports">මූල්‍ය වාර්තා</h3>
+  <p><strong>Reports</strong> රිබන් කණ්ඩායමෙන් සම්මත මූල්‍ය වාර්තා ලබාගන්න:</p>
+  <ul>
+    <li><strong>Profit &amp; Loss</strong>: ඕනෑම කාල සීමාවක ආදායම සහ වියදම් (ලාභ අලාභ ප්‍රකාශය)</li>
+    <li><strong>Account Statement</strong>: නිශ්චිත ගිණුමක සම්පූර්ණ ලෙජරය</li>
+    <li><strong>Expense Summary</strong>: කාණ්ඩ අනුව වියදම් බෙදීම</li>
+  </ul>
+</div>

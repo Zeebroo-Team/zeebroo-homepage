@@ -105,7 +105,8 @@
             <div class="mega-main">
               <div class="mega-grid">
                 <a href="{{ route('home') }}#download"><span class="mi"><i class="fa-solid fa-download"></i></span><div><b>Download</b><small>Get the desktop POS app</small></div></a>
-                <a href="https://www.zeebroo.com/tutorial"><span class="mi"><i class="fa-solid fa-book-open"></i></span><div><b>Docs</b><small>Guides and tutorials</small></div></a>
+                <a href="{{ route('docs.index') }}"><span class="mi"><i class="fa-solid fa-book-open"></i></span><div><b>Docs</b><small>Guides and tutorials</small></div></a>
+                <a href="{{ route('docs.api.index') }}"><span class="mi"><i class="fa-solid fa-code"></i></span><div><b>API reference</b><small>Endpoints for developers</small></div></a>
                 <a href="{{ route('about') }}"><span class="mi"><i class="fa-solid fa-building"></i></span><div><b>About us</b><small>Who we are and what we do</small></div></a>
                 <a href="{{ route('partners.index') }}"><span class="mi"><i class="fa-solid fa-handshake"></i></span><div><b>Partners &amp; clients</b><small>Who we work with</small></div></a>
                 <a href="{{ route('testimonials.index') }}"><span class="mi"><i class="fa-solid fa-comment-dots"></i></span><div><b>Testimonials</b><small>What our customers say</small></div></a>

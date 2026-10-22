@@ -1,0 +1,99 @@
+<figure class="screenshot-figure">
+  <img src="{{ asset('assets/docs/05-sales.png') }}" alt="විකුණුම් සහ ආපසු භාරදීම් ටැබය" loading="lazy">
+  <figcaption class="screenshot-caption">Sales ටැබය: ගනුදෙනු ඉතිහාසය, විශ්ලේෂණ සහ ආපසු භාරදීම් සැකසීම.</figcaption>
+</figure>
+
+<div class="doc-sec">
+  <h3 id="transaction-history">ගනුදෙනු ඉතිහාසය</h3>
+  <p>රිබනයේ <span class="tab-label">SALES</span> ටැබය ක්ලික් කර, ඉන්පසු <span class="ui">Transactions</span> ක්ලික් කළ විට සම්පූර්ණ කළ සියලු විකුණුම් පෙනේ. විකුණුම් අංකය, පාරිභෝගිකයාගේ නම හෝ මුදල අනුව විකිණීමක් සෙවීමට සෙවුම් තීරුව භාවිත කරන්න.</p>
+  <p>ඕනෑම ගනුදෙනු පේළියක් ක්ලික් කළ විට එහි සම්පූර්ණ විස්තර විවෘත වේ: විකුණූ අයිතම, ගෙවීම් ක්‍රමය, මුදල් සහ රිසිට්පත නැවත මුද්‍රණය කිරීමේ විකල්ප.</p>
+</div>
+
+<div class="doc-sec">
+  <h3 id="sales-history-analytics">විකුණුම් ඉතිහාසය සහ විශ්ලේෂණ</h3>
+  <p>විශ්ලේෂණ දසුන විවෘත කිරීමට Transactions කණ්ඩායමේ <span class="ui">Sales History</span> ක්ලික් කරන්න. මෙහිදී ඔබට:</p>
+  <ul>
+    <li>ඕනෑම කාල සීමාවක කාර්ය සාධනය බැලීමට දින පරාසය අනුව පෙරිය හැක</li>
+    <li>එම කාලයේ වැඩියෙන්ම විකුණුණු නිෂ්පාදන බැලිය හැක</li>
+    <li>දිනපතා ආදායම තීරු ප්‍රස්තාරයකින් බැලිය හැක</li>
+    <li>මුළු විකුණුම්, මුළු ගනුදෙනු ගණන සහ සාමාන්‍ය ඇණවුම් වටිනාකම බැලිය හැක</li>
+  </ul>
+  <figure class="screenshot-figure">
+    <img src="{{ asset('assets/docs/sales_analytics_chart.png') }}" alt="විකුණුම් විශ්ලේෂණ ප්‍රස්තාරය" loading="lazy">
+    <figcaption class="screenshot-caption">විකුණුම් විශ්ලේෂණ: කාල සීමාවේ එකතුව, ගනුදෙනු ගණන සහ ප්‍රධාන නිෂ්පාදන සමඟ දිනපතා ආදායම් තීරු ප්‍රස්තාරය.</figcaption>
+  </figure>
+</div>
+
+<div class="doc-sec">
+  <h3 id="processing-a-return">ආපසු භාරදීමක් සැකසීම</h3>
+  <div class="doc-steps">
+    <div class="doc-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Returns කණ්ඩායම විවෘත කරන්න</strong>
+        <p><span class="tab-label">SALES</span> රිබනයේ <span class="ui">New Return</span> ක්ලික් කරන්න.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>මුල් විකිණීම සොයන්න</strong>
+        <p>විකුණුම් අංකය හෝ පාරිභෝගිකයා අනුව සොයන්න. අයිතම ආපසු ලබාගන්නා විකිණීම තෝරන්න.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>අයිතම සහ ප්‍රමාණ තෝරන්න</strong>
+        <p>ආපසු ලැබෙන අයිතම සලකුණු කර ප්‍රමාණය ඇතුළත් කරන්න. ආපසු ගෙවිය යුතු මුදල ස්වයංක්‍රීයව ගණනය වේ.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <strong>හේතුව තෝරා තහවුරු කරන්න</strong>
+        <p>ලැයිස්තුවෙන් හේතුවක් තෝරන්න (Defective: දෝෂ සහිතයි, Wrong item: වැරදි අයිතමයකි, Customer changed mind: පාරිභෝගිකයා අදහස වෙනස් කළා ආදී) සහ <span class="ui">Process Return</span> ක්ලික් කරන්න. භාණ්ඩ ස්වයංක්‍රීයව තොගයට නැවත එක් වේ.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-sec">
+  <h3 id="end-of-day-settlement">දවස අවසානයේ ගිණුම් සමථය</h3>
+  <p>සෑම ව්‍යාපාරික දිනයක් අවසානයේම මුදල් ගළපා සැසිය අවසන් කිරීමට ගිණුම් සමථය (settlement) කරන්න. මෙය <strong>Settlement</strong> රිබන් කණ්ඩායමේ ඇත.</p>
+  <div class="doc-steps">
+    <div class="doc-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>End-of-Day ක්ලික් කරන්න</strong>
+        <p>අවසන් සමථයේ සිට සිදු වූ සියලු ගනුදෙනු පද්ධතිය එකතු කරයි: මුදල් විකුණුම්, කාඩ්පත් ගෙවීම් සහ බැංකු මාරු වෙන වෙනම.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>මුදල් ලාච්චුව ගණන් කරන්න</strong>
+        <p>ලාච්චුවේ සැබවින්ම ඇති මුදල ඇතුළත් කරන්න. තිබිය යුතු මුදල සහ ඕනෑම වෙනසක් පද්ධතිය පෙන්වයි.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>තහවුරු කර මුද්‍රණය කරන්න</strong>
+        <p><span class="ui">Confirm Settlement</span> ක්ලික් කරන්න. සමථ වාර්තාවක් සැකසෙන අතර ඊළඟ දිනය සඳහා සැසිය යළි සකසනු ලැබේ.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout tip">
+    <div class="callout-icon"><i class="fa-solid fa-lightbulb"></i></div>
+    <div class="callout-body">
+      <strong>ඉඟිය</strong>
+      ලාච්චුවේ මුදල් වෙනසක් පෙන්වන්නේ නම්, සමථය තහවුරු කිරීමට පෙර එදින ආපසු භාරදීම් සහ නවත්වා තැබූ ඇණවුම් පරීක්ෂා කරන්න. බොහෝ විට වෙනසට හේතුව එහි සොයාගත හැක.
+    </div>
+  </div>
+</div>
+
+<div class="doc-sec">
+  <h3 id="sales-invoices">විකුණුම් ඉන්වොයිසි</h3>
+  <p>ව්‍යාපාරික පාරිභෝගිකයන්ට විධිමත් ඉන්වොයිසි සාදා යැවීමට <span class="ui">Transactions → Invoices</span> භාවිත කරන්න. සෑම ඉන්වොයිසියකටම ගෙවීම් කොන්දේසි, ගෙවිය යුතු දිනය සහ අයිතම විස්තර ඇතුළත් කළ හැක. ඉන්වොයිසි මුද්‍රණය කිරීමට හෝ PDF ලෙස අපනයනය කිරීමට හැක.</p>
+</div>

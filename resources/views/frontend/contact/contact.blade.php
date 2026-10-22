@@ -14,7 +14,7 @@
         <p>Book a demo, ask about pricing, or get help setting up your shop.</p>
         <ul class="contact-ways">
           <li><span><i class="fa-regular fa-envelope"></i></span><div><small>Email us</small><a href="mailto:hello@zeebroo.com">hello@zeebroo.com</a></div></li>
-          <li><span><i class="fa-solid fa-book-open"></i></span><div><small>Guides and tutorials</small><a href="https://www.zeebroo.com/tutorial">Read the docs</a></div></li>
+          <li><span><i class="fa-solid fa-book-open"></i></span><div><small>Guides and tutorials</small><a href="{{ route('docs.index') }}">Read the docs</a></div></li>
           <li><span><i class="fa-solid fa-right-to-bracket"></i></span><div><small>Already a customer?</small><a href="https://platform.zeebroo.com/login">Sign in to Zeebroo</a></div></li>
         </ul>
         <img class="contact-art" src="{{ asset('assets/ufo.webp') }}" alt="" width="179" height="187" loading="lazy">

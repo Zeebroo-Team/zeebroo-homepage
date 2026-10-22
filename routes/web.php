@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DocController;
 use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndustryController;
@@ -46,6 +47,14 @@ Route::middleware('locale')->group(function () {
     Route::get('/blog/category/{slug}', [BlogController::class, 'category'])->where('slug', '[a-z0-9-]+')->name('blog.category');
     Route::get('/blog/tag/{slug}', [BlogController::class, 'tag'])->where('slug', '[a-z0-9-]+')->name('blog.tag');
     Route::get('/blog/{slug}', [BlogController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('blog.show');
+
+    // Docs (desktop POS user guide, chapters in config/docs.php); /tutorial was the old guide address
+    Route::get('/docs', [DocController::class, 'index'])->name('docs.index');
+    // API reference (one page per resource, content in config/api-docs.php); registered before /docs/{slug}
+    Route::get('/docs/api', [DocController::class, 'api'])->name('docs.api.index');
+    Route::get('/docs/api/{slug}', [DocController::class, 'apiResource'])->where('slug', '[a-z0-9-]+')->name('docs.api.show');
+    Route::get('/docs/{slug}', [DocController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('docs.show');
+    Route::permanentRedirect('/tutorial', '/docs');
 
     // About Us (story and values, with live module / industry / partner figures)
     Route::get('/about', [AboutController::class, 'index'])->name('about');
