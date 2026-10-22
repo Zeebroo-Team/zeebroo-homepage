@@ -62,4 +62,7 @@ Route::middleware('locale')->group(function () {
     // Contact Us
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
     Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:5,1')->name('contact.store');
+
+    // Unknown addresses: routed here (instead of failing before any middleware) so the 404 page shows in the visitor's language
+    Route::fallback(fn () => abort(404));
 });

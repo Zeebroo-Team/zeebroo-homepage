@@ -989,6 +989,22 @@ footer{padding:var(--sec) 0 0}
 .lang-opt:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 @media (max-width:640px){.lang-switch{left:8px}.lang-opt{width:28px;height:28px;font-size:10px}}
 
+/* error pages (404, 500, ...): no mega-menu nav or footer, so they still render when the database is down */
+.err{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;padding:28px 24px}
+.err-top,.err-foot{width:100%;max-width:var(--wrap);margin:0 auto}
+.err-main{flex:1;display:grid;place-items:center;padding:56px 0;text-align:center}
+.err-in{max-width:640px;display:flex;flex-direction:column;align-items:center}
+.err-art{width:130px;margin-bottom:-18px;position:relative;z-index:1;animation:hover 4s ease-in-out infinite}
+.err-code{position:relative;font:800 clamp(112px,22vw,210px)/.9 var(--display);letter-spacing:-.06em;padding:0 .08em}
+.err-code::before{content:"";position:absolute;left:0;right:0;bottom:.14em;height:.24em;border-radius:999px;background:var(--zee);z-index:-1}
+.err h1{font-size:clamp(30px,4.4vw,46px);margin:26px 0 14px}
+.err-in>p{font-size:18px;color:var(--muted);max-width:48ch}
+.err-acts{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:34px}
+.err-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.err-foot a{color:var(--ink);font-weight:500}
+.err-foot a:hover{text-decoration:underline;text-underline-offset:3px}
+@media (max-width:640px){.err{padding:20px 40px}.err-art{width:100px}.err-in>p{font-size:16px}.err-acts .btn{height:48px;padding:0 20px;font-size:15px}.err-foot{justify-content:center;text-align:center}}
+
 /* Sinhala: the Latin fonts have no Sinhala letters, so Noto Sans Sinhala (loaded only for si) fills them in; tight tracking breaks the script */
 html:lang(si){--display:"Bricolage Grotesque","Noto Sans Sinhala",system-ui,sans-serif;--body:"Geist","Noto Sans Sinhala",system-ui,-apple-system,sans-serif}
 html:lang(si) h1,html:lang(si) h2,html:lang(si) h3,html:lang(si) .manifesto,html:lang(si) summary{letter-spacing:0;line-height:1.3}
