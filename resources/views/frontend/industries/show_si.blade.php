@@ -7,7 +7,6 @@
 @section('description', $metaDescription)
 
 @push('head')
-<link rel="canonical" href="{{ route('industries.show', $industry->slug) }}">
 @if ($industry->meta_keywords)<meta name="keywords" content="{{ $industry->meta_keywords }}">@endif
 <meta property="og:type" content="website">
 <meta property="og:title" content="{{ $metaTitle }}">

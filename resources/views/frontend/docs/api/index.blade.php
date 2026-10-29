@@ -4,7 +4,6 @@
 @section('description', 'The Zeebroo POS REST API: ' . config('api-docs.endpoint_count') . ' endpoints for auth, catalog, checkout, sales, finance, HR, CRM, restaurants and more, with parameters and sample responses.')
 
 @push('head')
-<link rel="canonical" href="{{ route('docs.api.index') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/docs.css') }}">
 @endpush
 

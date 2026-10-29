@@ -4,7 +4,6 @@
 @section('description', 'Zeebroo භාවිතයෙන් තම ව්‍යාපාර කළමනාකරණය කරන වෙළඳසැල් හිමියන්, අවන්හල් සහ ආයතන ඔවුන්ගේ අත්දැකීම් ගැන පවසන දේ කියවන්න.')
 
 @push('head')
-<link rel="canonical" href="{{ route('testimonials.index') }}">
 @endpush
 
 @push('scripts')

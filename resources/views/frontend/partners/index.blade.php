@@ -4,7 +4,6 @@
 @section('description', $category?->description ?: 'Meet the technology, payment and reseller partners who work with Zeebroo, and the businesses that run on it every day.')
 
 @push('head')
-<link rel="canonical" href="{{ $category ? route('partners.index', ['category' => $category->slug]) : route('partners.index') }}">
 @endpush
 
 @push('scripts')

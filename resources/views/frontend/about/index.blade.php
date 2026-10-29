@@ -4,7 +4,6 @@
 @section('description', 'Zeebroo is one platform for sales, stock, bills, staff and growth. Meet the team, the mission and the values behind the software that runs busy businesses.')
 
 @push('head')
-<link rel="canonical" href="{{ route('about') }}">
 @endpush
 
 @push('scripts')

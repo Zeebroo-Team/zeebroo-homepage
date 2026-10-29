@@ -5,7 +5,7 @@
 | After seeding, features are managed in /admin/features; this file is not read at runtime.
 | Images are copied from public/assets/features to the public disk:
 | "spot" is the square illustration, "scene" the wide one in features/scenes.
-| "description" becomes the meta description.
+| "description" becomes the meta description; the optional "meta_title" and "keywords" fill the other SEO fields.
 | group: core = the six headline modules, suite = "all included, plus".
 */
 
@@ -17,9 +17,11 @@ return [
         'icon' => 'fa-cash-register',
         'group' => 'core',
         'badge' => 'Popular',
-        'headline' => 'Checkout that keeps the queue moving',
+        'headline' => 'A POS system for Sri Lanka that keeps the queue moving',
         'lead' => 'Scan items, take cash or card, and print receipts without slowing down. Zeebroo POS runs in the browser or as a desktop app, and every sale lands in stock and accounts the moment it is made.',
-        'description' => 'Zeebroo Point of Sale: fast checkout, receipts and payments on web and desktop, connected to stock and accounts.',
+        'meta_title' => 'POS System Sri Lanka | Web & Desktop',
+        'description' => 'POS system for Sri Lankan retail shops, restaurants and growing businesses. Manage billing, inventory, accounts and reports with Zeebroo.',
+        'keywords' => 'POS system Sri Lanka, POS software Sri Lanka, point of sale Sri Lanka, billing system Sri Lanka',
         'spot' => 'point-of-sale.webp',
         'scene' => 'scenes/point-of-sale.webp',
         'highlights' => [

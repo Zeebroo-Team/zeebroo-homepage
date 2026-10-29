@@ -9,6 +9,7 @@ use App\Services\LocalizedViewFinder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View as ViewFacade;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,6 +30,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::before(fn (User $user): ?bool => $user->hasRole('super-admin') ? true : null);
+
+        // In production every generated URL (canonical tags, hreflang, sitemap) uses APP_URL, never the request's Host header
+        if ($this->app->isProduction()) {
+            $root = rtrim((string) config('app.url'), '/');
+            URL::forceRootUrl($root);
+            URL::forceScheme(parse_url($root, PHP_URL_SCHEME) ?: 'https');
+        }
 
         Paginator::defaultView('pagination.zeebroo');
 

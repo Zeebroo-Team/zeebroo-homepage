@@ -28,6 +28,18 @@ class LanguageSwitchTest extends TestCase
             ->assertCookie(SetLocale::COOKIE, 'si');
     }
 
+    public function test_switch_moves_between_a_features_english_and_sinhala_addresses(): void
+    {
+        $this->from(route('features.show', 'point-of-sale'))
+            ->get(route('locale.switch', 'si'))
+            ->assertRedirect(route('features.si', 'pos-system'));
+
+        $this->from(route('features.si', 'pos-system'))
+            ->get(route('locale.switch', 'en'))
+            ->assertRedirect(route('features.show', 'point-of-sale'))
+            ->assertCookie(SetLocale::COOKIE, 'en');
+    }
+
     public function test_switch_never_redirects_off_site(): void
     {
         $this->from('https://evil.example/phish')
@@ -44,7 +56,7 @@ class LanguageSwitchTest extends TestCase
     {
         $this->get(route('home'))
             ->assertOk()
-            ->assertSee('<html lang="en">', false)
+            ->assertSee('<html lang="en-LK">', false)
             ->assertSee('Grow your business')
             ->assertDontSee('සියල්ල එකම ඇප් එකකින් පාලනය කරන්න');
     }
@@ -56,7 +68,7 @@ class LanguageSwitchTest extends TestCase
         $this->withCookie(SetLocale::COOKIE, 'si')
             ->get(route('home'))
             ->assertOk()
-            ->assertSee('<html lang="si">', false)
+            ->assertSee('<html lang="si-LK">', false)
             ->assertSee('සියල්ල එකම ඇප් එකකින් පාලනය කරන්න')
             ->assertSee('ඔබේ ව්‍යාපාරයට අවශ්‍ය සියල්ල එකම තැනක')
             ->assertSee('තොග පාලනය')

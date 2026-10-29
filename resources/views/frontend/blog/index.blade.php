@@ -14,7 +14,6 @@
 @section('description', $category?->description ?: 'News, product updates and practical tips for running your shop, stock, money and people with Zeebroo.')
 
 @push('head')
-<link rel="canonical" href="{{ url()->current() }}">
 <link rel="stylesheet" href="{{ asset('assets/css/blog.css') }}">
 @endpush
 

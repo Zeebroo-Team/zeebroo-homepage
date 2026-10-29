@@ -1,10 +1,12 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}-LK">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>@yield('title', 'Zeebroo: the POS that runs your whole business')</title>
 <meta name="description" content="@yield('description', 'Zeebroo brings sales, stock, money, people and marketing into one workspace. Web and desktop POS, inventory, bills, HR and campaigns. All modules included.')">
+{{-- every page points to its own address without the query string; a view or controller can set $canonical to override --}}
+<link rel="canonical" href="{{ $canonical ?? url()->current() }}">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/favicon-32x32.png') }}">
 <link rel="apple-touch-icon" href="{{ asset('assets/apple-touch-icon.png') }}">
 @stack('head')

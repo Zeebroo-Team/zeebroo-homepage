@@ -1,5 +1,10 @@
 @extends('layouts.frontend')
 
+@include('frontend.components.organization-schema')
+
+{{-- the home page's canonical keeps the trailing slash: https://zeebroo.com/ --}}
+@php($canonical = route('home').'/')
+
 @push('head')
 <link rel="preload" as="image" href="{{ asset('assets/mascot.webp') }}">
 @endpush

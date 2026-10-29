@@ -45,6 +45,16 @@ class Feature extends Model
         'suite' => 'All included, plus',
     ];
 
+    /**
+     * Features with their own Sinhala address for search engines: slug => path under /si
+     * (/features/point-of-sale is /si/pos-system). Other features show Sinhala on their usual address.
+     *
+     * @var array<string, string>
+     */
+    public const SINHALA_PATHS = [
+        'point-of-sale' => 'pos-system',
+    ];
+
     protected function slugSource(): string
     {
         return 'title';
@@ -118,6 +128,14 @@ class Feature extends Model
     protected function sceneUrl(): Attribute
     {
         return Attribute::get(fn (): ?string => $this->scene_path ? Storage::disk('public')->url($this->scene_path) : null);
+    }
+
+    /**
+     * The feature's own Sinhala address (see SINHALA_PATHS), or null when it has none.
+     */
+    protected function sinhalaUrl(): Attribute
+    {
+        return Attribute::get(fn (): ?string => isset(self::SINHALA_PATHS[$this->slug]) ? route('features.si', self::SINHALA_PATHS[$this->slug]) : null);
     }
 
     /**

@@ -30,7 +30,9 @@ class SinhalaContentSeeder extends Seeder
         'badge' => 'badge',
         'headline' => 'headline',
         'lead' => 'lead',
+        'meta_title' => 'meta_title',
         'description' => 'meta_description',
+        'keywords' => 'meta_keywords',
     ];
 
     public function run(): void
@@ -114,7 +116,7 @@ class SinhalaContentSeeder extends Seeder
             }
 
             foreach (self::FIELDS as $key => $column) {
-                if (blank($record->{$column.'_si'}) && filled($si[$key] ?? null) && $record->{$column} === $en[$key]) {
+                if (blank($record->{$column.'_si'}) && filled($si[$key] ?? null) && $record->{$column} === ($en[$key] ?? null)) {
                     $record->{$column.'_si'} = $si[$key];
                 }
             }

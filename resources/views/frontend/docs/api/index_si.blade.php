@@ -4,7 +4,6 @@
 @section('description', 'Zeebroo POS REST API: පිවිසුම, නාමාවලිය, ගෙවීම්, විකුණුම්, මූල්‍ය, මානව සම්පත්, CRM, අවන්හල් සහ තවත් බොහෝ දේ සඳහා endpoint ' . config('api-docs.endpoint_count') . 'ක්, පරාමිති සහ නියැදි ප්‍රතිචාර සමඟ.')
 
 @push('head')
-<link rel="canonical" href="{{ route('docs.api.index') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/docs.css') }}">
 @endpush
 

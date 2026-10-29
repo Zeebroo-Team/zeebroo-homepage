@@ -34,7 +34,9 @@ class FeatureSeeder extends Seeder
             'capabilities' => $f['capabilities'],
             'spot_path' => $this->copyImage($f['spot']),
             'scene_path' => $this->copyImage($f['scene']),
+            'meta_title' => $f['meta_title'] ?? null,
             'meta_description' => $f['description'],
+            'meta_keywords' => $f['keywords'] ?? null,
             'sort_order' => array_search($slug, array_keys($features), true),
             'is_active' => true,
         ]));

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Middleware\SetLocale;
 use App\Models\Feature;
 use App\Models\FeatureScreenshot;
 use Database\Seeders\FeatureSeeder;
@@ -86,5 +87,50 @@ class FeaturePageTest extends TestCase
         $this->seed(FeatureSeeder::class);
         $this->assertSame('Edited in admin', $pos->fresh()->title);
         $this->assertSame(19, Feature::count());
+    }
+
+    public function test_pos_page_has_its_own_sinhala_address_with_hreflang_links(): void
+    {
+        Feature::factory()->create([
+            'slug' => 'point-of-sale',
+            'meta_title' => 'POS System Sri Lanka | Web & Desktop',
+            'meta_title_si' => 'ශ්‍රී ලංකාව සඳහා POS පද්ධතිය',
+        ]);
+        $english = route('features.show', 'point-of-sale');
+        $sinhala = route('features.si', 'pos-system');
+
+        $this->get($english)
+            ->assertOk()
+            ->assertSee('<html lang="en-LK">', false)
+            ->assertSee('<title>POS System Sri Lanka | Web &amp; Desktop | Zeebroo</title>', false)
+            ->assertSee('<link rel="canonical" href="'.$english.'">', false)
+            ->assertSee('<link rel="alternate" hreflang="si-LK" href="'.$sinhala.'">', false)
+            ->assertSee('<meta property="og:title" content="POS System Sri Lanka | Zeebroo">', false)
+            ->assertSee('<meta name="twitter:description" content="Web and desktop POS software for Sri Lankan businesses.">', false)
+            ->assertSee('<meta property="og:locale" content="en_LK">', false)
+            ->assertSee('<meta property="og:locale:alternate" content="si_LK">', false);
+
+        $this->get($sinhala)
+            ->assertOk()
+            ->assertCookie(SetLocale::COOKIE, 'si')
+            ->assertSee('<html lang="si-LK">', false)
+            ->assertSee('<title>ශ්‍රී ලංකාව සඳහා POS පද්ධතිය | Zeebroo</title>', false)
+            ->assertSee('<link rel="canonical" href="'.$sinhala.'">', false)
+            ->assertSee('<link rel="alternate" hreflang="en-LK" href="'.$english.'">', false)
+            ->assertSee('<link rel="alternate" hreflang="x-default" href="'.$english.'">', false)
+            ->assertSee('<meta property="og:title" content="ශ්‍රී ලංකාව සඳහා POS පද්ධතිය">', false)
+            ->assertSee('<meta property="og:url" content="'.$sinhala.'">', false)
+            ->assertSee('<meta property="og:locale" content="si_LK">', false);
+    }
+
+    public function test_features_without_a_sinhala_address_list_no_si_hreflang(): void
+    {
+        $feature = Feature::factory()->create();
+
+        $this->get(route('features.show', $feature->slug))
+            ->assertOk()
+            ->assertDontSee('hreflang="si-LK"', false);
+
+        $this->get(route('features.si', 'not-a-feature'))->assertNotFound();
     }
 }

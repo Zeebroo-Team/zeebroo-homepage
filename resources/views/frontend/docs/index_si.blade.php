@@ -4,7 +4,6 @@
 @section('description', 'Zeebroo POS ඩෙස්ක්ටොප් ඇප් එක සඳහා සිංහලෙන් පියවරෙන් පියවර උපදෙස්: සැකසීම, විකිණීම, ආපසු භාරදීම්, තොග, මූල්‍ය, මානව සම්පත්, ඩිසයින් ස්ටූඩියෝ, අවන්හල් සහ සැකසුම්.')
 
 @push('head')
-<link rel="canonical" href="{{ route('docs.index') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/docs.css') }}">
 @endpush
 

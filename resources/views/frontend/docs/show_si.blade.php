@@ -4,7 +4,6 @@
 @section('description', $page['description'])
 
 @push('head')
-<link rel="canonical" href="{{ route('docs.show', $slug) }}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="{{ $page['title'] }} | Zeebroo භාවිත උපදෙස්">
 <meta property="og:description" content="{{ $page['description'] }}">

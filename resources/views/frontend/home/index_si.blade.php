@@ -1,5 +1,10 @@
 @extends('layouts.frontend')
 
+@include('frontend.components.organization-schema')
+
+{{-- the home page's canonical keeps the trailing slash: https://zeebroo.com/ --}}
+@php($canonical = route('home').'/')
+
 @section('title', 'Zeebroo: ඔබේ මුළු ව්‍යාපාරයම එකම තැනකින් පාලනය කරන POS පද්ධතිය')
 @section('description', 'විකුණුම්, තොග, ගිණුම්, සේවකයින් සහ ප්‍රචාරණ සියල්ල Zeebroo එකම තැනක. වෙබ් සහ ඩෙස්ක්ටොප් POS, තොග, බිල්, HR සහ ප්‍රචාරණ. අමතර ගාස්තු නැතිව සියලුම මොඩියුල ඇතුළත්.')
 

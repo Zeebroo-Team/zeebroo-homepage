@@ -4,7 +4,6 @@
 @section('description', 'Read what shop owners, restaurants and teams say about running their business on Zeebroo.')
 
 @push('head')
-<link rel="canonical" href="{{ route('testimonials.index') }}">
 @endpush
 
 @push('scripts')

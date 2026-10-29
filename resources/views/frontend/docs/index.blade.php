@@ -4,7 +4,6 @@
 @section('description', 'Step-by-step guides for the Zeebroo POS desktop app: setup, selling, returns, stock, finance, HR, design studio, restaurants and settings.')
 
 @push('head')
-<link rel="canonical" href="{{ route('docs.index') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/docs.css') }}">
 @endpush
 

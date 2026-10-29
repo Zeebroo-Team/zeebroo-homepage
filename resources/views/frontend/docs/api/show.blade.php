@@ -4,7 +4,6 @@
 @section('description', $resource['description'])
 
 @push('head')
-<link rel="canonical" href="{{ route('docs.api.show', $slug) }}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="{{ $resource['title'] }} API | Zeebroo Docs">
 <meta property="og:description" content="{{ $resource['description'] }}">

@@ -10,11 +10,15 @@ use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
 // Language switch (English / Sinhala), remembered in a cookie
 Route::get('/lang/{locale}', LocaleController::class)->where('locale', '[a-z]{2}')->name('locale.switch');
+
+// XML sitemap for search engines (every public page, both languages' own addresses)
+Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 
 // Public website, shown in the visitor's picked language (static text in lang/{locale}, content in *_si columns)
 Route::middleware('locale')->group(function () {
@@ -27,6 +31,8 @@ Route::middleware('locale')->group(function () {
     // Features (one page per module, content in config/features.php)
     Route::get('/features', [FeatureController::class, 'index'])->name('features.index');
     Route::get('/features/{slug}', [FeatureController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('features.show');
+    // Sinhala address of a feature page for search engines (/si/pos-system), listed in Feature::SINHALA_PATHS
+    Route::get('/si/{path}', [FeatureController::class, 'showSinhala'])->where('path', '[a-z0-9-]+')->name('features.si');
 
     // Industries (one page per industry, content in config/industries.php)
     Route::get('/industries', [IndustryController::class, 'index'])->name('industries.index');

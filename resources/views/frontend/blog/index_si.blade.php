@@ -14,7 +14,6 @@
 @section('description', $category?->description ?: 'Zeebroo සමඟ ඔබේ ව්‍යාපාරය, තොග, මුදල් සහ සේවක කණ්ඩායම වඩාත් කාර්යක්ෂමව කළමනාකරණය කිරීමට උපකාරී වන පුවත්, නව විශේෂාංග සහ ප්‍රායෝගික උපදෙස්.')
 
 @push('head')
-<link rel="canonical" href="{{ url()->current() }}">
 <link rel="stylesheet" href="{{ asset('assets/css/blog.css') }}">
 @endpush
 

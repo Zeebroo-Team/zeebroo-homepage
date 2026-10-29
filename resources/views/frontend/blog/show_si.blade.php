@@ -4,7 +4,6 @@
 @section('description', $blog->meta_description ?: $blog->excerpt)
 
 @push('head')
-<link rel="canonical" href="{{ route('blog.show', $blog->slug) }}">
 @if ($blog->meta_keywords)<meta name="keywords" content="{{ $blog->meta_keywords }}">@endif
 <meta property="og:type" content="article">
 <meta property="og:title" content="{{ $blog->meta_title ?: $blog->title }}">
@@ -14,7 +13,7 @@
 <meta property="article:published_time" content="{{ $blog->published_at->toIso8601String() }}">
 <meta name="twitter:card" content="{{ $blog->image_url ? 'summary_large_image' : 'summary' }}">
 <script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
+  '@@context' => 'https://schema.org',
   '@type' => 'BlogPosting',
   'headline' => $blog->title,
   'description' => $blog->meta_description ?: $blog->excerpt,
