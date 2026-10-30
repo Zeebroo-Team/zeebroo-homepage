@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DocLibrary;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
@@ -12,35 +13,34 @@ class DocController extends Controller
      */
     private const WORDS_PER_MINUTE = 180;
 
-    // GET /docs — the desktop POS user guide: every chapter, grouped as in the sidebar, plus shortcuts to common tasks
+    public function __construct(private DocLibrary $library) {}
+
+    // GET /docs — the desktop POS user guide: every chapter, grouped as in the sidebar, plus shortcuts to common tasks (managed in /admin/docs)
     public function index(): View
     {
-        $pages = $this->pages();
-
         return view('frontend.docs.index', [
-            'groups' => $this->groups(),
-            'pageCount' => $pages->count(),
-            'tasks' => collect(config('docs.tasks'))
-                ->map(fn (array $task) => $this->translated($task) + ['pageTitle' => $pages[$task['page']]['title']]),
+            'groups' => $this->library->groups(),
+            'pageCount' => $this->library->pages()->count(),
+            'tasks' => $this->library->tasks(),
         ]);
     }
 
-    // GET /docs/{slug} — one chapter (body in frontend/docs/chapters/{slug}); previous/next follow the sidebar order
+    // GET /docs/{slug} — one chapter (intro, sections and outro from the database); previous/next follow the sidebar order
     public function show(string $slug): View
     {
-        $pages = $this->pages();
+        $pages = $this->library->pages();
         $slugs = $pages->keys();
         $i = $slugs->search($slug);
         abort_if($i === false, 404);
 
-        $body = view('frontend.docs.chapters.'.$slug)->render();
+        $body = (string) $this->library->body($slug);
 
         return view('frontend.docs.show', [
             'slug' => $slug,
             'page' => $pages[$slug],
             'body' => $body,
             'readingMinutes' => $this->readingMinutes($body),
-            'groups' => $this->groups(),
+            'groups' => $this->library->groups(),
             'prev' => $i > 0 ? $pages[$slugs[$i - 1]] + ['slug' => $slugs[$i - 1]] : null,
             'next' => $i < $slugs->count() - 1 ? $pages[$slugs[$i + 1]] + ['slug' => $slugs[$i + 1]] : null,
         ]);
@@ -95,30 +95,6 @@ class DocController extends Controller
     {
         return collect(config('api-docs.groups'))
             ->flatMap(fn (array $group, string $key) => collect($group['resources'])->map(fn (array $resource) => $resource + ['group' => $key]));
-    }
-
-    /**
-     * Guide pages keyed by slug, with title, description and section headings in the website's language.
-     *
-     * @return Collection<string, array{group: string, number: string, icon: string, title: string, description: string, sections: array<string, string>}>
-     */
-    private function pages(): Collection
-    {
-        return collect(config('docs.pages'))->map(fn (array $page) => $this->translated($page));
-    }
-
-    /**
-     * Pages keyed by slug, grouped under their sidebar heading.
-     *
-     * @return Collection<string, Collection<string, array<string, mixed>>>
-     */
-    private function groups(): Collection
-    {
-        $labels = $this->translated(['groups' => config('docs.groups'), 'groups_si' => config('docs.groups_si')])['groups'];
-
-        return $this->pages()
-            ->groupBy('group', preserveKeys: true)
-            ->mapWithKeys(fn (Collection $pages, string $group) => [$labels[$group] => $pages]);
     }
 
     /**

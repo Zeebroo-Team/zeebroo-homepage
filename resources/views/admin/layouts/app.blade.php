@@ -55,6 +55,12 @@
     @can('view partner categories')
       <a href="{{ route('admin.partner-categories.index') }}" @class(['on' => request()->routeIs('admin.partner-categories.*')])><i class="fa-solid fa-folder-tree"></i>Categories</a>
     @endcan
+    @can('view docs')
+      <span class="adm-nav-h">Docs</span>
+      <a href="{{ route('admin.docs.pages.index') }}" @class(['on' => request()->routeIs('admin.docs.pages.*')])><i class="fa-solid fa-book-open"></i>Pages</a>
+      <a href="{{ route('admin.docs.groups.index') }}" @class(['on' => request()->routeIs('admin.docs.groups.*')])><i class="fa-solid fa-folder-tree"></i>Groups</a>
+      <a href="{{ route('admin.docs.tasks.index') }}" @class(['on' => request()->routeIs('admin.docs.tasks.*')])><i class="fa-solid fa-list-check"></i>Common tasks</a>
+    @endcan
     @can('view seo')
       <span class="adm-nav-h">SEO</span>
       <a href="{{ route('admin.seo.pages.index') }}" @class(['on' => request()->routeIs('admin.seo.pages.*')])><i class="fa-solid fa-magnifying-glass-chart"></i>Pages</a>

@@ -387,3 +387,20 @@ html:not([data-admin-lang=si]) [data-lang-pane=si],html[data-admin-lang=si] [dat
 .adm-seo-card div{padding:12px 14px}
 .adm-seo-card small{color:var(--muted);font-size:12px;text-transform:uppercase}
 .adm-seo-card b{display:block;margin:2px 0 4px;font-size:15px}
+
+/* Docs page editor */
+.adm-code{font-family:var(--mono);font-size:13px;line-height:1.55;tab-size:2;white-space:pre;overflow:auto;resize:vertical}
+.adm-doc-tools{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.adm-doc-tools button{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink-2);font:500 12px var(--body);cursor:pointer}
+.adm-doc-tools button:hover{border-color:var(--ink);color:var(--ink)}
+.adm-doc-tools i{font-size:11px;color:var(--muted)}
+.adm-doc-sec{display:flex;flex-direction:column;gap:14px;padding:18px;border:1px solid var(--line);border-radius:var(--r-in);background:var(--card)}
+.adm-doc-sec + .adm-doc-sec{margin-top:14px}
+.adm-doc-sec-h{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.adm-doc-sec-h b{font-family:var(--display);font-size:17px}
+.adm-doc-sec-h span{display:flex;gap:6px}
+.adm-doc-sec-row{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:14px;align-items:start}
+.adm-doc-sec .adm-check small{color:var(--muted);font-size:12px}
+.adm-doc-sec ~ [data-repeat-add]{margin-top:14px}
+.adm-doc-preview{display:block;width:100%;height:640px;border:1px solid var(--line);border-radius:var(--r-in);background:#fff}
+@media (max-width:640px){.adm-doc-sec-row{grid-template-columns:minmax(0,1fr)}.adm-doc-preview{height:480px}}

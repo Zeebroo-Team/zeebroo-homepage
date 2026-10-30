@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(IndustrySeeder::class);
         $this->call(SinhalaContentSeeder::class);
         $this->call(PartnerCategorySeeder::class);
+        $this->call(DocSeeder::class);
 
         if (app()->environment('local')) {
             $this->call(BlogSeeder::class);

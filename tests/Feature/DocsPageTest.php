@@ -3,12 +3,52 @@
 namespace Tests\Feature;
 
 use App\Http\Middleware\SetLocale;
+use App\Models\DocPage;
+use App\Models\DocTask;
+use Database\Seeders\DocSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class DocsPageTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed(DocSeeder::class);
+    }
+
+    /**
+     * The starter docs DocSeeder imports.
+     *
+     * @return array{groups: array<string, string>, groups_si: array<string, string>, tasks: list<array<string, string>>, pages: array<string, array<string, mixed>>}
+     */
+    private function docs(): array
+    {
+        return require database_path('seeders/data/docs.php');
+    }
+
+    public function test_inactive_docs_page_is_hidden_and_not_found(): void
+    {
+        DocPage::firstWhere('slug', 'design-studio')->update(['is_active' => false]);
+
+        $this->get(route('docs.index'))->assertOk()->assertDontSee(route('docs.show', 'design-studio'));
+        $this->get(route('docs.show', 'design-studio'))->assertNotFound();
+        $this->get(route('docs.show', 'human-resources'))->assertOk()->assertSee(route('docs.show', 'restaurant-management'));
+    }
+
+    public function test_admin_changes_show_on_the_next_visit(): void
+    {
+        $this->get(route('docs.show', 'point-of-sale'))->assertOk()->assertSee('The POS Layout');
+
+        DocPage::firstWhere('slug', 'point-of-sale')->sections()->firstWhere('anchor', 'the-pos-layout')->update(['heading' => 'The checkout screen']);
+        DocTask::firstWhere('anchor', 'starting-a-sale')->update(['title' => 'Ring up a sale']);
+
+        $this->get(route('docs.show', 'point-of-sale'))->assertOk()->assertSee('The checkout screen')->assertDontSee('The POS Layout');
+        $this->get(route('docs.index'))->assertOk()->assertSee('Ring up a sale');
+    }
 
     public function test_header_links_to_the_internal_docs(): void
     {
@@ -30,14 +70,14 @@ class DocsPageTest extends TestCase
             ->assertSee('Learn Zeebroo, step by')
             ->assertSee(asset(config('docs.guide_pdf')));
 
-        foreach (config('docs.pages') as $slug => $page) {
+        foreach ($this->docs()['pages'] as $slug => $page) {
             $response->assertSee(route('docs.show', $slug))->assertSee($page['title']);
         }
     }
 
     public function test_every_docs_page_renders_its_chapter_and_section_anchors(): void
     {
-        foreach (config('docs.pages') as $slug => $page) {
+        foreach ($this->docs()['pages'] as $slug => $page) {
             $response = $this->get(route('docs.show', $slug))
                 ->assertOk()
                 ->assertSee($page['title'])
@@ -55,7 +95,7 @@ class DocsPageTest extends TestCase
             ->assertOk()
             ->assertSee(route('docs.show', 'home-dashboard'))
             ->assertSee('Creating Your Account')
-            ->assertSee(asset('assets/docs/onboarding/setup_your_account.png'));
+            ->assertSee('src="/assets/docs/onboarding/setup_your_account.png"', false);
     }
 
     public function test_unknown_docs_page_is_not_found(): void
@@ -112,8 +152,8 @@ class DocsPageTest extends TestCase
     {
         $response = $this->get(route('docs.index'))->assertOk()->assertSee('Common tasks');
 
-        foreach (config('docs.tasks') as $task) {
-            $this->assertArrayHasKey($task['anchor'], config("docs.pages.{$task['page']}.sections"));
+        foreach ($this->docs()['tasks'] as $task) {
+            $this->assertArrayHasKey($task['anchor'], $this->docs()['pages'][$task['page']]['sections']);
             $response->assertSee(route('docs.show', $task['page']).'#'.$task['anchor'], false)->assertSee($task['title']);
         }
     }
@@ -129,9 +169,8 @@ class DocsPageTest extends TestCase
 
     public function test_every_docs_page_has_a_sinhala_copy_with_the_same_anchors(): void
     {
-        foreach (config('docs.pages') as $slug => $page) {
+        foreach ($this->docs()['pages'] as $slug => $page) {
             $this->assertSame(array_keys($page['sections']), array_keys($page['sections_si']), "{$slug} Sinhala sections");
-            $this->assertFileExists(resource_path("views/frontend/docs/chapters/{$slug}_si.blade.php"));
 
             $response = $this->withCookie(SetLocale::COOKIE, 'si')
                 ->get(route('docs.show', $slug))
@@ -154,15 +193,15 @@ class DocsPageTest extends TestCase
             ->assertSee('නිතර කරන කාර්යයන්')
             ->assertDontSee('Common tasks');
 
-        foreach (config('docs.groups_si') as $label) {
+        foreach ($this->docs()['groups_si'] as $label) {
             $response->assertSee($label);
         }
 
-        foreach (config('docs.pages') as $page) {
+        foreach ($this->docs()['pages'] as $page) {
             $response->assertSee($page['title_si']);
         }
 
-        foreach (config('docs.tasks') as $task) {
+        foreach ($this->docs()['tasks'] as $task) {
             $response->assertSee($task['title_si']);
         }
     }

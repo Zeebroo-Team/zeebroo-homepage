@@ -5,6 +5,10 @@ use App\Http\Controllers\Admin\Blog\BlogCategoryController;
 use App\Http\Controllers\Admin\Blog\BlogController;
 use App\Http\Controllers\Admin\Blog\BlogTagController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Docs\DocGroupController;
+use App\Http\Controllers\Admin\Docs\DocImageController;
+use App\Http\Controllers\Admin\Docs\DocPageController;
+use App\Http\Controllers\Admin\Docs\DocTaskController;
 use App\Http\Controllers\Admin\EnquiryController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\IndustryController;
@@ -46,6 +50,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('partners', PartnerController::class)->except('show');
     Route::resource('testimonials', TestimonialController::class)->except('show');
     Route::resource('enquiries', EnquiryController::class)->only(['index', 'show', 'update', 'destroy']);
+
+    // Docs: the user guide at /docs (pages with their sections, sidebar groups, common tasks)
+    Route::prefix('docs')->name('docs.')->group(function () {
+        Route::resource('pages', DocPageController::class)->except('show');
+        Route::resource('groups', DocGroupController::class)->except('show');
+        Route::resource('tasks', DocTaskController::class)->except('show');
+        Route::post('images', [DocImageController::class, 'store'])->name('images.store');
+    });
 
     // SEO: title, description and share image of the fixed website pages (SeoPage::PAGES)
     Route::prefix('seo')->name('seo.')->group(function () {

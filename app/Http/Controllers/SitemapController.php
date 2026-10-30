@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\DocPage;
 use App\Models\Feature;
 use App\Models\Industry;
 use App\Services\PackageService;
@@ -28,7 +29,7 @@ class SitemapController extends Controller
             ->push(['loc' => route('partners.index')], ['loc' => route('testimonials.index')], ['loc' => route('blog.index')])
             ->concat(Blog::published()->latest('published_at')->get(['slug', 'updated_at'])->map(fn (Blog $b) => ['loc' => route('blog.show', $b->slug), 'lastmod' => $b->updated_at]))
             ->push(['loc' => route('docs.index')])
-            ->concat(array_map(fn (string $slug) => ['loc' => route('docs.show', $slug)], array_keys(config('docs.pages'))))
+            ->concat(DocPage::active()->ordered()->get()->map(fn (DocPage $d) => ['loc' => route('docs.show', $d->slug), 'lastmod' => $d->updated_at]))
             ->push(['loc' => route('docs.api.index')])
             ->concat(collect(config('api-docs.groups'))->flatMap(fn (array $group) => array_keys($group['resources']))->map(fn (string $slug) => ['loc' => route('docs.api.show', $slug)]))
             ->push(['loc' => route('about')], ['loc' => route('contact')]);

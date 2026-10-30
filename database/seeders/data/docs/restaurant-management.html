@@ -1,0 +1,125 @@
+<figure class="screenshot-figure">
+  <img src="/assets/docs/08-restaurant.png" alt="Restaurant Management tab" loading="lazy">
+  <figcaption class="screenshot-caption">Restaurant tab — order list with table numbers, order status, and amount. Use the sub-navigation to switch to Tables, Menu Items, Categories, Ingredients, or Kitchen Display.</figcaption>
+</figure>
+
+<div class="callout tip">
+  <div class="callout-icon"><i class="fa-solid fa-lightbulb"></i></div>
+  <div class="callout-body">
+    <strong>Requirement</strong>
+    The <span class="tab-label">RESTAURANT</span> and <span class="tab-label">RESTAURANT POS</span> tabs only appear when the <strong>Restaurant</strong> feature is enabled. This feature cannot be combined with Point of Sale.
+  </div>
+</div>
+
+<div class="doc-sec">
+  <h3 id="setting-up-tables">Setting Up Tables</h3>
+  <p>Before taking orders you need to create your tables. Click the <span class="tab-label">RESTAURANT</span> tab, then <span class="ui">Tables</span> in the ribbon's Floor group.</p>
+  <div class="doc-steps">
+    <div class="doc-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Click New Table</strong>
+        <p>Enter the table <span class="field-label">Name</span> (e.g. "Table 1", "Window Booth") and its <span class="field-label">Capacity</span> (number of seats). Click <span class="ui">Save</span>.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Arrange the floor plan</strong>
+        <p>In the Floor Plan view, drag tables to match your physical layout. The visual map helps staff navigate quickly.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Table statuses</strong>
+        <p>Tables show as <strong>Available</strong> (green), <strong>Occupied</strong> (amber), or <strong>Reserved</strong> (blue). Status updates automatically when orders are created or completed.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-sec">
+  <h3 id="building-your-menu">Building Your Menu</h3>
+  <p>Menu management lives in the <strong>Menu</strong> ribbon group.</p>
+
+  <div class="doc-steps">
+    <div class="doc-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Create Menu Categories first</strong>
+        <p>Click <span class="ui">Menu Categories</span> and create categories like Starters, Mains, Desserts, and Drinks. Drag to reorder them — this order appears in the Restaurant POS grid.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Add Menu Items</strong>
+        <p>Click <span class="ui">Menu Items</span> → <span class="ui">New Item</span>. Enter the name, category, price, and optional image. Use the <strong>Dietary</strong> tab to mark items as Vegetarian, Vegan, Gluten-Free, etc.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Link ingredients</strong>
+        <p>Go to the <strong>Ingredients</strong> tab of each menu item and assign the ingredients used and the quantity per serving. This powers automatic stock deduction when dishes are ordered.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <strong>Toggle availability</strong>
+        <p>Use the toggle on each menu item to mark it as available or unavailable. Unavailable items are hidden from the Restaurant POS grid in real time.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-sec">
+  <h3 id="managing-orders">Managing Orders</h3>
+  <p>The <strong>Orders</strong> view shows all current and historical orders with their statuses. Filter by status — <strong>Pending</strong>, <strong>Preparing</strong>, <strong>Ready</strong>, <strong>Served</strong>, or <strong>Paid</strong>.</p>
+  <p>Click any order to open its detail panel, where you can update item statuses individually, add notes, or cancel the order.</p>
+
+  <table class="data-table">
+    <tr><th>Status</th><th>Meaning</th></tr>
+    <tr><td>Pending</td><td>Order placed, not yet started in the kitchen</td></tr>
+    <tr><td>Preparing</td><td>Kitchen has started cooking</td></tr>
+    <tr><td>Ready</td><td>Food is ready at the pass — waiting to be served</td></tr>
+    <tr><td>Served</td><td>All items delivered to the table</td></tr>
+    <tr><td>Paid</td><td>Bill settled — table marked available</td></tr>
+  </table>
+</div>
+
+<div class="doc-sec">
+  <h3 id="kitchen-display-system-kds">Kitchen Display System (KDS)</h3>
+  <p>The KDS is a live ticket board designed to run on a screen in the kitchen. Open it by clicking <span class="ui">Kitchen Display</span> in the <strong>KDS</strong> ribbon group.</p>
+  <ul>
+    <li>Each order appears as a card with all its items listed</li>
+    <li>Kitchen staff click items to mark them as <strong>Preparing</strong>, then <strong>Ready</strong></li>
+    <li>Cards disappear from the KDS once the order is paid</li>
+    <li>When new items are added to a preparing order, they appear as a <strong>new separate card</strong> so kitchen staff can see exactly what's new</li>
+  </ul>
+  <div class="callout tip">
+    <div class="callout-icon"><i class="fa-solid fa-lightbulb"></i></div>
+    <div class="callout-body">
+      <strong>Tip</strong>
+      Run the KDS on a dedicated screen or tablet in the kitchen by opening a second window. The display polls for updates every 5 seconds.
+    </div>
+  </div>
+</div>
+
+<div class="doc-sec">
+  <h3 id="ingredient-management">Ingredient Management</h3>
+  <p>Track raw ingredient stock from <span class="ui">Restaurant → Ingredients</span>. Each ingredient has a unit of measurement (kg, L, pcs), a current stock level, and a low-stock threshold.</p>
+  <p>When a menu item is ordered, its ingredient quantities are deducted automatically if you've linked them in the menu item's Ingredients tab.</p>
+</div>
+
+<div class="doc-sec">
+  <h3 id="ingredient-purchase-orders">Ingredient Purchase Orders</h3>
+  <p>Order raw ingredients from your suppliers using the Purchase Order system under <span class="ui">Restaurant → Purchase Orders</span>. The workflow mirrors the inventory PO system:</p>
+  <ol>
+    <li>Create a Draft PO with supplier and line items (ingredients + quantities)</li>
+    <li>Place the order — status changes to <strong>Ordered</strong></li>
+    <li>When goods arrive, receive them via a GRN — ingredient stock levels update immediately</li>
+  </ol>
+</div>

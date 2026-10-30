@@ -1,0 +1,108 @@
+<figure class="screenshot-figure">
+  <img src="/assets/docs/09-rst-pos.png" alt="Restaurant POS tab" loading="lazy">
+  <figcaption class="screenshot-caption">Restaurant POS — menu grid on the left, active order cart on the right. Select items to add to the order, then process payment when done.</figcaption>
+</figure>
+
+<div class="doc-sec">
+  <h3 id="the-restaurant-pos-interface">The Restaurant POS Interface</h3>
+  <p>Click the <span class="tab-label">RESTAURANT POS</span> tab to open the order-taking screen. It has two modes, switchable from the ribbon:</p>
+  <ul>
+    <li><strong>Takeaway mode</strong> — orders without a table. Enter the customer's name and phone number.</li>
+    <li><strong>Table mode</strong> — select a table from the floor plan to attach the order to that table.</li>
+  </ul>
+  <p>The left side shows the <strong>menu grid</strong> (items grouped by category). The right side shows the <strong>cart / current order</strong>. Tabs across the top let you manage multiple active orders simultaneously.</p>
+</div>
+
+<div class="doc-sec">
+  <h3 id="taking-a-table-order">Taking a Table Order</h3>
+  <div class="doc-steps">
+    <div class="doc-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Select a table</strong>
+        <p>Click <span class="ui">Tables</span> in the Restaurant POS ribbon. The floor plan opens — click an available table (shown in green). A new tab opens for that table.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Add items from the menu grid</strong>
+        <p>Click menu item cards to add them to the order. Click a card multiple times to increase the quantity. All items are tracked with their kitchen status.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Send to kitchen</strong>
+        <p>Click <span class="ui">Send Order</span>. The order is created in the system and immediately appears on the KDS in the kitchen. The table status changes to <strong>Occupied</strong>.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <strong>Track kitchen status</strong>
+        <p>The cart shows each item's kitchen status — <strong>Pending → Preparing → Ready → Served</strong>. Statuses update in real time as kitchen staff mark items on the KDS. The live indicator in the top bar pulses to show the poll is active.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <strong>Add more items during service</strong>
+        <p>If the order is still <strong>Pending</strong>, new items are added to the same kitchen ticket. If the kitchen has already started <strong>Preparing</strong>, new items create a <em>new separate kitchen card</em> automatically — so nothing gets missed.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <strong>Complete and process payment</strong>
+        <p>The <span class="ui">Complete Order</span> button becomes active only when <em>all</em> ordered items have been marked as <strong>Served</strong> on the KDS. Click it to open the payment screen.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <strong>Select payment method and confirm</strong>
+        <p>Choose <strong>Cash</strong>, <strong>Card</strong>, or <strong>Bank Transfer</strong>. For cash, enter the tendered amount. Click <span class="ui">Confirm Payment</span>. A receipt is printed, the order is marked Paid, and the table returns to Available.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-sec">
+  <h3 id="taking-a-takeaway-order">Taking a Takeaway Order</h3>
+  <div class="doc-steps">
+    <div class="doc-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Click Takeaway in the ribbon</strong>
+        <p>A new tab opens with the customer name/phone fields.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Enter customer details and add items</strong>
+        <p>Fill in the customer's name and phone (optional but useful for pickup notifications). Add menu items from the grid.</p>
+      </div>
+    </div>
+    <div class="doc-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Send to kitchen and complete</strong>
+        <p>Same flow as a table order — send, track on KDS, complete when all items are served/ready for collection.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-sec">
+  <h3 id="multiple-active-orders">Multiple Active Orders</h3>
+  <p>Each tab at the top of the Restaurant POS represents an active order (a table or a takeaway). You can have as many tabs open as you need. Switching between tabs never loses your data — each tab's cart, order ID, and kitchen statuses are tracked independently.</p>
+  <div class="callout warn">
+    <div class="callout-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+    <div class="callout-body">
+      <strong>Important</strong>
+      Once the kitchen has started preparing an order (status: Preparing), you cannot increase the quantity of existing items. Add new quantities as separate items — they'll appear on a new KDS card.
+    </div>
+  </div>
+</div>
