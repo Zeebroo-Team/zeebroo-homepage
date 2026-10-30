@@ -2,6 +2,7 @@
 
 @section('title', 'About Us | Zeebroo')
 @section('description', 'Zeebroo is one platform for sales, stock, bills, staff and growth. Meet the team, the mission and the values behind the software that runs busy businesses.')
+@include('frontend.components.social-meta')
 
 @push('head')
 @endpush

@@ -12,6 +12,7 @@
 
 @section('title', ($heading ? $heading . ' | ' : '') . 'Blog | Zeebroo: news, tips and updates')
 @section('description', $category?->description ?: 'News, product updates and practical tips for running your shop, stock, money and people with Zeebroo.')
+@include('frontend.components.social-meta')
 
 @push('head')
 <link rel="stylesheet" href="{{ asset('assets/css/blog.css') }}">

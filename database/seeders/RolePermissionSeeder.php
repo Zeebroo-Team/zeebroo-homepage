@@ -25,6 +25,7 @@ class RolePermissionSeeder extends Seeder
         'partners' => ['view partners', 'create partners', 'edit partners', 'delete partners'],
         'testimonials' => ['view testimonials', 'create testimonials', 'edit testimonials', 'delete testimonials'],
         'enquiries' => ['view enquiries', 'edit enquiries', 'delete enquiries'],
+        'seo' => ['view seo', 'edit seo'],
     ];
 
     /**

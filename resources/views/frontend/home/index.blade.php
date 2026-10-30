@@ -5,6 +5,11 @@
 {{-- the home page's canonical keeps the trailing slash: https://zeebroo.com/ --}}
 @php($canonical = route('home').'/')
 
+{{-- title, description and share image can be changed in /admin/seo; empty fields keep the site-wide defaults --}}
+@section('title', $seoPage?->localized('meta_title') ?? config('social.default.title'))
+@section('description', $seoPage?->localized('meta_description') ?? config('social.default.description'))
+@include('frontend.components.social-meta')
+
 @push('head')
 <link rel="preload" as="image" href="{{ asset('assets/mascot.webp') }}">
 @endpush

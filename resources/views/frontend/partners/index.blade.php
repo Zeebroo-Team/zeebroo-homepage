@@ -2,6 +2,7 @@
 
 @section('title', ($category ? $category->name.' | ' : '').'Partners & clients | Zeebroo')
 @section('description', $category?->description ?: 'Meet the technology, payment and reseller partners who work with Zeebroo, and the businesses that run on it every day.')
+@include('frontend.components.social-meta')
 
 @push('head')
 @endpush

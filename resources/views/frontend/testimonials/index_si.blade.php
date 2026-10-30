@@ -2,6 +2,7 @@
 
 @section('title', 'පාරිභෝගික අදහස් | Zeebroo')
 @section('description', 'Zeebroo භාවිතයෙන් තම ව්‍යාපාර කළමනාකරණය කරන වෙළඳසැල් හිමියන්, අවන්හල් සහ ආයතන ඔවුන්ගේ අත්දැකීම් ගැන පවසන දේ කියවන්න.')
+@include('frontend.components.social-meta')
 
 @push('head')
 @endpush

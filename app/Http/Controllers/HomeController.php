@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Partner;
+use App\Models\SeoPage;
 use App\Models\Testimonial;
 use App\Services\PackageService;
 use App\Services\PosReleaseService;
@@ -19,6 +20,7 @@ class HomeController extends Controller
             'posDetectedOs' => $releases->pickFor($request->userAgent() ?? ''),
             'featuredPartners' => Partner::active()->featured()->ordered()->get(),
             'featuredTestimonials' => Testimonial::active()->featured()->ordered()->get(),
+            'seoPage' => SeoPage::forPage('home'),
         ]);
     }
 

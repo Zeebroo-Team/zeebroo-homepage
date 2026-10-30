@@ -374,3 +374,16 @@ html:not([data-admin-lang=si]) [data-lang-pane=si],html[data-admin-lang=si] [dat
 .adm-toast small{display:block;color:#A9A9A5;font-size:12px}
 @keyframes adm-toast{from{opacity:0;transform:translateY(12px)}}
 @media (max-width:860px){.adm-toast{right:16px;bottom:16px}}
+
+/* SEO page previews */
+.adm-drop-wide{min-height:0;aspect-ratio:1200/630}
+.adm-help{display:block;margin-top:8px;color:var(--muted);font-size:13px}
+.adm-seo-serp{padding:16px 18px;border:1px solid var(--line);border-radius:var(--r-in);margin-bottom:16px}
+.adm-seo-serp small{display:block;color:var(--muted);font-size:12px;overflow-wrap:anywhere}
+.adm-seo-serp b{display:block;margin:4px 0;color:#1a0dab;font-size:19px;font-weight:500;line-height:1.3}
+.adm-seo-serp p,.adm-seo-card p{margin:0;color:var(--ink-2);font-size:14px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.adm-seo-card{max-width:520px;border:1px solid var(--line);border-radius:var(--r-in);overflow:hidden;background:var(--paper)}
+.adm-seo-card img{display:block;width:100%;aspect-ratio:1200/630;object-fit:cover;background:var(--paper-2)}
+.adm-seo-card div{padding:12px 14px}
+.adm-seo-card small{color:var(--muted);font-size:12px;text-transform:uppercase}
+.adm-seo-card b{display:block;margin:2px 0 4px;font-size:15px}

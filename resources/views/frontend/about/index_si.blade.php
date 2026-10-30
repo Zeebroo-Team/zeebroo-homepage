@@ -2,6 +2,7 @@
 
 @section('title', 'අප ගැන | Zeebroo')
 @section('description', 'විකුණුම්, තොග, බිල්පත්, සේවක කළමනාකරණය සහ ව්‍යාපාර වර්ධනය එකම තැනකින් පාලනය කළ හැකි Zeebroo පිටුපස සිටින කණ්ඩායම, අපගේ අරමුණ සහ වටිනාකම් පිළිබඳ දැනගන්න.')
+@include('frontend.components.social-meta')
 
 @push('head')
 @endpush

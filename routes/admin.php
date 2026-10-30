@@ -11,7 +11,9 @@ use App\Http\Controllers\Admin\IndustryController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\PartnerCategoryController;
 use App\Http\Controllers\Admin\PartnerController;
+use App\Http\Controllers\Admin\SeoPageController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Models\SeoPage;
 use Illuminate\Support\Facades\Route;
 
 // Admin (loaded from bootstrap/app.php with the "web" middleware, /admin prefix and "admin." names)
@@ -44,4 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('partners', PartnerController::class)->except('show');
     Route::resource('testimonials', TestimonialController::class)->except('show');
     Route::resource('enquiries', EnquiryController::class)->only(['index', 'show', 'update', 'destroy']);
+
+    // SEO: title, description and share image of the fixed website pages (SeoPage::PAGES)
+    Route::prefix('seo')->name('seo.')->group(function () {
+        Route::resource('pages', SeoPageController::class)->only(['index', 'edit', 'update'])
+            ->where(['page' => implode('|', array_keys(SeoPage::PAGES))]);
+    });
 });

@@ -2,6 +2,7 @@
 
 @section('title', ($category ? $category->name.' | ' : '').'අපගේ හවුල්කරුවන් සහ සේවාදායකයින් | Zeebroo')
 @section('description', $category?->description ?: 'Zeebroo සමඟ එක්ව කටයුතු කරන තාක්ෂණ, ගෙවීම් සහ අලෙවි හවුල්කරුවන් මෙන්ම, දිනපතා Zeebroo භාවිතයෙන් සාර්ථකව ක්‍රියාත්මක වන ව්‍යාපාර ගැන දැනගන්න.')
+@include('frontend.components.social-meta')
 
 @push('head')
 @endpush

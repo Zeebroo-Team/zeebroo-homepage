@@ -3,15 +3,26 @@
 @section('title', ($blog->meta_title ?: $blog->title) . ' | Zeebroo Blog')
 @section('description', $blog->meta_description ?: $blog->excerpt)
 
+{{-- share preview: the post's featured image, else the site-wide default (config/social.php) --}}
+@php
+  $ogImage = $blog->image_url ?: asset(config('social.default.image'));
+@endphp
+
 @push('head')
 @if ($blog->meta_keywords)<meta name="keywords" content="{{ $blog->meta_keywords }}">@endif
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="Zeebroo">
 <meta property="og:title" content="{{ $blog->meta_title ?: $blog->title }}">
 <meta property="og:description" content="{{ $blog->meta_description ?: $blog->excerpt }}">
 <meta property="og:url" content="{{ route('blog.show', $blog->slug) }}">
-@if ($blog->image_url)<meta property="og:image" content="{{ $blog->image_url }}">@endif
+<meta property="og:image" content="{{ $ogImage }}">
+<meta property="og:image:alt" content="{{ $blog->image_url ? $blog->title : config('social.default.image_alt') }}">
+<meta property="og:locale" content="en_LK">
 <meta property="article:published_time" content="{{ $blog->published_at->toIso8601String() }}">
 <meta name="twitter:card" content="{{ $blog->image_url ? 'summary_large_image' : 'summary' }}">
+<meta name="twitter:title" content="{{ $blog->meta_title ?: $blog->title }}">
+<meta name="twitter:description" content="{{ $blog->meta_description ?: $blog->excerpt }}">
+<meta name="twitter:image" content="{{ $ogImage }}">
 <script type="application/ld+json">{!! json_encode([
   '@@context' => 'https://schema.org',
   '@type' => 'BlogPosting',

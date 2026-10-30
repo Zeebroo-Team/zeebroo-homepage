@@ -55,6 +55,10 @@
     @can('view partner categories')
       <a href="{{ route('admin.partner-categories.index') }}" @class(['on' => request()->routeIs('admin.partner-categories.*')])><i class="fa-solid fa-folder-tree"></i>Categories</a>
     @endcan
+    @can('view seo')
+      <span class="adm-nav-h">SEO</span>
+      <a href="{{ route('admin.seo.pages.index') }}" @class(['on' => request()->routeIs('admin.seo.pages.*')])><i class="fa-solid fa-magnifying-glass-chart"></i>Pages</a>
+    @endcan
   </nav>
   <a class="adm-site" href="{{ route('blog.index') }}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i>View blog</a>
 </aside>

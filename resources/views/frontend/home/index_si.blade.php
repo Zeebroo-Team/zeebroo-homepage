@@ -5,8 +5,10 @@
 {{-- the home page's canonical keeps the trailing slash: https://zeebroo.com/ --}}
 @php($canonical = route('home').'/')
 
-@section('title', 'Zeebroo: ඔබේ මුළු ව්‍යාපාරයම එකම තැනකින් පාලනය කරන POS පද්ධතිය')
-@section('description', 'විකුණුම්, තොග, ගිණුම්, සේවකයින් සහ ප්‍රචාරණ සියල්ල Zeebroo එකම තැනක. වෙබ් සහ ඩෙස්ක්ටොප් POS, තොග, බිල්, HR සහ ප්‍රචාරණ. අමතර ගාස්තු නැතිව සියලුම මොඩියුල ඇතුළත්.')
+{{-- title, description and share image can be changed in /admin/seo; empty Sinhala fields keep the text below --}}
+@section('title', $seoPage?->localized('meta_title') ?? 'Zeebroo: ඔබේ මුළු ව්‍යාපාරයම එකම තැනකින් පාලනය කරන POS පද්ධතිය')
+@section('description', $seoPage?->localized('meta_description') ?? 'විකුණුම්, තොග, ගිණුම්, සේවකයින් සහ ප්‍රචාරණ සියල්ල Zeebroo එකම තැනක. වෙබ් සහ ඩෙස්ක්ටොප් POS, තොග, බිල්, HR සහ ප්‍රචාරණ. අමතර ගාස්තු නැතිව සියලුම මොඩියුල ඇතුළත්.')
+@include('frontend.components.social-meta')
 
 @push('head')
 <link rel="preload" as="image" href="{{ asset('assets/mascot.webp') }}">

@@ -2,6 +2,7 @@
 
 @section('title', 'Testimonials | Zeebroo')
 @section('description', 'Read what shop owners, restaurants and teams say about running their business on Zeebroo.')
+@include('frontend.components.social-meta')
 
 @push('head')
 @endpush
